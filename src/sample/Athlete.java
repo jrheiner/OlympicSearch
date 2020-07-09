@@ -2,16 +2,18 @@ package sample;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Athlete {
     private int id;
     private String name;
-    private ArrayList<Integer> ageList = new ArrayList<>();
+    private List<Integer> ageList = new ArrayList<>();
     private String sex;
-    private ArrayList<Integer> heightList = new ArrayList<>();
-    private ArrayList<Float> weightList = new ArrayList<>();
-    private HashMap<String, Integer> medals = new HashMap<>();
-    private ArrayList<String> eventList = new ArrayList<>();
+    private List<Integer> heightList = new ArrayList<>();
+    private List<Float> weightList = new ArrayList<>();
+    private Map<String, Integer> medals = new HashMap<>();
+    private List<String> eventList = new ArrayList<>();
 
 
     public Athlete(int id, String name, int age, String sex, int height, float weight, String event) {
@@ -28,7 +30,7 @@ public class Athlete {
         eventList.add(event);
     }
 
-    public ArrayList<String> getEventList() {
+    public List<String> getEventList() {
         return eventList;
     }
 
@@ -74,7 +76,7 @@ public class Athlete {
         this.name = name;
     }
 
-    public ArrayList<Integer> getAgeList() {
+    public List<Integer> getAgeList() {
         return ageList;
     }
 
@@ -90,7 +92,7 @@ public class Athlete {
         this.sex = sex;
     }
 
-    public ArrayList<Integer> getHeightList() {
+    public List<Integer> getHeightList() {
         return heightList;
     }
 
@@ -98,7 +100,7 @@ public class Athlete {
         this.heightList = heightList;
     }
 
-    public ArrayList<Float> getWeightList() {
+    public List<Float> getWeightList() {
         return weightList;
     }
 
@@ -106,7 +108,7 @@ public class Athlete {
         this.weightList = weightList;
     }
 
-    public HashMap<String, Integer> getMedals() {
+    public Map<String, Integer> getMedals() {
         return medals;
     }
 

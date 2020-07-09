@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DatabaseConnector {
     private final String filename;
-    private final HashMap<Integer, Athlete> AthletesMap = new HashMap<>();
-    private final HashMap<String, Team> TeamsMap = new HashMap<>();
-    private final HashMap<String, OlympicGame> OlympicGamesMap = new HashMap<>();
-    private final HashMap<String, Event> EventsMap = new HashMap<>();
+    private final Map<Integer, Athlete> AthletesMap = new HashMap<>();
+    private final Map<String, Team> TeamsMap = new HashMap<>();
+    private final Map<String, OlympicGame> OlympicGamesMap = new HashMap<>();
+    private final Map<String, Event> EventsMap = new HashMap<>();
 
 
     public DatabaseConnector(String filename) {

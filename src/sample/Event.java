@@ -1,12 +1,13 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Event {
 
     private String event;
     private String sport;
-    private ArrayList<String> olympicGameList = new ArrayList<>();
+    private List<String> olympicGameList = new ArrayList<>();
 
     public Event(String event, String sport, String olympicGame) {
         this.event = event;
@@ -19,7 +20,7 @@ public class Event {
         olympicGameList.add(olympicGame);
     }
 
-    public ArrayList<String> getOlympicGameList() {
+    public List<String> getOlympicGameList() {
         return olympicGameList;
     }
 

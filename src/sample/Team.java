@@ -1,12 +1,13 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Team {
     private String noc;
     private String team;
-    private ArrayList<Integer> athleteList = new ArrayList<>();
-    private ArrayList<String> olympicGameList = new ArrayList<>();
+    private List<Integer> athleteList = new ArrayList<>();
+    private List<String> olympicGameList = new ArrayList<>();
 
 
     public Team(String team, String noc, String olympicGame, int athlete) {
@@ -16,7 +17,7 @@ public class Team {
         this.athleteList.add(athlete);
     }
 
-    public ArrayList<Integer> getAthleteList() {
+    public List<Integer> getAthleteList() {
         return athleteList;
     }
 
@@ -32,7 +33,7 @@ public class Team {
         athleteList.add(id);
     }
 
-    public ArrayList<String> getOlympicGameList() {
+    public List<String> getOlympicGameList() {
         return olympicGameList;
     }
 

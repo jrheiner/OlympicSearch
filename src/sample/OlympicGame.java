@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OlympicGame {
 
@@ -8,7 +9,7 @@ public class OlympicGame {
     private String city;
     private int year;
     private String season;
-    private ArrayList<String> eventList = new ArrayList<>();
+    private List<String> eventList = new ArrayList<>();
 
     public OlympicGame(String game, String city, int year, String season, String event) {
         this.game = game;
@@ -19,7 +20,7 @@ public class OlympicGame {
     }
 
 
-    public ArrayList<String> getEventList() {
+    public List<String> getEventList() {
         return eventList;
     }
 
