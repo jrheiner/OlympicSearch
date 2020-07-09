@@ -52,7 +52,7 @@ public class Main extends Application {
 
     public static Integer searchInMap(String term, TreeMap<Integer, Athlete> map) {
         Integer matchedKey = null;
-        for (Map.Entry<Integer, Athlete> entry : map.descendingMap().entrySet())
+        for (Map.Entry<Integer, Athlete> entry : map.entrySet()) // descendingMap()
             if (entry.getValue().getName().contains(term)) {
                 matchedKey = entry.getKey();
                 System.out.println("found key for " + term + " => " + matchedKey);
@@ -62,7 +62,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();

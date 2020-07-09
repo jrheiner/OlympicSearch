@@ -29,11 +29,22 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /*
+
+        init ListView on start
+            -> initlistview calls logic.getmap if no map passed
+        on search
+            -> logic.search(term) => returns map
+            -> init list view (map)
+
+         */
+
         testListView.setItems(items);
         testListView2.setItems(items2);
         Map<Integer, Athlete> map = DatabaseConnector.getAthletesMap();
         for (Map.Entry<Integer, Athlete> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue().getName());
+            //System.out.println(entry.getKey() + "/" + entry.getValue().getName());
             items.add(entry.getKey() + "/" + entry.getValue().getName());
         }
         Map<String, Team> map2 = DatabaseConnector.getTeamsMap();
