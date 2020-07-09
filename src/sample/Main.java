@@ -13,7 +13,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DatabaseConnector DbC = new DatabaseConnector("C:\\Users\\Jonas\\Desktop\\2. Semester\\Programmieren Java\\Projekt\\Projektcode\\src\\sample\\olympic.db");
+        DatabaseConnector DbC = new DatabaseConnector("src/data/test.db");
 
         long startTime = System.nanoTime();
 
@@ -62,9 +62,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("resources/MainUI.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root, 700, 800));
         primaryStage.show();
     }
 }

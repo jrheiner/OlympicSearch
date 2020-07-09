@@ -83,45 +83,44 @@ public class DatabaseConnector {
         String medal = splitLine.get(14);
 
 
-        updateAthletesMap(id, name, sex, age, height, weight, event, medal);
-        updateTeamsMap(id, team, noc, olympicGame);
-        updateOlympicGamesMap(olympicGame, year, season, city, sport, event);
-        updateEventsMap(olympicGame, sport, event);
-
-    }
-
-    private void updateEventsMap(String olympicGame, String sport, String event) {
-        if (EventsMap.containsKey(event)) {
-            Event currentEvent = EventsMap.get(event);
-            currentEvent.addOlympicGame(olympicGame);
-        } else {
-            Event newEvent = new Event(event, sport, olympicGame);
-            EventsMap.put(event, newEvent);
-        }
-    }
-
-    private void updateOlympicGamesMap(String olympicGame, int year, String season, String city, String sport, String event) {
-        if (OlympicGamesMap.containsKey(olympicGame)) {
-            OlympicGame currentOlympicGame = OlympicGamesMap.get(olympicGame);
-            currentOlympicGame.addEvent(event);
-        } else {
-            OlympicGame newOlympicGame = new OlympicGame(olympicGame, city, year, season, event);
-            OlympicGamesMap.put(olympicGame, newOlympicGame);
-        }
-    }
-
-    private void updateTeamsMap(int id, String team, String noc, String olympicGame) {
         if (TeamsMap.containsKey(team)) {
             Team currentTeam = TeamsMap.get(team);
-            currentTeam.addOlympicGame(olympicGame);
-            currentTeam.addAthlete(id);
+            if (!currentTeam.getAthleteList().contains(id)) {
+                currentTeam.addAthlete(id);
+            }
+            if (!currentTeam.getOlympicGameList().contains(olympicGame)) {
+                currentTeam.addOlympicGame(olympicGame);
+            }
+
         } else {
             Team newTeam = new Team(team, noc, olympicGame, id);
             TeamsMap.put(team, newTeam);
         }
-    }
 
-    private void updateAthletesMap(int id, String name, String sex, int age, int height, float weight, String event, String medal) {
+
+        if (EventsMap.containsKey(event)) {
+            Event currentEvent = EventsMap.get(event);
+            if (!currentEvent.getOlympicGameList().contains(olympicGame)) {
+                currentEvent.addOlympicGame(olympicGame);
+            }
+        } else {
+            Event newEvent = new Event(event, sport, olympicGame);
+            EventsMap.put(event, newEvent);
+        }
+
+
+        if (OlympicGamesMap.containsKey(olympicGame)) {
+            OlympicGame currentOlympicGame = OlympicGamesMap.get(olympicGame);
+            if (!currentOlympicGame.getEventList().contains(event)) {
+                currentOlympicGame.addEvent(event);
+            }
+        } else {
+            OlympicGame newOlympicGame = new OlympicGame(olympicGame, city, year, season, event);
+            OlympicGamesMap.put(olympicGame, newOlympicGame);
+        }
+
+
+        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), EventsMap.get(event), medal);
         if (AthletesMap.containsKey(id)) {
             Athlete currentAthlete = AthletesMap.get(id);
             if (!currentAthlete.getAgeList().contains(age)) {
@@ -133,11 +132,11 @@ public class DatabaseConnector {
             if (!currentAthlete.getWeightList().contains(weight)) {
                 currentAthlete.addWeight(weight);
             }
-            currentAthlete.addEvent(event);
-            currentAthlete.addMedal(medal);
+            if (!currentAthlete.getAppearanceList().contains(appearance)) {
+                currentAthlete.addAppearance(appearance);
+            }
         } else {
-            Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, event);
-            newAthlete.addMedal(medal);
+            Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, appearance);
             AthletesMap.put(id, newAthlete);
         }
     }

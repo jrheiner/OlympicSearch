@@ -1,9 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Athlete {
     private int id;
@@ -12,52 +10,32 @@ public class Athlete {
     private String sex;
     private List<Integer> heightList = new ArrayList<>();
     private List<Float> weightList = new ArrayList<>();
-    private Map<String, Integer> medals = new HashMap<>();
-    private List<String> eventList = new ArrayList<>();
+    private List<Appearance> appearanceList = new ArrayList<>();
 
-
-    public Athlete(int id, String name, int age, String sex, int height, float weight, String event) {
+    public Athlete(int id, String name, int age, String sex, int height, float weight, Appearance appearance) {
         this.id = id;
         this.name = name;
         this.ageList.add(age);
         this.sex = sex;
         this.heightList.add(height);
         this.weightList.add(weight);
-        medals.put("Gold", 0);
-        medals.put("Silver", 0);
-        medals.put("Bronze", 0);
-        medals.put("NA", 0);
-        eventList.add(event);
+        this.appearanceList.add(appearance);
     }
 
-    public List<String> getEventList() {
-        return eventList;
+    public void addAge(int age) {
+        ageList.add(age);
     }
 
-    public void setEventList(ArrayList<String> eventList) {
-        this.eventList = eventList;
+    public void addHeight(int height) {
+        heightList.add(height);
     }
 
-    public void addEvent(String event) {
-        eventList.add(event);
+    public void addWeight(float weight) {
+        weightList.add(weight);
     }
 
-    public void addMedal(String type) {
-        int count = medals.get(type);
-        count++;
-        medals.put(type, count);
-    }
-
-    public void addAge(int newAge) {
-        ageList.add(newAge);
-    }
-
-    public void addHeight(int newHeight) {
-        heightList.add(newHeight);
-    }
-
-    public void addWeight(float newWeight) {
-        weightList.add(newWeight);
+    public void addAppearance(Appearance appearance) {
+        appearanceList.add(appearance);
     }
 
     public int getId() {
@@ -80,7 +58,7 @@ public class Athlete {
         return ageList;
     }
 
-    public void setAgeList(ArrayList<Integer> ageList) {
+    public void setAgeList(List<Integer> ageList) {
         this.ageList = ageList;
     }
 
@@ -96,7 +74,7 @@ public class Athlete {
         return heightList;
     }
 
-    public void setHeightList(ArrayList<Integer> heightList) {
+    public void setHeightList(List<Integer> heightList) {
         this.heightList = heightList;
     }
 
@@ -104,15 +82,15 @@ public class Athlete {
         return weightList;
     }
 
-    public void setWeightList(ArrayList<Float> weightList) {
+    public void setWeightList(List<Float> weightList) {
         this.weightList = weightList;
     }
 
-    public Map<String, Integer> getMedals() {
-        return medals;
+    public List<Appearance> getAppearanceList() {
+        return appearanceList;
     }
 
-    public void setMedals(HashMap<String, Integer> medals) {
-        this.medals = medals;
+    public void setAppearanceList(List<Appearance> appearanceList) {
+        this.appearanceList = appearanceList;
     }
 }
