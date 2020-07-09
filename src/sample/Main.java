@@ -6,10 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Main extends Application {
 
     public static void main(String[] args) {
-        launch(args);
+
         DatabaseConnector DbC = new DatabaseConnector("C:\\Users\\Jonas\\Desktop\\2. Semester\\Programmieren Java\\Projekt\\Projektcode\\src\\sample\\olympic.db");
 
         long startTime = System.nanoTime();
@@ -21,7 +24,14 @@ public class Main extends Application {
         System.out.println(endTime);
         System.out.println(getReadableTime(endTime));
 
+        launch(args);
+
+
         /*
+
+        https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
+
+
         read and parse
         3385 Hashmap
         3321 LinkedHashMap
@@ -40,12 +50,21 @@ public class Main extends Application {
 
     }
 
+    public static Integer searchInMap(String term, TreeMap<Integer, Athlete> map) {
+        Integer matchedKey = null;
+        for (Map.Entry<Integer, Athlete> entry : map.descendingMap().entrySet())
+            if (entry.getValue().getName().contains(term)) {
+                matchedKey = entry.getKey();
+                System.out.println("found key for " + term + " => " + matchedKey);
+            }
+        return matchedKey;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();
     }
 }

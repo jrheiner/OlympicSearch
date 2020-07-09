@@ -6,19 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class DatabaseConnector {
+    private static final Map<Integer, Athlete> AthletesMap = new TreeMap<>();
+    private static final Map<String, Team> TeamsMap = new TreeMap<>();
     private final String filename;
-    private final Map<Integer, Athlete> AthletesMap = new HashMap<>();
-    private final Map<String, Team> TeamsMap = new HashMap<>();
-    private final Map<String, OlympicGame> OlympicGamesMap = new HashMap<>();
-    private final Map<String, Event> EventsMap = new HashMap<>();
-
+    private final Map<String, OlympicGame> OlympicGamesMap = new TreeMap<>();
+    private final Map<String, Event> EventsMap = new TreeMap<>();
 
     public DatabaseConnector(String filename) {
         this.filename = filename;
+    }
+
+    public static Map<Integer, Athlete> getAthletesMap() {
+        return AthletesMap;
+    }
+
+    public static Map<String, Team> getTeamsMap() {
+        return TeamsMap;
     }
 
     public String getFilename() {
@@ -31,7 +38,7 @@ public class DatabaseConnector {
             bufferedReader.readLine();
             while ((line = bufferedReader.readLine()) != null) {
                 parseSplitLine(splitLine(line));
-                System.out.println(line);
+                //System.out.println(line);
             }
             System.out.println("-END-");
         } catch (FileNotFoundException e) {
