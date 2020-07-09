@@ -13,7 +13,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DatabaseConnector DbC = new DatabaseConnector("src/data/test.db");
+        DatabaseConnector DbC = new DatabaseConnector("src/data/olympic.db");
 
         long startTime = System.nanoTime();
 
@@ -50,14 +50,19 @@ public class Main extends Application {
 
     }
 
-    public static Integer searchInMap(String term, TreeMap<Integer, Athlete> map) {
-        Integer matchedKey = null;
+    public static TreeMap<Integer, Athlete> searchInMap(String term, TreeMap<Integer, Athlete> map) {
+        TreeMap<Integer, Athlete> results = new TreeMap<>();
         for (Map.Entry<Integer, Athlete> entry : map.entrySet()) // descendingMap()
-            if (entry.getValue().getName().contains(term)) {
-                matchedKey = entry.getKey();
-                System.out.println("found key for " + term + " => " + matchedKey);
+            if (entry.getValue().getName().startsWith(term)) {
+                results.put(entry.getKey(), entry.getValue());
+                System.out.println("found key");
             }
-        return matchedKey;
+        System.out.println("no key");
+        return results;
+    }
+
+    public static TreeMap<Integer, Athlete> getAthleteMap() {
+        return DatabaseConnector.getAthletesMap();
     }
 
     @Override
@@ -65,6 +70,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("resources/MainUI.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 700, 800));
+        primaryStage.setMinHeight(450);
+        primaryStage.setMinWidth(600);
         primaryStage.show();
     }
 }

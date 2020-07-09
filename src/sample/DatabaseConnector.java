@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DatabaseConnector {
-    private static final Map<Integer, Athlete> AthletesMap = new TreeMap<>();
+    private static final TreeMap<Integer, Athlete> AthletesMap = new TreeMap<>();
     private static final Map<String, Team> TeamsMap = new TreeMap<>();
     private final String filename;
     private final Map<String, OlympicGame> OlympicGamesMap = new TreeMap<>();
@@ -20,7 +20,7 @@ public class DatabaseConnector {
         this.filename = filename;
     }
 
-    public static Map<Integer, Athlete> getAthletesMap() {
+    public static TreeMap<Integer, Athlete> getAthletesMap() {
         return AthletesMap;
     }
 

@@ -42,7 +42,8 @@ public class Controller implements Initializable {
 
         testListView.setItems(items);
         testListView2.setItems(items2);
-        Map<Integer, Athlete> map = DatabaseConnector.getAthletesMap();
+
+        TreeMap<Integer, Athlete> map = DatabaseConnector.getAthletesMap();
         for (Map.Entry<Integer, Athlete> entry : map.entrySet()) {
             //System.out.println(entry.getKey() + "/" + entry.getValue().getName());
             items.add(entry.getKey() + "/" + entry.getValue().getName());
@@ -57,7 +58,7 @@ public class Controller implements Initializable {
         btn.setText("search");
         btn.setOnAction(event -> {
             System.out.println("clicked");
-            Main.searchInMap(search.getText(), (TreeMap<Integer, Athlete>) map);
+            Main.searchInMap(search.getText(), map);
         });
     }
 
