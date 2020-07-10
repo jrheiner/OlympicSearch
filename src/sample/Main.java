@@ -82,9 +82,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("resources/MainUI.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 700, 800));
         primaryStage.setMinHeight(450);
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinWidth(700);
+        primaryStage.setScene(new Scene(root, primaryStage.getMinWidth(), primaryStage.getMinHeight()));
         primaryStage.show();
     }
 }
