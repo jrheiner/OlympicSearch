@@ -120,18 +120,9 @@ public class DatabaseConnector {
         }
 
 
-        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), EventsMap.get(event), medal);
+        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), age, height, weight, TeamsMap.get(team), EventsMap.get(event), medal);
         if (AthletesMap.containsKey(id)) {
             Athlete currentAthlete = AthletesMap.get(id);
-            if (!currentAthlete.getAgeList().contains(age)) {
-                currentAthlete.addAge(age);
-            }
-            if (!currentAthlete.getHeightList().contains(height)) {
-                currentAthlete.addHeight(height);
-            }
-            if (!currentAthlete.getWeightList().contains(weight)) {
-                currentAthlete.addWeight(weight);
-            }
             if (!currentAthlete.getAppearanceList().contains(appearance)) {
                 currentAthlete.addAppearance(appearance);
             }

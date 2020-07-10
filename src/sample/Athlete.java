@@ -1,16 +1,15 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Athlete {
     private int id;
     private String name;
-    private List<Integer> ageList = new ArrayList<>();
+    private ArrayList<Integer> ageList = new ArrayList<>();
     private String sex;
-    private List<Integer> heightList = new ArrayList<>();
-    private List<Float> weightList = new ArrayList<>();
-    private List<Appearance> appearanceList = new ArrayList<>();
+    private ArrayList<Integer> heightList = new ArrayList<>();
+    private ArrayList<Float> weightList = new ArrayList<>();
+    private ArrayList<Appearance> appearanceList = new ArrayList<>();
 
     public Athlete(int id, String name, int age, String sex, int height, float weight, Appearance appearance) {
         this.id = id;
@@ -54,11 +53,11 @@ public class Athlete {
         this.name = name;
     }
 
-    public List<Integer> getAgeList() {
+    public ArrayList<Integer> getAgeList() {
         return ageList;
     }
 
-    public void setAgeList(List<Integer> ageList) {
+    public void setAgeList(ArrayList<Integer> ageList) {
         this.ageList = ageList;
     }
 
@@ -70,27 +69,27 @@ public class Athlete {
         this.sex = sex;
     }
 
-    public List<Integer> getHeightList() {
+    public ArrayList<Integer> getHeightList() {
         return heightList;
     }
 
-    public void setHeightList(List<Integer> heightList) {
+    public void setHeightList(ArrayList<Integer> heightList) {
         this.heightList = heightList;
     }
 
-    public List<Float> getWeightList() {
+    public ArrayList<Float> getWeightList() {
         return weightList;
     }
 
-    public void setWeightList(List<Float> weightList) {
+    public void setWeightList(ArrayList<Float> weightList) {
         this.weightList = weightList;
     }
 
-    public List<Appearance> getAppearanceList() {
+    public ArrayList<Appearance> getAppearanceList() {
         return appearanceList;
     }
 
-    public void setAppearanceList(List<Appearance> appearanceList) {
+    public void setAppearanceList(ArrayList<Appearance> appearanceList) {
         this.appearanceList = appearanceList;
     }
 }
