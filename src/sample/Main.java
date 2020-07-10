@@ -6,8 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
+
 
 public class Main extends Application {
 
@@ -21,8 +22,7 @@ public class Main extends Application {
 
 
         long endTime = System.nanoTime() - startTime;
-        System.out.println(endTime);
-        System.out.println(getReadableTime(endTime));
+        System.out.printf("Reading data took %d ms\n", TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
 
         launch(args);
 
@@ -40,24 +40,37 @@ public class Main extends Application {
 
     }
 
-    private static String getReadableTime(Long nanos) {
-        long tempSec = nanos / (1000 * 1000 * 1000);
-        long sec = tempSec % 60;
-        long min = (tempSec / 60) % 60;
-        long hour = (tempSec / (60 * 60)) % 24;
-        long day = (tempSec / (24 * 60 * 60)) % 24;
-        return String.format("%dd %dh %dm %ds", day, hour, min, sec);
+    // https://stackoverflow.com/questions/86780/how-to-check-if-a-string-contains-another-string-in-a-case-insensitive-manner-in/25379180#25379180
 
-    }
+    public static TreeMap<Integer, Athlete> searchInMap(String term, TreeMap<Integer, Athlete> searchMap) {
+        final String upperCaseTerm = term.toUpperCase();
+        long startTime = System.nanoTime();
 
-    public static TreeMap<Integer, Athlete> searchInMap(String term, TreeMap<Integer, Athlete> map) {
+        TreeMap<Integer, Athlete> results = new TreeMap<>();
+        searchMap.forEach((id, athlete) -> {
+            if (athlete.getName().toUpperCase().startsWith(upperCaseTerm)) {
+                results.put(id, athlete);
+            }
+        });
+
+/*
         TreeMap<Integer, Athlete> results = new TreeMap<>();
         for (Map.Entry<Integer, Athlete> entry : map.entrySet()) // descendingMap()
             if (entry.getValue().getName().startsWith(term)) {
                 results.put(entry.getKey(), entry.getValue());
-                System.out.println("found key");
             }
-        System.out.println("no key");
+
+        TreeMap<Integer, Athlete> results = new TreeMap<>();
+        results = map.entrySet()
+                .stream()
+                .filter(e -> e.getValue().getName().startsWith(term))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (o1, o2) -> (o1), TreeMap::new));
+*/
+
+        long endTime = System.nanoTime() - startTime;
+
+
+        System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
         return results;
     }
 

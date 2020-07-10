@@ -48,15 +48,13 @@ public class MainUI implements Initializable {
 
     public void initSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
-            System.out.println("search started");
             athleteResultsListView.getItems().clear();
             initAthleteListView(Main.searchInMap(athleteSearchInput.getText(), Main.getAthleteMap()));
         });
 
-        athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+        /*athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             athleteResultsListView.getItems().clear();
             initAthleteListView(Main.searchInMap(athleteSearchInput.getText(), Main.getAthleteMap()));
-        });
+        });*/
     }
 }
