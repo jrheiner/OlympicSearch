@@ -6,15 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class DatabaseConnector {
     private static final TreeMap<Integer, Athlete> AthletesMap = new TreeMap<>();
-    private static final Map<String, Team> TeamsMap = new TreeMap<>();
+    private static final TreeMap<String, Team> TeamsMap = new TreeMap<>();
     private final String filename;
-    private final Map<String, OlympicGame> OlympicGamesMap = new TreeMap<>();
-    private final Map<String, Event> EventsMap = new TreeMap<>();
+    private final TreeMap<String, OlympicGame> OlympicGamesMap = new TreeMap<>();
+    private final TreeMap<String, Event> EventsMap = new TreeMap<>();
 
     public DatabaseConnector(String filename) {
         this.filename = filename;
@@ -24,7 +23,7 @@ public class DatabaseConnector {
         return AthletesMap;
     }
 
-    public static Map<String, Team> getTeamsMap() {
+    public static TreeMap<String, Team> getTeamsMap() {
         return TeamsMap;
     }
 
@@ -120,9 +119,18 @@ public class DatabaseConnector {
         }
 
 
-        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), age, height, weight, TeamsMap.get(team), EventsMap.get(event), medal);
+        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), TeamsMap.get(team), EventsMap.get(event), medal);
         if (AthletesMap.containsKey(id)) {
             Athlete currentAthlete = AthletesMap.get(id);
+            if (!currentAthlete.getAgeList().contains(age)) {
+                currentAthlete.addAge(age);
+            }
+            if (!currentAthlete.getHeightList().contains(height)) {
+                currentAthlete.addHeight(height);
+            }
+            if (!currentAthlete.getWeightList().contains(weight)) {
+                currentAthlete.addWeight(weight);
+            }
             if (!currentAthlete.getAppearanceList().contains(appearance)) {
                 currentAthlete.addAppearance(appearance);
             }

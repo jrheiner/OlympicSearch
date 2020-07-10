@@ -14,7 +14,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DatabaseConnector DbC = new DatabaseConnector("src/data/test.db");
+        DatabaseConnector DbC = new DatabaseConnector("src/data/olympic.db");
 
         long startTime = System.nanoTime();
 

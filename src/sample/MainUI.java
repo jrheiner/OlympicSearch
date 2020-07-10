@@ -34,7 +34,12 @@ public class MainUI implements Initializable {
     @FXML
     private Label athleteSexLabel;
     @FXML
-    private TableView<Appearance> athleteDataTable;
+    private Label athleteAgeLabel;
+    @FXML
+    private Label athleteHeightLabel;
+    @FXML
+    private Label athleteWeightLabel;
+
     @FXML
     private TableView<Appearance> athleteAppearanceTable;
 
@@ -43,7 +48,6 @@ public class MainUI implements Initializable {
         initAthleteListView();
         initSearchHandler();
         initAthleteAppearanceTable();
-        initAthleteDataTable();
 
         athleteResultsListView.setOnMouseClicked(event -> {
             Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
@@ -53,37 +57,13 @@ public class MainUI implements Initializable {
             athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
             athleteNameLabel.setText(selectedAthlete.getName());
             athleteSexLabel.setText(selectedAthlete.getSex());
+            athleteAgeLabel.setText(selectedAthlete.getAgeList().toString());
+            athleteHeightLabel.setText(selectedAthlete.getHeightList().toString());
+            athleteWeightLabel.setText(selectedAthlete.getWeightList().toString());
 
             fillAthleteAppearanceTable(selectedAthlete.getAppearanceList());
-            fillAthleteDataTable(selectedAthlete, selectedAthlete.getAppearanceList());
 
         });
-    }
-
-    public void initAthleteDataTable() {
-        TableColumn<Appearance, String> olympicGameTableColumn = new TableColumn<>("Game");
-        olympicGameTableColumn.setCellValueFactory(new PropertyValueFactory<>("olympicGame"));
-        olympicGameTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getOlympicGame().getGame()));
-
-
-        TableColumn<Appearance, String> ageTableColumn = new TableColumn<>("Age");
-        ageTableColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-        //ageTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getAge().toString()));
-
-        TableColumn<Appearance, String> heightTableColumn = new TableColumn<>("Height");
-        heightTableColumn.setCellValueFactory(new PropertyValueFactory<>("height"));
-        //heightTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getHeight().toString()));
-
-        TableColumn<Appearance, String> weightTableColumn = new TableColumn<>("Weight");
-        weightTableColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        //heightTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getWeight().toString()));
-
-        athleteDataTable.getColumns().addAll(olympicGameTableColumn, ageTableColumn, heightTableColumn, weightTableColumn);
-    }
-
-    public void fillAthleteDataTable(Athlete athlete, ArrayList<Appearance> appearanceList) {
-        athleteDataTable.getItems().clear();
-        appearanceList.forEach(appearance -> athleteDataTable.getItems().add(appearance));
     }
 
 
@@ -91,18 +71,26 @@ public class MainUI implements Initializable {
         TableColumn<Appearance, String> olympicGameTableColumn = new TableColumn<>("Game");
         olympicGameTableColumn.setCellValueFactory(new PropertyValueFactory<>("olympicGame"));
         olympicGameTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getOlympicGame().getGame()));
+        olympicGameTableColumn.setMinWidth(80);
+        olympicGameTableColumn.setMaxWidth(100);
 
 
         TableColumn<Appearance, String> teamTableColumn = new TableColumn<>("Team");
         teamTableColumn.setCellValueFactory(new PropertyValueFactory<>("team"));
         teamTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getTeam().getTeam()));
+        teamTableColumn.setMinWidth(75);
+        teamTableColumn.setMaxWidth(150);
 
         TableColumn<Appearance, String> eventTableColumn = new TableColumn<>("Event");
         eventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
         eventTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getEvent().getEvent()));
+        eventTableColumn.setMinWidth(150);
+        eventTableColumn.setMaxWidth(300);
 
         TableColumn<Appearance, String> medalTableColumn = new TableColumn<>("Medal");
         medalTableColumn.setCellValueFactory(new PropertyValueFactory<>("medal"));
+        medalTableColumn.setMinWidth(50);
+        medalTableColumn.setMaxWidth(100);
 
         athleteAppearanceTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
     }
