@@ -45,25 +45,42 @@ public class MainUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAthleteListView();
-        initSearchHandler();
-        initAthleteAppearanceTable();
+        initAthleteTab();
 
+
+    }
+
+    private void initAthleteTab() {
+        initAthleteListView();
+        initAthleteSearchHandler();
+        initAthleteListViewHandler();
+        initAthleteProfile();
+        initAthleteAppearanceTable();
+    }
+
+    private void initAthleteListViewHandler() {
         athleteResultsListView.setOnMouseClicked(event -> {
             Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
             System.out.println("clicked on " + selectedAthlete);
-
-            // display details
-            athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
-            athleteNameLabel.setText(selectedAthlete.getName());
-            athleteSexLabel.setText(selectedAthlete.getSex());
-            athleteAgeLabel.setText(selectedAthlete.getAgeList().toString());
-            athleteHeightLabel.setText(selectedAthlete.getHeightList().toString());
-            athleteWeightLabel.setText(selectedAthlete.getWeightList().toString());
-
-            fillAthleteAppearanceTable(selectedAthlete.getAppearanceList());
+            displayAthleteProfile(selectedAthlete);
 
         });
+    }
+
+    private void initAthleteProfile() {
+        displayAthleteProfile(athleteResultsListView.getItems().get(0));
+    }
+
+    private void displayAthleteProfile(Athlete selectedAthlete) {
+        // display details
+        athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
+        athleteNameLabel.setText(selectedAthlete.getName());
+        athleteSexLabel.setText(selectedAthlete.getSex().equalsIgnoreCase("M") ? "Male" : "Female");
+        athleteAgeLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getAgeList()));
+        athleteHeightLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getHeightList()));
+        athleteWeightLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getWeightList()));
+
+        fillAthleteAppearanceTable(selectedAthlete.getAppearanceList());
     }
 
 
@@ -128,7 +145,7 @@ public class MainUI implements Initializable {
         initAthleteListView(athleteMap);
     }
 
-    public void initSearchHandler() {
+    public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
             initAthleteListView(Main.searchInMap(athleteSearchInput.getText(), Main.getAthleteMap()));

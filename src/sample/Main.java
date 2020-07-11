@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
@@ -77,6 +78,13 @@ public class Main extends Application {
     public static TreeMap<Integer, Athlete> getAthleteMap() {
         return DatabaseConnector.getAthletesMap();
     }
+
+    public static String arrayToStringDisplay(ArrayList<?> arrayList) {
+        String arrayString = arrayList.toString();
+        return arrayString.substring(1, arrayString.length() - 1).replaceAll("-1.0|-1", "Not available");
+
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {

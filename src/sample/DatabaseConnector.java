@@ -151,12 +151,12 @@ public class DatabaseConnector {
     }
 
     private float dataToFloat(String data) {
-        float dataInt;
+        float dataFloat;
         if (data.equals("NA")) {
-            dataInt = -1;
+            dataFloat = -1;
         } else {
-            dataInt = Float.parseFloat(data);
+            dataFloat = Float.parseFloat(data);
         }
-        return dataInt;
+        return dataFloat;
     }
 }
