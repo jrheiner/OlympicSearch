@@ -19,11 +19,11 @@ public class DatabaseConnector {
         this.filename = filename;
     }
 
-    public static TreeMap<Integer, Athlete> getAthletesMap() {
+    public static TreeMap<Integer, Athlete> getAthleteMap() {
         return AthletesMap;
     }
 
-    public static TreeMap<String, Team> getTeamsMap() {
+    public static TreeMap<String, Team> getTeamMap() {
         return TeamsMap;
     }
 
@@ -84,15 +84,15 @@ public class DatabaseConnector {
 
         if (TeamsMap.containsKey(team)) {
             Team currentTeam = TeamsMap.get(team);
-            if (!currentTeam.getAthleteList().contains(id)) {
-                currentTeam.addAthlete(id);
+            if (!currentTeam.getAthleteList().contains(name)) {
+                currentTeam.addAthlete(name);
             }
             if (!currentTeam.getOlympicGameList().contains(olympicGame)) {
                 currentTeam.addOlympicGame(olympicGame);
             }
 
         } else {
-            Team newTeam = new Team(team, noc, olympicGame, id);
+            Team newTeam = new Team(team, noc, olympicGame, name);
             TeamsMap.put(team, newTeam);
         }
 

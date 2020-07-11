@@ -6,22 +6,22 @@ import java.util.List;
 public class Team {
     private String noc;
     private String team;
-    private List<Integer> athleteList = new ArrayList<>();
-    private List<String> olympicGameList = new ArrayList<>();
+    private ArrayList<String> athleteList = new ArrayList<>();
+    private ArrayList<String> olympicGameList = new ArrayList<>();
 
 
-    public Team(String team, String noc, String olympicGame, int athlete) {
+    public Team(String team, String noc, String olympicGame, String athlete) {
         this.noc = noc;
         this.team = team;
         this.olympicGameList.add(olympicGame);
         this.athleteList.add(athlete);
     }
 
-    public List<Integer> getAthleteList() {
+    public ArrayList<String> getAthleteList() {
         return athleteList;
     }
 
-    public void setAthleteList(ArrayList<Integer> athleteList) {
+    public void setAthleteList(ArrayList<String> athleteList) {
         this.athleteList = athleteList;
     }
 
@@ -29,8 +29,8 @@ public class Team {
         olympicGameList.add(olympicGame);
     }
 
-    public void addAthlete(int id) {
-        athleteList.add(id);
+    public void addAthlete(String athlete) {
+        athleteList.add(athlete);
     }
 
     public List<String> getOlympicGameList() {

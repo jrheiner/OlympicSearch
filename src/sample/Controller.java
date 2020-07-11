@@ -43,12 +43,12 @@ public class Controller implements Initializable {
         testListView.setItems(items);
         testListView2.setItems(items2);
 
-        TreeMap<Integer, Athlete> map = DatabaseConnector.getAthletesMap();
+        TreeMap<Integer, Athlete> map = DatabaseConnector.getAthleteMap();
         for (Map.Entry<Integer, Athlete> entry : map.entrySet()) {
             //System.out.println(entry.getKey() + "/" + entry.getValue().getName());
             items.add(entry.getKey() + "/" + entry.getValue().getName());
         }
-        Map<String, Team> map2 = DatabaseConnector.getTeamsMap();
+        Map<String, Team> map2 = DatabaseConnector.getTeamMap();
         for (Map.Entry<String, Team> entry : map2.entrySet()) {
             items2.add(entry.getValue().getTeam());
         }
@@ -58,7 +58,7 @@ public class Controller implements Initializable {
         btn.setText("search");
         btn.setOnAction(event -> {
             System.out.println("clicked");
-            Main.searchInMap(search.getText(), map);
+            Main.searchInAthleteMap(search.getText(), map);
         });
     }
 

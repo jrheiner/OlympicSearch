@@ -43,7 +43,7 @@ public class Main extends Application {
 
     // https://stackoverflow.com/questions/86780/how-to-check-if-a-string-contains-another-string-in-a-case-insensitive-manner-in/25379180#25379180
 
-    public static TreeMap<Integer, Athlete> searchInMap(String term, TreeMap<Integer, Athlete> searchMap) {
+    public static TreeMap<Integer, Athlete> searchInAthleteMap(String term, TreeMap<Integer, Athlete> searchMap) {
         final String upperCaseTerm = term.toUpperCase();
         long startTime = System.nanoTime();
 
@@ -75,9 +75,30 @@ public class Main extends Application {
         return results;
     }
 
-    public static TreeMap<Integer, Athlete> getAthleteMap() {
-        return DatabaseConnector.getAthletesMap();
+    public static TreeMap<String, Team> searchInTeamMap(String term, TreeMap<String, Team> searchMap) {
+        final String upperCaseTerm = term.toUpperCase();
+        long startTime = System.nanoTime();
+
+        TreeMap<String, Team> results = new TreeMap<>();
+        searchMap.forEach((id, team) -> {
+            if (team.getTeam().toUpperCase().startsWith(upperCaseTerm)) {
+                results.put(id, team);
+            }
+        });
+
+        long endTime = System.nanoTime() - startTime;
+        System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
+        return results;
     }
+
+    public static TreeMap<Integer, Athlete> getAthleteMap() {
+        return DatabaseConnector.getAthleteMap();
+    }
+
+    public static TreeMap<String, Team> getTeamMap() {
+        return DatabaseConnector.getTeamMap();
+    }
+
 
     public static String arrayToStringDisplay(ArrayList<?> arrayList) {
         String arrayString = arrayList.toString();
