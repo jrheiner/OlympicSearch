@@ -1,4 +1,4 @@
-package sample.UIController;
+package sample.ui;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -6,11 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.Database.Athlete;
-import sample.Database.Participation;
-import sample.Database.Team;
-import sample.DatabaseLists.ListReference;
-import sample.Utility.ListUtility;
+import sample.database.Athlete;
+import sample.database.Participation;
+import sample.database.Team;
+import sample.databaseLists.ListReference;
+import sample.utility.ListUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,13 +120,13 @@ public class MainUI {
     public void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchInTeamMap(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
         });
 
         /* LIVE SEARCH*/
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchInTeamMap(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
         });
     }
 

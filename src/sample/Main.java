@@ -5,9 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.DatabaseConnection.DatabaseReader;
-import sample.DatabaseLists.ListReference;
-import sample.UIController.MainUI;
+import sample.databaseConnection.DatabaseReader;
+import sample.databaseLists.ListReference;
+import sample.ui.MainUI;
 
 import java.util.concurrent.TimeUnit;
 

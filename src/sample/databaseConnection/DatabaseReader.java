@@ -1,6 +1,6 @@
-package sample.DatabaseConnection;
+package sample.databaseConnection;
 
-import sample.DatabaseLists.ListReference;
+import sample.databaseLists.ListReference;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

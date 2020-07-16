@@ -1,4 +1,4 @@
-package sample.DatabaseLists;
+package sample.databaseLists;
 
 
 public class ListReference {

@@ -1,4 +1,4 @@
-package sample.DatabaseConnection;
+package sample.databaseConnection;
 
 public abstract class DatabaseConnector {
     private final String filename;

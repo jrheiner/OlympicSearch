@@ -1,6 +1,6 @@
-package sample.DatabaseLists;
+package sample.databaseLists;
 
-import sample.Database.*;
+import sample.database.*;
 
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;

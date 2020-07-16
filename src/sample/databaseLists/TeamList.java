@@ -1,6 +1,6 @@
-package sample.DatabaseLists;
+package sample.databaseLists;
 
-import sample.Database.Team;
+import sample.database.Team;
 
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +11,7 @@ public class TeamList {
     public TeamList() {
     }
 
-    public TreeMap<String, Team> searchInTeamMap(String term, TreeMap<String, Team> searchMap) {
+    public TreeMap<String, Team> searchTeam(String term, TreeMap<String, Team> searchMap) {
         final String upperCaseTerm = term.toUpperCase();
         long startTime = System.nanoTime();
 
