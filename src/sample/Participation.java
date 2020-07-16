@@ -1,11 +1,12 @@
 package sample;
 
-public class Appearance {
+public class Participation {
     private OlympicGame olympicGame;
     private Team team;
     private Event event;
     private String medal;
-    public Appearance(OlympicGame olympicGame, Team team, Event event, String medal) {
+
+    public Participation(OlympicGame olympicGame, Team team, Event event, String medal) {
         this.olympicGame = olympicGame;
         this.team = team;
         this.event = event;

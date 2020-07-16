@@ -119,7 +119,7 @@ public class DatabaseConnector {
         }
 
 
-        Appearance appearance = new Appearance(OlympicGamesMap.get(olympicGame), TeamsMap.get(team), EventsMap.get(event), medal);
+        Participation participation = new Participation(OlympicGamesMap.get(olympicGame), TeamsMap.get(team), EventsMap.get(event), medal);
         if (AthletesMap.containsKey(id)) {
             Athlete currentAthlete = AthletesMap.get(id);
             if (!currentAthlete.getAgeList().contains(age)) {
@@ -131,11 +131,11 @@ public class DatabaseConnector {
             if (!currentAthlete.getWeightList().contains(weight)) {
                 currentAthlete.addWeight(weight);
             }
-            if (!currentAthlete.getAppearanceList().contains(appearance)) {
-                currentAthlete.addAppearance(appearance);
+            if (!currentAthlete.getParticipationList().contains(participation)) {
+                currentAthlete.addAppearance(participation);
             }
         } else {
-            Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, appearance);
+            Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, participation);
             AthletesMap.put(id, newAthlete);
         }
     }

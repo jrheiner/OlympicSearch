@@ -1,7 +1,6 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Team {
     private String noc;
@@ -33,7 +32,7 @@ public class Team {
         athleteList.add(athlete);
     }
 
-    public List<String> getOlympicGameList() {
+    public ArrayList<String> getOlympicGameList() {
         return olympicGameList;
     }
 

@@ -9,16 +9,16 @@ public class Athlete {
     private String sex;
     private ArrayList<Integer> heightList = new ArrayList<>();
     private ArrayList<Float> weightList = new ArrayList<>();
-    private ArrayList<Appearance> appearanceList = new ArrayList<>();
+    private ArrayList<Participation> participationList = new ArrayList<>();
 
-    public Athlete(int id, String name, int age, String sex, int height, float weight, Appearance appearance) {
+    public Athlete(int id, String name, int age, String sex, int height, float weight, Participation participation) {
         this.id = id;
         this.name = name;
         this.ageList.add(age);
         this.sex = sex;
         this.heightList.add(height);
         this.weightList.add(weight);
-        this.appearanceList.add(appearance);
+        this.participationList.add(participation);
     }
 
     public void addAge(int age) {
@@ -33,8 +33,8 @@ public class Athlete {
         weightList.add(weight);
     }
 
-    public void addAppearance(Appearance appearance) {
-        appearanceList.add(appearance);
+    public void addAppearance(Participation participation) {
+        participationList.add(participation);
     }
 
     public int getId() {
@@ -85,11 +85,11 @@ public class Athlete {
         this.weightList = weightList;
     }
 
-    public ArrayList<Appearance> getAppearanceList() {
-        return appearanceList;
+    public ArrayList<Participation> getParticipationList() {
+        return participationList;
     }
 
-    public void setAppearanceList(ArrayList<Appearance> appearanceList) {
-        this.appearanceList = appearanceList;
+    public void setParticipationList(ArrayList<Participation> participationList) {
+        this.participationList = participationList;
     }
 }
