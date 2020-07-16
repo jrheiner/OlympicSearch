@@ -1,4 +1,4 @@
 package sample.ui;
 
-public class EditUI {
+public class AddUI {
 }
