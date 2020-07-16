@@ -15,11 +15,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DatabaseConnector DbC = new DatabaseConnector("src/data/olympic.db");
+        //DatabaseConnector DbC = new DatabaseConnector("src/data/olympic.db");
+        DatabaseReader Reader = new DatabaseReader("src/data/olympic.db");
 
         long startTime = System.nanoTime();
 
-        DbC.readDatabase();
+        //DbC.readDatabase();
+        Reader.readDatabase();
 
 
         long endTime = System.nanoTime() - startTime;
@@ -92,11 +94,11 @@ public class Main extends Application {
     }
 
     public static TreeMap<Integer, Athlete> getAthleteMap() {
-        return DatabaseConnector.getAthleteMap();
+        return DatabaseReader.getAthleteMap();
     }
 
     public static TreeMap<String, Team> getTeamMap() {
-        return DatabaseConnector.getTeamMap();
+        return DatabaseReader.getTeamMap();
     }
 
 
