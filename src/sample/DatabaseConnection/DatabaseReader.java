@@ -1,8 +1,7 @@
 package sample.DatabaseConnection;
 
-import sample.Database.Event;
-import sample.DatabaseLists.AthleteList;
 import sample.DatabaseLists.EventList;
+import sample.DatabaseLists.ListReference;
 import sample.DatabaseLists.OlympicGameList;
 import sample.DatabaseLists.TeamList;
 
@@ -12,13 +11,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.TreeMap;
 
 public class DatabaseReader extends DatabaseConnector {
-    private final TreeMap<String, Event> EventsMap = new TreeMap<>();
+    ListReference listReference;
 
     public DatabaseReader(String filename) {
         super(filename);
+    }
+
+    public ListReference getListReference() {
+        return listReference;
+    }
+
+    public void setListReference(ListReference listReference) {
+        this.listReference = listReference;
     }
 
     public void readDatabase() {
@@ -75,7 +81,7 @@ public class DatabaseReader extends DatabaseConnector {
         TeamList.addOrUpdate(team, noc, olympicGame, name);
         EventList.addOrUpdate(event, sport, olympicGame);
         OlympicGameList.addOrUpdate(olympicGame, city, year, season, event);
-        AthleteList.addOrUpdate(id, name, age, sex, height, weight, medal, olympicGame, team, event);
+        listReference.getAthleteList().addOrUpdate(id, name, age, sex, height, weight, medal, olympicGame, team, event);
 
     }
 

@@ -6,20 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.DatabaseConnection.DatabaseReader;
-import sample.DatabaseLists.AthleteList;
+import sample.DatabaseLists.ListReference;
 import sample.UIController.MainUI;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
+
+    static ListReference listReference = new ListReference();
     MainUI mainUI;
-    AthleteList athleteList;
 
     public static void main(String[] args) {
 
-        athleteList = new AthleteList();
         DatabaseReader Reader = new DatabaseReader("src/data/olympic.db");
+        Reader.setListReference(listReference);
 
         long startTime = System.nanoTime();
 
@@ -34,10 +35,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader FXMLLoader = new FXMLLoader();
-        Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("MainUI.fxml"));
-        mainUI = FXMLLoader.getController();
-        mainUI.setAthleteList(athleteList);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainUI.fxml"));
+        Parent root = loader.load();
+        mainUI = loader.getController();
+        mainUI.setListReference(listReference);
+        mainUI.initializeUI();
         primaryStage.setTitle("Hello World");
         primaryStage.setMinHeight(450);
         primaryStage.setMinWidth(700);

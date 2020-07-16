@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 public class AthleteList {
 
-    private static final TreeMap<Integer, Athlete> athleteMap = new TreeMap<>();
+    private final TreeMap<Integer, Athlete> athleteMap = new TreeMap<>();
 
     public AthleteList() {
     }
 
-    public static void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, String medal, String olympicGame, String team, String event) {
+    public void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, String medal, String olympicGame, String team, String event) {
         Participation participation = new Participation(OlympicGameList.getOlympicGame(olympicGame), TeamList.getTeam(team), EventList.getEvent(event), medal);
         if (athleteMap.containsKey(id)) {
             Athlete currentAthlete = athleteMap.get(id);
@@ -35,7 +35,7 @@ public class AthleteList {
         }
     }
 
-    public static TreeMap<Integer, Athlete> searchAthlete(String term, TreeMap<Integer, Athlete> searchMap) {
+    public TreeMap<Integer, Athlete> searchAthlete(String term, TreeMap<Integer, Athlete> searchMap) {
         final String upperCaseTerm = term.toUpperCase();
         long startTime = System.nanoTime();
 
@@ -51,7 +51,7 @@ public class AthleteList {
         return results;
     }
 
-    public static TreeMap<Integer, Athlete> getAthleteMap() {
+    public TreeMap<Integer, Athlete> getAthleteMap() {
         return athleteMap;
     }
 }

@@ -4,27 +4,28 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.Database.Athlete;
 import sample.Database.Participation;
 import sample.Database.Team;
-import sample.DatabaseLists.AthleteList;
-import sample.DatabaseLists.ListUtility;
+import sample.DatabaseLists.ListReference;
 import sample.DatabaseLists.TeamList;
+import sample.Utility.ListUtility;
 
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class MainUI implements Initializable {
+public class MainUI {
 
 
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
     private final ObservableList<String> teamGames = FXCollections.observableArrayList();
-    AthleteList athleteList;
+    ListReference listReference;
     @FXML
     private Button athleteSearchButton;
     @FXML
@@ -60,19 +61,18 @@ public class MainUI implements Initializable {
     @FXML
     private ListView<String> teamGameList;
 
-    public AthleteList getAthleteList() {
-        return athleteList;
+    public ListReference getListReference() {
+        return listReference;
     }
 
-    public void setAthleteList(AthleteList athleteList) {
-        this.athleteList = athleteList;
+    public void setListReference(ListReference listReference) {
+        this.listReference = listReference;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    //@Override
+    public void initializeUI() { //URL url, ResourceBundle resourceBundle
         initAthleteTab();
         initTeamTab();
-
     }
 
     private void initTeamTab() {
@@ -239,14 +239,14 @@ public class MainUI implements Initializable {
     }
 
     public void initAthleteListView() {
-        TreeMap<Integer, Athlete> athleteMap = AthleteList.getAthleteMap();
+        TreeMap<Integer, Athlete> athleteMap = listReference.getAthleteList().getAthleteMap();
         initAthleteListView(athleteMap);
     }
 
     public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
+            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });
 
         /* LIVE SEARCH
