@@ -6,12 +6,12 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 public class TeamList {
-    private static final TreeMap<String, Team> teamMap = new TreeMap<>();
+    private final TreeMap<String, Team> teamMap = new TreeMap<>();
 
     public TeamList() {
     }
 
-    public static TreeMap<String, Team> searchInTeamMap(String term, TreeMap<String, Team> searchMap) {
+    public TreeMap<String, Team> searchInTeamMap(String term, TreeMap<String, Team> searchMap) {
         final String upperCaseTerm = term.toUpperCase();
         long startTime = System.nanoTime();
 
@@ -27,7 +27,7 @@ public class TeamList {
         return results;
     }
 
-    public static void addOrUpdate(String team, String noc, String olympicGame, String name) {
+    public void addOrUpdate(String team, String noc, String olympicGame, String name) {
         if (teamMap.containsKey(team)) {
             Team currentTeam = teamMap.get(team);
             if (!currentTeam.getAthleteList().contains(name)) {
@@ -42,11 +42,11 @@ public class TeamList {
         }
     }
 
-    public static Team getTeam(String key) {
+    public Team getTeam(String key) {
         return teamMap.get(key);
     }
 
-    public static TreeMap<String, Team> getTeamMap() {
+    public TreeMap<String, Team> getTeamMap() {
         return teamMap;
     }
 

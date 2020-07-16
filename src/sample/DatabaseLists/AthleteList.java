@@ -1,7 +1,6 @@
 package sample.DatabaseLists;
 
-import sample.Database.Athlete;
-import sample.Database.Participation;
+import sample.Database.*;
 
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
@@ -13,8 +12,7 @@ public class AthleteList {
     public AthleteList() {
     }
 
-    public void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, String medal, String olympicGame, String team, String event) {
-        Participation participation = new Participation(OlympicGameList.getOlympicGame(olympicGame), TeamList.getTeam(team), EventList.getEvent(event), medal);
+    public void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, Participation participation) {
         if (athleteMap.containsKey(id)) {
             Athlete currentAthlete = athleteMap.get(id);
             if (!currentAthlete.getAgeList().contains(age)) {
@@ -53,5 +51,9 @@ public class AthleteList {
 
     public TreeMap<Integer, Athlete> getAthleteMap() {
         return athleteMap;
+    }
+
+    public Participation createParticipation(OlympicGame olympicGame, Team team, Event event, String medal) {
+        return new Participation(olympicGame, team, event, medal);
     }
 }

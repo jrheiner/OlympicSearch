@@ -19,7 +19,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DatabaseReader Reader = new DatabaseReader("src/data/olympic.db");
+        DatabaseReader Reader = new DatabaseReader("src/olympic.db");
         Reader.setListReference(listReference);
 
         long startTime = System.nanoTime();
@@ -40,7 +40,7 @@ public class Main extends Application {
         mainUI = loader.getController();
         mainUI.setListReference(listReference);
         mainUI.initializeUI();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Olympic Search");
         primaryStage.setMinHeight(450);
         primaryStage.setMinWidth(700);
         primaryStage.setScene(new Scene(root, primaryStage.getMinWidth(), primaryStage.getMinHeight()));

@@ -1,9 +1,6 @@
 package sample.DatabaseConnection;
 
-import sample.DatabaseLists.EventList;
 import sample.DatabaseLists.ListReference;
-import sample.DatabaseLists.OlympicGameList;
-import sample.DatabaseLists.TeamList;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -78,10 +75,16 @@ public class DatabaseReader extends DatabaseConnector {
         String medal = splitLine.get(14);
 
 
-        TeamList.addOrUpdate(team, noc, olympicGame, name);
-        EventList.addOrUpdate(event, sport, olympicGame);
-        OlympicGameList.addOrUpdate(olympicGame, city, year, season, event);
-        listReference.getAthleteList().addOrUpdate(id, name, age, sex, height, weight, medal, olympicGame, team, event);
+        listReference.getTeamList().addOrUpdate(team, noc, olympicGame, name);
+        listReference.getEventList().addOrUpdate(event, sport, olympicGame);
+        listReference.getOlympicGameList().addOrUpdate(olympicGame, city, year, season, event);
+
+        listReference.getAthleteList().addOrUpdate(id, name, age, sex, height, weight,
+                listReference.getAthleteList().createParticipation(
+                        listReference.getOlympicGameList().getOlympicGame(olympicGame),
+                        listReference.getTeamList().getTeam(team),
+                        listReference.getEventList().getEvent(event),
+                        medal));
 
     }
 

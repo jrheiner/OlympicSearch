@@ -10,7 +10,6 @@ import sample.Database.Athlete;
 import sample.Database.Participation;
 import sample.Database.Team;
 import sample.DatabaseLists.ListReference;
-import sample.DatabaseLists.TeamList;
 import sample.Utility.ListUtility;
 
 import java.util.ArrayList;
@@ -121,13 +120,13 @@ public class MainUI {
     public void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(TeamList.searchInTeamMap(teamSearchInput.getText(), TeamList.getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchInTeamMap(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
         });
 
         /* LIVE SEARCH*/
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(TeamList.searchInTeamMap(teamSearchInput.getText(), TeamList.getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchInTeamMap(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
         });
     }
 
@@ -150,7 +149,7 @@ public class MainUI {
     }
 
     public void initTeamListView() {
-        TreeMap<String, Team> teamMap = TeamList.getTeamMap();
+        TreeMap<String, Team> teamMap = listReference.getTeamList().getTeamMap();
         initTeamListView(teamMap);
     }
 
@@ -208,6 +207,7 @@ public class MainUI {
 
         TableColumn<Participation, String> medalTableColumn = new TableColumn<>("Medal");
         medalTableColumn.setCellValueFactory(new PropertyValueFactory<>("medal"));
+        medalTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getMedal().equalsIgnoreCase("NA") ? "-" : param.getValue().getMedal()));
         medalTableColumn.setMinWidth(50);
         medalTableColumn.setMaxWidth(100);
 

@@ -5,12 +5,12 @@ import sample.Database.Event;
 import java.util.TreeMap;
 
 public class EventList {
-    private static final TreeMap<String, Event> EventMap = new TreeMap<>();
+    private final TreeMap<String, Event> EventMap = new TreeMap<>();
 
     public EventList() {
     }
 
-    public static void addOrUpdate(String event, String sport, String olympicGame) {
+    public void addOrUpdate(String event, String sport, String olympicGame) {
         if (EventMap.containsKey(event)) {
             Event currentEvent = EventMap.get(event);
             if (!currentEvent.getOlympicGameList().contains(olympicGame)) {
@@ -22,7 +22,7 @@ public class EventList {
         }
     }
 
-    public static Event getEvent(String key) {
+    public Event getEvent(String key) {
         return EventMap.get(key);
     }
 

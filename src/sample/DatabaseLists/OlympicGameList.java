@@ -6,16 +6,16 @@ import java.util.TreeMap;
 
 public class OlympicGameList {
 
-    private static final TreeMap<String, OlympicGame> OlympicGameMap = new TreeMap<>();
+    private final TreeMap<String, OlympicGame> OlympicGameMap = new TreeMap<>();
 
     public OlympicGameList() {
     }
 
-    public static TreeMap<String, OlympicGame> getOlympicGameMap() {
+    public TreeMap<String, OlympicGame> getOlympicGameMap() {
         return OlympicGameMap;
     }
 
-    public static void addOrUpdate(String olympicGame, String city, Integer year, String season, String event) {
+    public void addOrUpdate(String olympicGame, String city, Integer year, String season, String event) {
         if (OlympicGameMap.containsKey(olympicGame)) {
             OlympicGame currentOlympicGame = OlympicGameMap.get(olympicGame);
             if (!currentOlympicGame.getEventList().contains(event)) {
@@ -28,7 +28,7 @@ public class OlympicGameList {
 
     }
 
-    public static OlympicGame getOlympicGame(String key) {
+    public OlympicGame getOlympicGame(String key) {
         return OlympicGameMap.get(key);
     }
 }
