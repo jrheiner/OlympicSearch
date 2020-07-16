@@ -1,4 +1,4 @@
-package sample;
+package sample.Database;
 
 public class Participation {
     private OlympicGame olympicGame;

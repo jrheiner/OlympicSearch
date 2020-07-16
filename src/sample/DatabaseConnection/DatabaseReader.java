@@ -1,4 +1,10 @@
-package sample;
+package sample.DatabaseConnection;
+
+import sample.Database.Event;
+import sample.DatabaseLists.AthleteList;
+import sample.DatabaseLists.EventList;
+import sample.DatabaseLists.OlympicGameList;
+import sample.DatabaseLists.TeamList;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,21 +15,10 @@ import java.util.Collections;
 import java.util.TreeMap;
 
 public class DatabaseReader extends DatabaseConnector {
-    private static final TreeMap<Integer, Athlete> AthletesMap = new TreeMap<>();
-    private static final TreeMap<String, Team> TeamsMap = new TreeMap<>();
-    private final TreeMap<String, OlympicGame> OlympicGamesMap = new TreeMap<>();
     private final TreeMap<String, Event> EventsMap = new TreeMap<>();
 
     public DatabaseReader(String filename) {
         super(filename);
-    }
-
-    public static TreeMap<Integer, Athlete> getAthleteMap() {
-        return AthletesMap;
-    }
-
-    public static TreeMap<String, Team> getTeamMap() {
-        return TeamsMap;
     }
 
     public void readDatabase() {
@@ -77,62 +72,11 @@ public class DatabaseReader extends DatabaseConnector {
         String medal = splitLine.get(14);
 
 
-        if (TeamsMap.containsKey(team)) {
-            Team currentTeam = TeamsMap.get(team);
-            if (!currentTeam.getAthleteList().contains(name)) {
-                currentTeam.addAthlete(name);
-            }
-            if (!currentTeam.getOlympicGameList().contains(olympicGame)) {
-                currentTeam.addOlympicGame(olympicGame);
-            }
+        TeamList.addOrUpdate(team, noc, olympicGame, name);
+        EventList.addOrUpdate(event, sport, olympicGame);
+        OlympicGameList.addOrUpdate(olympicGame, city, year, season, event);
+        AthleteList.addOrUpdate(id, name, age, sex, height, weight, medal, olympicGame, team, event);
 
-        } else {
-            Team newTeam = new Team(team, noc, olympicGame, name);
-            TeamsMap.put(team, newTeam);
-        }
-
-
-        if (EventsMap.containsKey(event)) {
-            Event currentEvent = EventsMap.get(event);
-            if (!currentEvent.getOlympicGameList().contains(olympicGame)) {
-                currentEvent.addOlympicGame(olympicGame);
-            }
-        } else {
-            Event newEvent = new Event(event, sport, olympicGame);
-            EventsMap.put(event, newEvent);
-        }
-
-
-        if (OlympicGamesMap.containsKey(olympicGame)) {
-            OlympicGame currentOlympicGame = OlympicGamesMap.get(olympicGame);
-            if (!currentOlympicGame.getEventList().contains(event)) {
-                currentOlympicGame.addEvent(event);
-            }
-        } else {
-            OlympicGame newOlympicGame = new OlympicGame(olympicGame, city, year, season, event);
-            OlympicGamesMap.put(olympicGame, newOlympicGame);
-        }
-
-
-        Participation participation = new Participation(OlympicGamesMap.get(olympicGame), TeamsMap.get(team), EventsMap.get(event), medal);
-        if (AthletesMap.containsKey(id)) {
-            Athlete currentAthlete = AthletesMap.get(id);
-            if (!currentAthlete.getAgeList().contains(age)) {
-                currentAthlete.addAge(age);
-            }
-            if (!currentAthlete.getHeightList().contains(height)) {
-                currentAthlete.addHeight(height);
-            }
-            if (!currentAthlete.getWeightList().contains(weight)) {
-                currentAthlete.addWeight(weight);
-            }
-            if (!currentAthlete.getParticipationList().contains(participation)) {
-                currentAthlete.addAppearance(participation);
-            }
-        } else {
-            Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, participation);
-            AthletesMap.put(id, newAthlete);
-        }
     }
 
     private int dataToInt(String data) {

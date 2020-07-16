@@ -1,4 +1,4 @@
-package sample;
+package sample.UIController;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -7,24 +7,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.Database.Athlete;
+import sample.Database.Participation;
+import sample.Database.Team;
+import sample.DatabaseLists.AthleteList;
+import sample.DatabaseLists.ListUtility;
+import sample.DatabaseLists.TeamList;
 
 import java.net.URL;
 import java.util.*;
 
 public class MainUI implements Initializable {
 
+
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
     private final ObservableList<String> teamGames = FXCollections.observableArrayList();
-
+    AthleteList athleteList;
     @FXML
     private Button athleteSearchButton;
     @FXML
     private TextField athleteSearchInput;
     @FXML
     private ListView<Athlete> athleteResultsListView;
-
     @FXML
     private Label athleteIdLabel;
     @FXML
@@ -37,28 +43,30 @@ public class MainUI implements Initializable {
     private Label athleteHeightLabel;
     @FXML
     private Label athleteWeightLabel;
-
     @FXML
     private TableView<Participation> athleteAppearanceTable;
-
-
     @FXML
     private Button teamSearchButton;
     @FXML
     private TextField teamSearchInput;
     @FXML
     private ListView<Team> teamResultsListView;
-
     @FXML
     private Label teamTeamLabel;
     @FXML
     private Label teamNOCLabel;
-
     @FXML
     private ListView<String> teamAthleteList;
-
     @FXML
     private ListView<String> teamGameList;
+
+    public AthleteList getAthleteList() {
+        return athleteList;
+    }
+
+    public void setAthleteList(AthleteList athleteList) {
+        this.athleteList = athleteList;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -113,13 +121,13 @@ public class MainUI implements Initializable {
     public void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(Main.searchInTeamMap(teamSearchInput.getText(), Main.getTeamMap()));
+            initTeamListView(TeamList.searchInTeamMap(teamSearchInput.getText(), TeamList.getTeamMap()));
         });
 
         /* LIVE SEARCH*/
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(Main.searchInTeamMap(teamSearchInput.getText(), Main.getTeamMap()));
+            initTeamListView(TeamList.searchInTeamMap(teamSearchInput.getText(), TeamList.getTeamMap()));
         });
     }
 
@@ -142,7 +150,7 @@ public class MainUI implements Initializable {
     }
 
     public void initTeamListView() {
-        TreeMap<String, Team> teamMap = Main.getTeamMap();
+        TreeMap<String, Team> teamMap = TeamList.getTeamMap();
         initTeamListView(teamMap);
     }
 
@@ -171,9 +179,9 @@ public class MainUI implements Initializable {
         athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
         athleteNameLabel.setText(selectedAthlete.getName());
         athleteSexLabel.setText(selectedAthlete.getSex().equalsIgnoreCase("M") ? "Male" : "Female");
-        athleteAgeLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getAgeList()));
-        athleteHeightLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getHeightList()));
-        athleteWeightLabel.setText(Main.arrayToStringDisplay(selectedAthlete.getWeightList()));
+        athleteAgeLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
+        athleteHeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
+        athleteWeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
 
         fillAthleteAppearanceTable(selectedAthlete.getParticipationList());
     }
@@ -231,20 +239,20 @@ public class MainUI implements Initializable {
     }
 
     public void initAthleteListView() {
-        TreeMap<Integer, Athlete> athleteMap = Main.getAthleteMap();
+        TreeMap<Integer, Athlete> athleteMap = AthleteList.getAthleteMap();
         initAthleteListView(athleteMap);
     }
 
     public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(Main.searchInAthleteMap(athleteSearchInput.getText(), Main.getAthleteMap()));
+            initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
         });
 
         /* LIVE SEARCH
         athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(Main.searchInMap(athleteSearchInput.getText(), Main.getAthleteMap()));
+            initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
         });*/
     }
 }

@@ -1,4 +1,4 @@
-package sample;
+package sample.DatabaseConnection;
 
 public class DatabaseWriter extends DatabaseConnector {
     public DatabaseWriter(String filename) {

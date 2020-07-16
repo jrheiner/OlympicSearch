@@ -1,6 +1,6 @@
-package sample;
+package sample.DatabaseConnection;
 
-public class DatabaseConnector {
+public abstract class DatabaseConnector {
     private final String filename;
 
     public DatabaseConnector(String filename) {
