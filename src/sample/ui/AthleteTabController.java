@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MainUI {
+public class AthleteTabController {
 
 
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
@@ -30,7 +30,7 @@ public class MainUI {
     @FXML
     private TextField athleteSearchInput;
     @FXML
-    private ListView<Athlete> athleteResultsListView;
+    private ListView<Athlete> TESTTESTathleteResultsListView;
     @FXML
     private Label athleteIdLabel;
     @FXML
@@ -60,9 +60,6 @@ public class MainUI {
     @FXML
     private ListView<String> teamGameList;
 
-    @FXML
-    private subController subController;
-
     public ListReference getListReference() {
         return listReference;
     }
@@ -73,16 +70,11 @@ public class MainUI {
 
 
     public void initializeUI() {
-        //subController athleteTab = new subController();
-        //athleteTab.setListReference(listReference);
-        //athleteTab.initializeUI();
-        subController.setListReference(listReference);
-        subController.initializeUI();
-        subController.initAthleteTab();
-        initTeamTab();
+        initAthleteTab();
+        //initTeamTab();
     }
 
-    private void initTeamTab() {
+    public void initTeamTab() {
         initTeamListView();
         initTeamSearchHandler();
         initTeamListViewHandler();
@@ -161,7 +153,7 @@ public class MainUI {
         initTeamListView(teamMap);
     }
 
-    private void initAthleteTab() {
+    public void initAthleteTab() {
         initAthleteListView();
         initAthleteSearchHandler();
         initAthleteListViewHandler();
@@ -170,8 +162,8 @@ public class MainUI {
     }
 
     private void initAthleteListViewHandler() {
-        athleteResultsListView.setOnMouseClicked(event -> {
-            Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
+        TESTTESTathleteResultsListView.setOnMouseClicked(event -> {
+            Athlete selectedAthlete = TESTTESTathleteResultsListView.getSelectionModel().getSelectedItem();
             System.out.println("clicked on " + selectedAthlete);
             displayAthleteProfile(selectedAthlete);
 
@@ -179,7 +171,7 @@ public class MainUI {
     }
 
     private void initAthleteProfile() {
-        displayAthleteProfile(athleteResultsListView.getItems().get(0));
+        displayAthleteProfile(TESTTESTathleteResultsListView.getItems().get(0));
     }
 
     private void displayAthleteProfile(Athlete selectedAthlete) {
@@ -227,7 +219,7 @@ public class MainUI {
     }
 
     public void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
-        athleteResultsListView.setCellFactory(param -> new ListCell<>() {
+        TESTTESTathleteResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Athlete athlete, boolean empty) {
                 super.updateItem(athlete, empty);
@@ -238,7 +230,7 @@ public class MainUI {
                 }
             }
         });
-        athleteResultsListView.setItems(athletes);
+        TESTTESTathleteResultsListView.setItems(athletes);
         for (Map.Entry<Integer, Athlete> entry : resultMap.entrySet()) {
             athletes.add(entry.getValue());
         }
@@ -251,13 +243,13 @@ public class MainUI {
 
     public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
-            athleteResultsListView.getItems().clear();
+            TESTTESTathleteResultsListView.getItems().clear();
             initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });
 
         /* LIVE SEARCH
         athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            athleteResultsListView.getItems().clear();
+            TESTTESTathleteResultsListView.getItems().clear();
             initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
         });*/
     }

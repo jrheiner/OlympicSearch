@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class subController {
+public class MainController {
 
 
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
@@ -30,7 +30,7 @@ public class subController {
     @FXML
     private TextField athleteSearchInput;
     @FXML
-    private ListView<Athlete> TESTTESTathleteResultsListView;
+    private ListView<Athlete> athleteResultsListView;
     @FXML
     private Label athleteIdLabel;
     @FXML
@@ -60,6 +60,11 @@ public class subController {
     @FXML
     private ListView<String> teamGameList;
 
+    @FXML
+    private AthleteTabController AthleteTabController;
+    @FXML
+    private TeamTabController TeamTabController;
+
     public ListReference getListReference() {
         return listReference;
     }
@@ -70,11 +75,20 @@ public class subController {
 
 
     public void initializeUI() {
-        initAthleteTab();
+        //subController athleteTab = new subController();
+        //athleteTab.setListReference(listReference);
+        //athleteTab.initializeUI();
+        AthleteTabController.setListReference(listReference);
+        //AthleteTabController.initializeUI();
+        AthleteTabController.initAthleteTab();
+
+        TeamTabController.setListReference(listReference);
+        TeamTabController.initTeamTab();
+
         //initTeamTab();
     }
 
-    public void initTeamTab() {
+    private void initTeamTab() {
         initTeamListView();
         initTeamSearchHandler();
         initTeamListViewHandler();
@@ -153,7 +167,7 @@ public class subController {
         initTeamListView(teamMap);
     }
 
-    public void initAthleteTab() {
+    private void initAthleteTab() {
         initAthleteListView();
         initAthleteSearchHandler();
         initAthleteListViewHandler();
@@ -162,8 +176,8 @@ public class subController {
     }
 
     private void initAthleteListViewHandler() {
-        TESTTESTathleteResultsListView.setOnMouseClicked(event -> {
-            Athlete selectedAthlete = TESTTESTathleteResultsListView.getSelectionModel().getSelectedItem();
+        athleteResultsListView.setOnMouseClicked(event -> {
+            Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
             System.out.println("clicked on " + selectedAthlete);
             displayAthleteProfile(selectedAthlete);
 
@@ -171,7 +185,7 @@ public class subController {
     }
 
     private void initAthleteProfile() {
-        displayAthleteProfile(TESTTESTathleteResultsListView.getItems().get(0));
+        displayAthleteProfile(athleteResultsListView.getItems().get(0));
     }
 
     private void displayAthleteProfile(Athlete selectedAthlete) {
@@ -219,7 +233,7 @@ public class subController {
     }
 
     public void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
-        TESTTESTathleteResultsListView.setCellFactory(param -> new ListCell<>() {
+        athleteResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Athlete athlete, boolean empty) {
                 super.updateItem(athlete, empty);
@@ -230,7 +244,7 @@ public class subController {
                 }
             }
         });
-        TESTTESTathleteResultsListView.setItems(athletes);
+        athleteResultsListView.setItems(athletes);
         for (Map.Entry<Integer, Athlete> entry : resultMap.entrySet()) {
             athletes.add(entry.getValue());
         }
@@ -243,13 +257,13 @@ public class subController {
 
     public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
-            TESTTESTathleteResultsListView.getItems().clear();
+            athleteResultsListView.getItems().clear();
             initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });
 
         /* LIVE SEARCH
         athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            TESTTESTathleteResultsListView.getItems().clear();
+            athleteResultsListView.getItems().clear();
             initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
         });*/
     }
