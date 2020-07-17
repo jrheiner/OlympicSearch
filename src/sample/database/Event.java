@@ -1,26 +1,32 @@
 package sample.database;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Event {
 
     private String event;
-    private String sport;
-    private List<String> olympicGameList = new ArrayList<>();
+    private String discipline;
+    private ArrayList<String> olympicGameList = new ArrayList<>();
 
     public Event(String event, String sport, String olympicGame) {
         this.event = event;
-        this.sport = sport;
+        this.discipline = sport;
         this.olympicGameList.add(olympicGame);
     }
 
+    public String getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(String discipline) {
+        this.discipline = discipline;
+    }
 
     public void addOlympicGame(String olympicGame) {
         olympicGameList.add(olympicGame);
     }
 
-    public List<String> getOlympicGameList() {
+    public ArrayList<String> getOlympicGameList() {
         return olympicGameList;
     }
 
@@ -36,13 +42,6 @@ public class Event {
         this.event = event;
     }
 
-    public String getSport() {
-        return sport;
-    }
-
-    public void setSport(String sport) {
-        this.sport = sport;
-    }
 
 }
 

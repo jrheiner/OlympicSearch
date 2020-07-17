@@ -39,7 +39,7 @@ public class AthleteList {
 
         TreeMap<Integer, Athlete> results = new TreeMap<>();
         searchMap.forEach((id, athlete) -> {
-            if (athlete.getName().toUpperCase().startsWith(upperCaseTerm)) {
+            if (athlete.getName().toUpperCase().contains(upperCaseTerm)) {
                 results.put(id, athlete);
             }
         });

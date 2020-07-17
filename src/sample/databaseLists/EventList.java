@@ -3,6 +3,7 @@ package sample.databaseLists;
 import sample.database.Event;
 
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 public class EventList {
@@ -29,7 +30,7 @@ public class EventList {
 
         TreeMap<String, Event> results = new TreeMap<>();
         searchMap.forEach((id, event) -> {
-            if (event.getEvent().toUpperCase().startsWith(upperCaseTerm)) {
+            if (event.getEvent().toUpperCase().contains(upperCaseTerm)) {
                 results.put(id, event);
             }
         });
@@ -37,6 +38,12 @@ public class EventList {
         long endTime = System.nanoTime() - startTime;
         System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
         return results;
+    }
+
+    public TreeSet<String> getDisciplines() {
+        TreeSet<String> disciplineSet = new TreeSet<>();
+        EventMap.forEach((s, event) -> disciplineSet.add(event.getDiscipline()));
+        return disciplineSet;
     }
 
     public Event getEvent(String key) {

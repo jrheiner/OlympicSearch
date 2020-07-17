@@ -11,12 +11,13 @@
         <Tab text="Teams">
             <fx:include source="tabs/TeamTab.fxml" fx:id="TeamTab"/>
         </Tab>
-        <Tab text="Sports">
-            <fx:include source="tabs/SportTab.fxml" fx:id="SportTab"/>
-        </Tab>
         <Tab text="Events">
             <fx:include source="tabs/EventTab.fxml" fx:id="EventTab"/>
         </Tab>
+        <Tab text="Disciplines">
+            <fx:include source="tabs/DisciplineTab.fxml" fx:id="DisciplineTab"/>
+        </Tab>
+
         <Tab text="Olympic Games">
             <fx:include source="tabs/OlympicGameTab.fxml" fx:id="OlympicGameTab"/>
         </Tab>

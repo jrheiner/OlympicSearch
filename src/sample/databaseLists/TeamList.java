@@ -17,7 +17,7 @@ public class TeamList {
 
         TreeMap<String, Team> results = new TreeMap<>();
         searchMap.forEach((id, team) -> {
-            if (team.getTeam().toUpperCase().startsWith(upperCaseTerm)) {
+            if (team.getTeam().toUpperCase().contains(upperCaseTerm)) {
                 results.put(id, team);
             }
         });

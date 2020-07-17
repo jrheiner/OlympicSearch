@@ -30,7 +30,7 @@ public class AthleteTabController {
     @FXML
     private TextField athleteSearchInput;
     @FXML
-    private ListView<Athlete> TESTTESTathleteResultsListView;
+    private ListView<Athlete> athleteResultsListView;
     @FXML
     private Label athleteIdLabel;
     @FXML
@@ -162,8 +162,8 @@ public class AthleteTabController {
     }
 
     private void initAthleteListViewHandler() {
-        TESTTESTathleteResultsListView.setOnMouseClicked(event -> {
-            Athlete selectedAthlete = TESTTESTathleteResultsListView.getSelectionModel().getSelectedItem();
+        athleteResultsListView.setOnMouseClicked(event -> {
+            Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
             System.out.println("clicked on " + selectedAthlete);
             displayAthleteProfile(selectedAthlete);
 
@@ -171,7 +171,7 @@ public class AthleteTabController {
     }
 
     private void initAthleteProfile() {
-        displayAthleteProfile(TESTTESTathleteResultsListView.getItems().get(0));
+        displayAthleteProfile(athleteResultsListView.getItems().get(0));
     }
 
     private void displayAthleteProfile(Athlete selectedAthlete) {
@@ -219,7 +219,7 @@ public class AthleteTabController {
     }
 
     public void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
-        TESTTESTathleteResultsListView.setCellFactory(param -> new ListCell<>() {
+        athleteResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Athlete athlete, boolean empty) {
                 super.updateItem(athlete, empty);
@@ -230,7 +230,7 @@ public class AthleteTabController {
                 }
             }
         });
-        TESTTESTathleteResultsListView.setItems(athletes);
+        athleteResultsListView.setItems(athletes);
         for (Map.Entry<Integer, Athlete> entry : resultMap.entrySet()) {
             athletes.add(entry.getValue());
         }
@@ -243,14 +243,14 @@ public class AthleteTabController {
 
     public void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
-            TESTTESTathleteResultsListView.getItems().clear();
+            athleteResultsListView.getItems().clear();
             initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });
 
-        /* LIVE SEARCH
+/*
         athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            TESTTESTathleteResultsListView.getItems().clear();
-            initAthleteListView(AthleteList.searchAthlete(athleteSearchInput.getText(), AthleteList.getAthleteMap()));
+            athleteResultsListView.getItems().clear();
+            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });*/
     }
 }
