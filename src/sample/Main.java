@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
 
-    static ListReference listReference = new ListReference();
+    static final ListReference listReference = new ListReference();
     MainController mainController;
 
     public static void main(String[] args) {

@@ -12,7 +12,7 @@ public class ListUtility {
     }
 
     public static TreeSet<String> searchInSet(String term, Set<String> baseSet) {
-        TreeSet<String> resultSet = new TreeSet<String>();
+        TreeSet<String> resultSet = new TreeSet<>();
         baseSet.forEach(entry -> {
             if (entry.contains(term)) {
                 resultSet.add(entry);
