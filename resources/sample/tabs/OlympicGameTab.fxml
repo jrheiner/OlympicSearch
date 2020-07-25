@@ -110,7 +110,8 @@
                 </font>
             </Label>
         </GridPane>
-        <Label GridPane.columnSpan="2147483647">
+        <Label text="Game details"
+               GridPane.columnSpan="2147483647">
             <font>
                 <Font name="System Bold" size="24.0"/>
             </font>
