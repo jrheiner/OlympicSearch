@@ -59,9 +59,10 @@ public class OlympicGameTabController {
     private void initOlympicGameListViewHandler() {
         olympicGameResultsListView.setOnMouseClicked(event -> {
             OlympicGame selectedGame = olympicGameResultsListView.getSelectionModel().getSelectedItem();
-            System.out.println("clicked on " + selectedGame);
-            displayOlympicGameProfile(selectedGame);
-
+            if (selectedGame != null) {
+                System.out.println("clicked on " + selectedGame);
+                displayOlympicGameProfile(selectedGame);
+            }
         });
     }
 

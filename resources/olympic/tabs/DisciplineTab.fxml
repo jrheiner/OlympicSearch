@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="345.0" prefWidth="874.0" GridPane.rowIndex="1"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" GridPane.rowIndex="1"
           xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="olympic.ui.DisciplineTabController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="450.0"/>

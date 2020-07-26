@@ -1,4 +1,4 @@
 package olympic.ui;
 
-public class AddUI {
+public class Add {
 }

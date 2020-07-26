@@ -42,7 +42,9 @@ public class MainController {
 
         OlympicGameTabController.setListReference(listReference);
         OlympicGameTabController.initOlympicGameTab();
+    }
 
+    private void buildMenu() {
 
     }
 

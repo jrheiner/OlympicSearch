@@ -1,5 +1,6 @@
 package olympic.ui;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,9 +24,14 @@ public class EventTabController {
     @FXML
     private ListView<Event> eventResultsListView;
     @FXML
+    private Button eventAddButton;
+    @FXML
+    private Label eventResultCount;
+    @FXML
     private Label eventEventLabel;
     @FXML
     private Label eventDisciplineLabel;
+
     @FXML
     private ListView<String> eventOlympicGameList;
 
@@ -59,9 +65,10 @@ public class EventTabController {
     private void initEventListViewHandler() {
         eventResultsListView.setOnMouseClicked(event -> {
             Event selectedEvent = eventResultsListView.getSelectionModel().getSelectedItem();
-            System.out.println("clicked on " + selectedEvent);
-            displayEventProfile(selectedEvent);
-
+            if (selectedEvent != null) {
+                System.out.println("clicked on " + selectedEvent);
+                displayEventProfile(selectedEvent);
+            }
         });
     }
 
@@ -99,6 +106,8 @@ public class EventTabController {
     public void initEventListView() {
         TreeMap<String, Event> eventMap = listReference.getEventList().getEventMap();
         initEventListView(eventMap);
+        eventResultCount.textProperty().bind(Bindings.size((eventResultsListView.getItems())).asString());
+
     }
 
 

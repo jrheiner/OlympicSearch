@@ -83,9 +83,10 @@ public class TeamTabController {
     private void initTeamListViewHandler() {
         teamResultsListView.setOnMouseClicked(event -> {
             Team selectedTeam = teamResultsListView.getSelectionModel().getSelectedItem();
-            System.out.println("clicked on " + selectedTeam);
-            displayTeamProfile(selectedTeam);
-
+            if (selectedTeam != null) {
+                System.out.println("clicked on " + selectedTeam);
+                displayTeamProfile(selectedTeam);
+            }
         });
     }
 

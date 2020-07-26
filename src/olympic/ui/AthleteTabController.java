@@ -1,5 +1,6 @@
 package olympic.ui;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,10 @@ public class AthleteTabController {
     private TextField athleteSearchInput;
     @FXML
     private ListView<Athlete> athleteResultsListView;
+    @FXML
+    private Button athleteAddButton;
+    @FXML
+    private Label athleteResultCount;
     @FXML
     private Label athleteIdLabel;
     @FXML
@@ -66,9 +71,10 @@ public class AthleteTabController {
     private void initAthleteListViewHandler() {
         athleteResultsListView.setOnMouseClicked(event -> {
             Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
-            System.out.println("clicked on " + selectedAthlete);
-            displayAthleteProfile(selectedAthlete);
-
+            if (selectedAthlete != null) {
+                System.out.println("clicked on " + selectedAthlete);
+                displayAthleteProfile(selectedAthlete);
+            }
         });
     }
 
@@ -141,6 +147,8 @@ public class AthleteTabController {
     public void initAthleteListView() {
         TreeMap<Integer, Athlete> athleteMap = listReference.getAthleteList().getAthleteMap();
         initAthleteListView(athleteMap);
+        athleteResultCount.textProperty().bind(Bindings.size((athleteResultsListView.getItems())).asString());
+
     }
 
     public void initAthleteSearchHandler() {
