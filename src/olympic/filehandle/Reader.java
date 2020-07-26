@@ -1,6 +1,6 @@
 package olympic.filehandle;
 
-import olympic.databaseLists.ListReference;
+import olympic.list.ListReference;
 
 import java.io.*;
 import java.util.ArrayList;

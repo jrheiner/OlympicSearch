@@ -1,4 +1,4 @@
-package olympic.databaseLists;
+package olympic.list;
 
 import olympic.database.Event;
 

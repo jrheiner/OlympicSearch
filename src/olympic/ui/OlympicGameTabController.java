@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.OlympicGame;
-import olympic.databaseLists.ListReference;
+import olympic.list.ListReference;
 
 import java.util.ArrayList;
 import java.util.Collections;

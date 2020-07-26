@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.Athlete;
 import olympic.database.Team;
-import olympic.databaseLists.ListReference;
+import olympic.list.ListReference;
 
 import java.util.ArrayList;
 import java.util.Collections;

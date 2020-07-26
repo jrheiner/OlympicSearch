@@ -1,7 +1,7 @@
 package olympic.ui;
 
 import javafx.fxml.FXML;
-import olympic.databaseLists.ListReference;
+import olympic.list.ListReference;
 
 public class MainController {
 

@@ -5,8 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import olympic.databaseLists.ListReference;
 import olympic.filehandle.Reader;
+import olympic.list.ListReference;
 import olympic.ui.MainController;
 
 import java.util.concurrent.TimeUnit;

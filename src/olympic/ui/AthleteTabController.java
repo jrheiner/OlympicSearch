@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import olympic.database.Athlete;
 import olympic.database.Participation;
 import olympic.database.Team;
-import olympic.databaseLists.ListReference;
+import olympic.list.ListReference;
 import olympic.utility.ListUtility;
 
 import java.util.ArrayList;
