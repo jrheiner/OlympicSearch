@@ -44,8 +44,4 @@ public class MainController {
         OlympicGameTabController.initOlympicGameTab();
     }
 
-    private void buildMenu() {
-
-    }
-
 }
