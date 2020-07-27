@@ -55,8 +55,8 @@
         <GridPane GridPane.rowIndex="2">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="150.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -67,12 +67,29 @@
                         <Insets/>
                     </GridPane.margin>
                 </Label>
-                <Button fx:id="athleteAddButton" mnemonicParsing="false" text="Add new athlete" GridPane.columnIndex="2"
-                        GridPane.halignment="RIGHT">
-                    <GridPane.margin>
-                        <Insets right="15.0"/>
-                    </GridPane.margin>
-                </Button>
+                <GridPane GridPane.columnIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="75.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="50.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="athleteAddAthleteButton" mnemonicParsing="false" text="New athlete"
+                                GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                            <GridPane.margin>
+                                <Insets right="15.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="athleteAddParticipationButton" mnemonicParsing="false" text="New participation"
+                                GridPane.halignment="RIGHT">
+                            <GridPane.margin>
+                                <Insets right="5.0"/>
+                            </GridPane.margin>
+                        </Button>
+                    </children>
+                </GridPane>
                 <Label text="found" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                     <GridPane.margin>
                         <Insets left="5.0"/>

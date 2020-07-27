@@ -44,7 +44,7 @@ public class Main extends Application {
         mainController.initializeUI();
         mainStage.setTitle("Olympic Search");
         mainStage.setMinHeight(450);
-        mainStage.setMinWidth(700);
+        mainStage.setMinWidth(800);
         mainStage.setScene(new Scene(root, mainStage.getMinWidth(), mainStage.getMinHeight()));
         mainStage.show();
     }

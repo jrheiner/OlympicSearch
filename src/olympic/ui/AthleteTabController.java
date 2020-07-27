@@ -4,6 +4,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,7 +34,9 @@ public class AthleteTabController {
     @FXML
     private ListView<Athlete> athleteResultsListView;
     @FXML
-    private Button athleteAddButton;
+    private Button athleteAddAthleteButton;
+    @FXML
+    private Button athleteAddParticipationButton;
     @FXML
     private Label athleteResultCount;
     @FXML
@@ -49,8 +53,16 @@ public class AthleteTabController {
     private Label athleteWeightLabel;
     @FXML
     private TableView<Participation> athleteAppearanceTable;
-
     @FXML
+    private MainController mainController;
+
+    public MainController getMainController() {
+        return mainController;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     public ListReference getListReference() {
         return listReference;
@@ -66,7 +78,12 @@ public class AthleteTabController {
         initAthleteListViewHandler();
         initAthleteProfile();
         initAthleteAppearanceTable();
+
+        EventHandler<ActionEvent> openPopup = event -> mainController.openPopup(event);
+        athleteAddAthleteButton.setOnAction(openPopup);
+        athleteAddParticipationButton.setOnAction(openPopup);
     }
+
 
     private void initAthleteListViewHandler() {
         athleteResultsListView.setOnMouseClicked(event -> {

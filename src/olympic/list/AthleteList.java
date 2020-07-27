@@ -12,6 +12,10 @@ public class AthleteList {
     public AthleteList() {
     }
 
+    public Athlete getAthleteById(int id) {
+        return athleteMap.getOrDefault(id, null);
+    }
+
     public void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, Participation participation) {
         if (athleteMap.containsKey(id)) {
             Athlete currentAthlete = athleteMap.get(id);
