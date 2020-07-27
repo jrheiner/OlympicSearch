@@ -1,6 +1,7 @@
 package olympic.filehandle;
 
 import olympic.list.ListReference;
+import olympic.utility.ListUtility;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -52,7 +53,6 @@ public class Reader extends Connector {
     }
 
     private void parseSplitLine(ArrayList<String> splitLine) {
-
         // [ID, Name, Sex, Age, Height, Weight, Team, NOC, Games, Year, Season, City, Sport, Event, Medal]
         int id = Integer.parseInt(splitLine.get(0));
         String name = splitLine.get(1);
@@ -70,19 +70,9 @@ public class Reader extends Connector {
         String event = splitLine.get(13);
         String medal = splitLine.get(14);
 
-
-        listReference.getTeamList().addOrUpdate(team, noc, olympicGame, name);
-        listReference.getEventList().addOrUpdate(event, sport, olympicGame);
-        listReference.getOlympicGameList().addOrUpdate(olympicGame, city, year, season, event);
-
-        listReference.getAthleteList().addOrUpdate(id, name, age, sex, height, weight,
-                listReference.getAthleteList().createParticipation(
-                        listReference.getOlympicGameList().getOlympicGame(olympicGame),
-                        listReference.getTeamList().getTeam(team),
-                        listReference.getEventList().getEvent(event),
-                        medal));
-
+        ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
     }
+
 
     private int dataToInt(String data) {
         int dataInt;
@@ -103,5 +93,4 @@ public class Reader extends Connector {
         }
         return dataFloat;
     }
-
 }

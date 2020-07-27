@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import olympic.database.Athlete;
 import olympic.database.Participation;
-import olympic.database.Team;
 import olympic.list.ListReference;
 import olympic.utility.ListUtility;
 
@@ -21,12 +20,10 @@ import java.util.TreeMap;
 
 public class AthleteTabController {
 
-
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
-    private final ObservableList<Team> teams = FXCollections.observableArrayList();
-    private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
-    private final ObservableList<String> teamGames = FXCollections.observableArrayList();
-    ListReference listReference;
+    private ListReference listReference;
+    private MainController mainController;
+
     @FXML
     private Button athleteSearchButton;
     @FXML
@@ -53,8 +50,9 @@ public class AthleteTabController {
     private Label athleteWeightLabel;
     @FXML
     private TableView<Participation> athleteAppearanceTable;
+
     @FXML
-    private MainController mainController;
+
 
     public MainController getMainController() {
         return mainController;
@@ -84,6 +82,10 @@ public class AthleteTabController {
         athleteAddParticipationButton.setOnAction(openPopup);
     }
 
+    public void refreshAthleteListView() {
+        athleteResultsListView.getItems().clear();
+        initAthleteListView(listReference.getAthleteList().getAthleteMap());
+    }
 
     private void initAthleteListViewHandler() {
         athleteResultsListView.setOnMouseClicked(event -> {

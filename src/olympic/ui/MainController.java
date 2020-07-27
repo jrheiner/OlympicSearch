@@ -7,14 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;
+import olympic.filehandle.Writer;
 import olympic.list.ListReference;
+import olympic.utility.ListUtility;
 
 import java.io.IOException;
 
 public class MainController {
 
     ListReference listReference;
-
+    Writer fileWriter;
     @FXML
     private AthleteTabController AthleteTabController;
     @FXML
@@ -26,6 +28,14 @@ public class MainController {
     @FXML
     private DisciplineTabController DisciplineTabController;
 
+    public Writer getFileWriter() {
+        return fileWriter;
+    }
+
+    public void setFileWriter(Writer fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
     public ListReference getListReference() {
         return listReference;
     }
@@ -33,7 +43,6 @@ public class MainController {
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
-
 
     public void initializeUI() {
         AthleteTabController.setListReference(listReference);
@@ -61,6 +70,7 @@ public class MainController {
             root = loader.load();
             addController = loader.getController();
             addController.setListReference(listReference);
+            addController.setMainController(this);
             Stage stage = new Stage();
             if (((Control) event.getSource()).getId().equals("athleteAddAthleteButton")) {
                 stage.setTitle("Add new athlete");
@@ -78,4 +88,16 @@ public class MainController {
         }
     }
 
+    public void saveLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
+        ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
+        fileWriter.save(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal);
+    }
+
+    public void refreshListViews() {
+        AthleteTabController.refreshAthleteListView();
+        TeamTabController.refreshTeamListView();
+        EventTabController.refreshEventListView();
+        DisciplineTabController.refreshDisciplineListView();
+        OlympicGameTabController.refreshOlympicGameListView();
+    }
 }

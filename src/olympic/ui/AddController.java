@@ -9,13 +9,13 @@ import olympic.database.Athlete;
 import olympic.list.ListReference;
 import olympic.utility.ListUtility;
 
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class AddController {
     ListReference listReference;
-    Boolean isNewAthlete = false;
-    Boolean isValid = false;
+    private Boolean isNewAthlete = false;
+    private Boolean isValid = false;
+    private MainController mainController;
     @FXML
     private Label addTitle;
     @FXML
@@ -53,29 +53,35 @@ public class AddController {
     @FXML
     private ComboBox<String> addMedal;
 
+    public MainController getMainController() {
+        return mainController;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
     public void initAddForm() {
         adjustFormMode(isNewAthlete);
         initDropdowns();
         addYear.textProperty().addListener((observable, oldValue, newValue) -> {
-            addOlympicGame.setText(addSeason.getText() + " " + addYear.getText());
+            addOlympicGame.setText(addYear.getText() + " " + addSeason.getText());
         });
         addSeason.textProperty().addListener((observable, oldValue, newValue) -> {
-            addOlympicGame.setText(addSeason.getText() + " " + addYear.getText());
+            addOlympicGame.setText(addYear.getText() + " " + addSeason.getText());
         });
         addSave.setOnAction(event -> submitForm());
         addCancel.setOnAction(event -> addCancel.getScene().getWindow().hide());
     }
 
     private void submitForm() {
-
-
+        addSave.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            // [ID, Name, Sex, Age, Height, Weight, Team, NOC, Games, Year, Season, City, Sport, Event, Medal]
-            ArrayList<String> formData = new ArrayList<>();
-            // add all fields to array
-            formData.add(String.valueOf(addId));
-
-            //pass formData to filehandle Writer
+            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText()), Integer.parseInt(addHeight.getText()), Float.parseFloat(addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getText(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
+            addSave.getScene().getWindow().hide();
+            mainController.refreshListViews();
+        } else {
+            addSave.setDisable(false);
         }
     }
 
@@ -129,6 +135,7 @@ public class AddController {
                 cityValidity && disciplineValidity &&
                 eventValidity && medalValidity);
         System.out.println(isValid);
+        // TODO display alert with invalid fields
         return isValid;
     }
 

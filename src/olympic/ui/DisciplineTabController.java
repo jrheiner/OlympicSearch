@@ -60,4 +60,9 @@ public class DisciplineTabController {
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
+
+    public void refreshDisciplineListView() {
+        disciplineResultsListView.getItems().clear();
+        initDisciplineListView();
+    }
 }

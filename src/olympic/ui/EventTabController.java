@@ -112,4 +112,9 @@ public class EventTabController {
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
+
+    public void refreshEventListView() {
+        eventResultsListView.getItems().clear();
+        initEventListView();
+    }
 }

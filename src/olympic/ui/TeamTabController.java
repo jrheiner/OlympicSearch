@@ -125,4 +125,9 @@ public class TeamTabController {
         TreeMap<String, Team> teamMap = listReference.getTeamList().getTeamMap();
         initTeamListView(teamMap);
     }
+
+    public void refreshTeamListView() {
+        teamResultsListView.getItems().clear();
+        initTeamListView();
+    }
 }
