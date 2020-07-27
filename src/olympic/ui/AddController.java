@@ -15,6 +15,7 @@ public class AddController {
     ListReference listReference;
     private Boolean isNewAthlete = false;
     private Boolean isValid = false;
+    private Boolean validationHandler = false;
     private MainController mainController;
     @FXML
     private Label addTitle;
@@ -64,6 +65,10 @@ public class AddController {
     public void initAddForm() {
         adjustFormMode(isNewAthlete);
         initDropdowns();
+        initEventHandler();
+    }
+
+    private void initEventHandler() {
         addYear.textProperty().addListener((observable, oldValue, newValue) -> {
             addOlympicGame.setText(addYear.getText() + " " + addSeason.getText());
         });
@@ -89,54 +94,75 @@ public class AddController {
         final Pattern stringPattern = Pattern.compile("\\S.*");
         final Pattern integerPattern = Pattern.compile("[0-9]+");
         final Pattern floatPattern = Pattern.compile("([0-9]*[.])?[0-9]+");
-        boolean idValidity;
-        boolean nameValidity;
-        boolean sexValidity;
-        boolean ageValidity;
-        boolean heightValidity;
-        boolean weightValidity;
-        boolean teamValidity;
-        boolean nocValidity;
-        boolean yearValidity;
-        boolean seasonValidity;
-        boolean cityValidity;
-        boolean disciplineValidity;
-        boolean eventValidity;
-        boolean medalValidity;
-        if (isNewAthlete) {
-            idValidity = true;
-            nameValidity = stringPattern.matcher(addName.getText()).matches();
-            sexValidity = (addSex.getSelectionModel().getSelectedIndex() > -1);
-            ageValidity = integerPattern.matcher(addAge.getText()).matches();
-            heightValidity = integerPattern.matcher(addHeight.getText()).matches();
-            weightValidity = floatPattern.matcher(addWeight.getText()).matches();
-        } else {
-            idValidity = integerPattern.matcher(addId.getText()).matches();
-            nameValidity = !(addName.getText().equals(""));
-            sexValidity = true;
-            ageValidity = true;
-            heightValidity = true;
-            weightValidity = true;
-        }
-        teamValidity = stringPattern.matcher(addTeam.getText()).matches();
-        nocValidity = stringPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
-        yearValidity = integerPattern.matcher(addYear.getText()).matches();
-        seasonValidity = stringPattern.matcher(addSeason.getText()).matches();
-        cityValidity = stringPattern.matcher(addCity.getText()).matches();
-        disciplineValidity = stringPattern.matcher(addDiscipline.getText()).matches();
-        eventValidity = stringPattern.matcher(addEvent.getText()).matches();
-        medalValidity = (addMedal.getSelectionModel().getSelectedIndex() > -1);
+        boolean[] validity = new boolean[12];
+        TextField[] textFields = {addId, addName, addAge, addHeight, addWeight, addTeam, addNOC, addYear, addSeason, addCity, addDiscipline, addEvent};
 
-        isValid = (idValidity && nameValidity &&
-                sexValidity && ageValidity &&
-                heightValidity && weightValidity &&
-                teamValidity && nocValidity &&
-                yearValidity && seasonValidity &&
-                cityValidity && disciplineValidity &&
-                eventValidity && medalValidity);
-        System.out.println(isValid);
-        // TODO display alert with invalid fields
+        if (isNewAthlete) {
+            validity[0] = true;
+            validity[1] = stringPattern.matcher(addName.getText()).matches();
+            if (addSex.getSelectionModel().getSelectedIndex() == -1) {
+                addSex.setStyle("-fx-border-color: red");
+            } else {
+                addSex.setStyle("-fx-border-color: green");
+            }
+            validity[2] = integerPattern.matcher(addAge.getText()).matches();
+            validity[3] = integerPattern.matcher(addHeight.getText()).matches();
+            validity[4] = floatPattern.matcher(addWeight.getText()).matches();
+        } else {
+            validity[0] = integerPattern.matcher(addId.getText()).matches();
+            validity[1] = !(addName.getText().equals(""));
+            validity[2] = true;
+            validity[3] = true;
+            validity[4] = true;
+        }
+        validity[5] = stringPattern.matcher(addTeam.getText()).matches();
+        validity[6] = stringPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
+        validity[7] = integerPattern.matcher(addYear.getText()).matches();
+        validity[8] = stringPattern.matcher(addSeason.getText()).matches();
+        validity[9] = stringPattern.matcher(addCity.getText()).matches();
+        validity[10] = stringPattern.matcher(addDiscipline.getText()).matches();
+        validity[11] = stringPattern.matcher(addEvent.getText()).matches();
+
+        if (addMedal.getSelectionModel().getSelectedIndex() == -1) {
+            addMedal.setStyle("-fx-border-color: red");
+        } else {
+            addMedal.setStyle("-fx-border-color: green");
+        }
+        int invalidFields = 0;
+        for (int i = 0; i < validity.length; i++) {
+            if (!validity[i]) {
+                invalidFields++;
+                textFields[i].setStyle("-fx-border-color: red");
+            } else {
+                textFields[i].setStyle("-fx-border-color: green");
+            }
+        }
+        addValidationHandler(isNewAthlete, textFields);
+        isValid = invalidFields == 0;
         return isValid;
+    }
+
+    private void addValidationHandler(Boolean isNewAthlete, TextField[] textFields) {
+        if (!validationHandler) {
+            for (TextField field : textFields) {
+                field.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!oldValue.equals(newValue)) {
+                        checkValidity(isNewAthlete);
+                    }
+                });
+            }
+            addSex.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.equals("")) {
+                    checkValidity(isNewAthlete);
+                }
+            });
+            addMedal.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.equals("")) {
+                    checkValidity(isNewAthlete);
+                }
+            });
+            validationHandler = true;
+        }
     }
 
     private void initDropdowns() {
@@ -188,7 +214,6 @@ public class AddController {
             addHeight.setText("");
             addWeight.setText("");
         }
-
     }
 
     public Boolean getIsNewAthlete() {
