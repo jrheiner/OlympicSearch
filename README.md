@@ -2,6 +2,7 @@
 
 ## TODO
 
+### add validity popup (change boolean to arraylist, loop through mark invalid)
 
 * Maybe MainController as Interface/Abstract Class?
 1. Add "add new function" popup / ui

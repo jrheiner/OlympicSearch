@@ -1,12 +1,16 @@
 package olympic.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import olympic.database.Athlete;
 import olympic.list.ListReference;
 import olympic.utility.ListUtility;
+
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class AddController {
     ListReference listReference;
@@ -39,13 +43,93 @@ public class AddController {
     @FXML
     private TextField addCity;
     @FXML
+    private TextField addDiscipline;
+    @FXML
     private TextField addEvent;
+    @FXML
+    private Button addSave;
+    @FXML
+    private Button addCancel;
     @FXML
     private ComboBox<String> addMedal;
 
     public void initAddForm() {
         adjustFormMode(isNewAthlete);
         initDropdowns();
+        addYear.textProperty().addListener((observable, oldValue, newValue) -> {
+            addOlympicGame.setText(addSeason.getText() + " " + addYear.getText());
+        });
+        addSeason.textProperty().addListener((observable, oldValue, newValue) -> {
+            addOlympicGame.setText(addSeason.getText() + " " + addYear.getText());
+        });
+        addSave.setOnAction(event -> submitForm());
+        addCancel.setOnAction(event -> addCancel.getScene().getWindow().hide());
+    }
+
+    private void submitForm() {
+
+
+        if (checkValidity(isNewAthlete)) {
+            // [ID, Name, Sex, Age, Height, Weight, Team, NOC, Games, Year, Season, City, Sport, Event, Medal]
+            ArrayList<String> formData = new ArrayList<>();
+            // add all fields to array
+            formData.add(String.valueOf(addId));
+
+            //pass formData to filehandle Writer
+        }
+    }
+
+    private boolean checkValidity(Boolean isNewAthlete) {
+        final Pattern stringPattern = Pattern.compile("\\S.*");
+        final Pattern integerPattern = Pattern.compile("[0-9]+");
+        final Pattern floatPattern = Pattern.compile("([0-9]*[.])?[0-9]+");
+        boolean idValidity;
+        boolean nameValidity;
+        boolean sexValidity;
+        boolean ageValidity;
+        boolean heightValidity;
+        boolean weightValidity;
+        boolean teamValidity;
+        boolean nocValidity;
+        boolean yearValidity;
+        boolean seasonValidity;
+        boolean cityValidity;
+        boolean disciplineValidity;
+        boolean eventValidity;
+        boolean medalValidity;
+        if (isNewAthlete) {
+            idValidity = true;
+            nameValidity = stringPattern.matcher(addName.getText()).matches();
+            sexValidity = (addSex.getSelectionModel().getSelectedIndex() > -1);
+            ageValidity = integerPattern.matcher(addAge.getText()).matches();
+            heightValidity = integerPattern.matcher(addHeight.getText()).matches();
+            weightValidity = floatPattern.matcher(addWeight.getText()).matches();
+        } else {
+            idValidity = integerPattern.matcher(addId.getText()).matches();
+            nameValidity = !(addName.getText().equals(""));
+            sexValidity = true;
+            ageValidity = true;
+            heightValidity = true;
+            weightValidity = true;
+        }
+        teamValidity = stringPattern.matcher(addTeam.getText()).matches();
+        nocValidity = stringPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
+        yearValidity = integerPattern.matcher(addYear.getText()).matches();
+        seasonValidity = stringPattern.matcher(addSeason.getText()).matches();
+        cityValidity = stringPattern.matcher(addCity.getText()).matches();
+        disciplineValidity = stringPattern.matcher(addDiscipline.getText()).matches();
+        eventValidity = stringPattern.matcher(addEvent.getText()).matches();
+        medalValidity = (addMedal.getSelectionModel().getSelectedIndex() > -1);
+
+        isValid = (idValidity && nameValidity &&
+                sexValidity && ageValidity &&
+                heightValidity && weightValidity &&
+                teamValidity && nocValidity &&
+                yearValidity && seasonValidity &&
+                cityValidity && disciplineValidity &&
+                eventValidity && medalValidity);
+        System.out.println(isValid);
+        return isValid;
     }
 
     private void initDropdowns() {
@@ -61,10 +145,14 @@ public class AddController {
             addId.setDisable(true);
         } else {
             addId.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (!newValue.equals("")) {
-                    fillAthleteData(Integer.parseInt(newValue));
-                } else {
-                    fillAthleteData(0);
+                try {
+                    if (!newValue.equals("")) {
+                        fillAthleteData(Integer.parseInt(newValue));
+                    } else {
+                        fillAthleteData(0);
+                    }
+                } catch (java.lang.NumberFormatException e) {
+                    isValid = false;
                 }
             });
             addTitle.setText("New participation");

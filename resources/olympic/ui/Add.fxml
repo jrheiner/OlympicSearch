@@ -199,8 +199,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button mnemonicParsing="false" text="Save" GridPane.halignment="CENTER"/>
-                <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
+                <Button fx:id="addSave" mnemonicParsing="false" text="Save" GridPane.halignment="CENTER"/>
+                <Button fx:id="addCancel" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1"
+                        GridPane.halignment="CENTER"/>
             </children>
         </GridPane>
     </children>
