@@ -68,6 +68,26 @@ public class AddController {
     }
 
     private void initEventHandler() {
+        addId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                addId.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        addAge.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                addAge.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        addHeight.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                addHeight.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        addWeight.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("([0-9]*[.])?[0-9]*")) {
+                addWeight.setText(newValue.replaceAll("[^0-9.]+", ""));
+            }
+        });
         addYear.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 addYear.setText(newValue.replaceAll("[^\\d]", ""));
@@ -133,7 +153,6 @@ public class AddController {
         validity[5] = stringPattern.matcher(addTeam.getText()).matches();
         validity[6] = nocPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
         validity[7] = integerPattern.matcher(addYear.getText()).matches();
-        //validity[8] = stringPattern.matcher(addSeason.getText()).matches();
         if (addSeason.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
             addSeason.setStyle("-fx-border-color: red");
