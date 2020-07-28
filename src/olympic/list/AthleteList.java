@@ -19,13 +19,13 @@ public class AthleteList {
     public void addOrUpdate(Integer id, String name, Integer age, String sex, Integer height, Float weight, Participation participation) {
         if (athleteMap.containsKey(id)) {
             Athlete currentAthlete = athleteMap.get(id);
-            if (!currentAthlete.getAgeList().contains(age)) {
+            if (!currentAthlete.getAgeList().contains(age) && (age > 0)) {
                 currentAthlete.addAge(age);
             }
-            if (!currentAthlete.getHeightList().contains(height)) {
+            if (!currentAthlete.getHeightList().contains(height) && (age > 0)) {
                 currentAthlete.addHeight(height);
             }
-            if (!currentAthlete.getWeightList().contains(weight)) {
+            if (!currentAthlete.getWeightList().contains(weight) && (age > 0)) {
                 currentAthlete.addWeight(weight);
             }
             if (!currentAthlete.getParticipationList().contains(participation)) {

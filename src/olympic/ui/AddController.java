@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import olympic.database.Athlete;
 import olympic.list.ListReference;
-import olympic.utility.ListUtility;
 
 import java.util.regex.Pattern;
 
@@ -82,7 +81,7 @@ public class AddController {
     private void submitForm() {
         addSave.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText()), Integer.parseInt(addHeight.getText()), Float.parseFloat(addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getText(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
+            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getText(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
             addSave.getScene().getWindow().hide();
             mainController.refreshListViews();
         } else {
@@ -94,6 +93,7 @@ public class AddController {
         final Pattern stringPattern = Pattern.compile("\\S.*");
         final Pattern integerPattern = Pattern.compile("[0-9]+");
         final Pattern floatPattern = Pattern.compile("([0-9]*[.])?[0-9]+");
+        int invalidFields = 0;
         boolean[] validity = new boolean[12];
         TextField[] textFields = {addId, addName, addAge, addHeight, addWeight, addTeam, addNOC, addYear, addSeason, addCity, addDiscipline, addEvent};
 
@@ -101,6 +101,7 @@ public class AddController {
             validity[0] = true;
             validity[1] = stringPattern.matcher(addName.getText()).matches();
             if (addSex.getSelectionModel().getSelectedIndex() == -1) {
+                invalidFields++;
                 addSex.setStyle("-fx-border-color: red");
             } else {
                 addSex.setStyle("-fx-border-color: green");
@@ -109,8 +110,8 @@ public class AddController {
             validity[3] = integerPattern.matcher(addHeight.getText()).matches();
             validity[4] = floatPattern.matcher(addWeight.getText()).matches();
         } else {
-            validity[0] = integerPattern.matcher(addId.getText()).matches();
-            validity[1] = !(addName.getText().equals(""));
+            validity[0] = integerPattern.matcher(addId.getText()).matches() && !(addName.getText().equals(""));
+            validity[1] = true;
             validity[2] = true;
             validity[3] = true;
             validity[4] = true;
@@ -124,11 +125,11 @@ public class AddController {
         validity[11] = stringPattern.matcher(addEvent.getText()).matches();
 
         if (addMedal.getSelectionModel().getSelectedIndex() == -1) {
+            invalidFields++;
             addMedal.setStyle("-fx-border-color: red");
         } else {
             addMedal.setStyle("-fx-border-color: green");
         }
-        int invalidFields = 0;
         for (int i = 0; i < validity.length; i++) {
             if (!validity[i]) {
                 invalidFields++;
@@ -203,17 +204,14 @@ public class AddController {
         if (selectedAthlete != null) {
             addName.setText(selectedAthlete.getName());
             addSex.getSelectionModel().select(selectedAthlete.getSex());
-            addAge.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
-            addHeight.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
-            addWeight.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
         } else {
             isValid = false;
             addName.setText("");
             addSex.getSelectionModel().select("");
-            addAge.setText("");
-            addHeight.setText("");
-            addWeight.setText("");
         }
+        addAge.setText("");
+        addHeight.setText("");
+        addWeight.setText("");
     }
 
     public Boolean getIsNewAthlete() {

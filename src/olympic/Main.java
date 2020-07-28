@@ -33,8 +33,7 @@ public class Main extends Application {
         long endTime = System.nanoTime() - startTime;
         System.out.printf("Reading data took %d ms\n", TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
 
-        fileWriter = new Writer(Main.class.getResourceAsStream(filename));
-
+        fileWriter = new Writer("resources/olympic/" + filename);
 
         launch(args);
 
