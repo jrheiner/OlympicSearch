@@ -77,9 +77,7 @@ public class AddController {
             }
             addOlympicGame.setText(addYear.getText() + " " + (addSeason.getValue() == null ? "" : addSeason.getValue()));
         });
-        addSeason.valueProperty().addListener((observable, oldValue, newValue) -> {
-            addOlympicGame.setText(addYear.getText() + " " + addSeason.getValue());
-        });
+        addSeason.valueProperty().addListener((observable, oldValue, newValue) -> addOlympicGame.setText(addYear.getText() + " " + addSeason.getValue()));
         addNOC.textProperty().addListener((observable, oldValue, newValue) -> {
             addNOC.setText(newValue.toUpperCase());
             if (!newValue.toUpperCase().matches("[A-Z]+")) {
