@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="494.0" prefWidth="661.0" vgap="5.0"
           xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="olympic.ui.AddController">
     <columnConstraints>
@@ -160,11 +161,12 @@
                 <Insets left="10.0" right="10.0"/>
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="addSeason" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+        <ComboBox fx:id="addSeason" prefWidth="150.0" promptText="Select season" GridPane.columnIndex="1"
+                  GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
             <GridPane.margin>
-                <Insets left="10.0" right="10.0"/>
+                <Insets left="10.0"/>
             </GridPane.margin>
-        </TextField>
+        </ComboBox>
         <TextField fx:id="addOlympicGame" disable="true" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0"/>

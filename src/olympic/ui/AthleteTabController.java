@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import olympic.database.Athlete;
 import olympic.database.Participation;
 import olympic.list.ListReference;
@@ -112,25 +111,25 @@ public class AthleteTabController {
 
     public void initAthleteAppearanceTable() {
         TableColumn<Participation, String> olympicGameTableColumn = new TableColumn<>("Game");
-        olympicGameTableColumn.setCellValueFactory(new PropertyValueFactory<>("olympicGame"));
+        //olympicGameTableColumn.setCellValueFactory(new PropertyValueFactory<>("olympicGame"));
         olympicGameTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getOlympicGame().getGame()));
         olympicGameTableColumn.setMinWidth(80);
         olympicGameTableColumn.setMaxWidth(100);
 
         TableColumn<Participation, String> teamTableColumn = new TableColumn<>("Team");
-        teamTableColumn.setCellValueFactory(new PropertyValueFactory<>("team"));
+        //teamTableColumn.setCellValueFactory(new PropertyValueFactory<>("team"));
         teamTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getTeam().getTeam()));
         teamTableColumn.setMinWidth(75);
         teamTableColumn.setMaxWidth(150);
 
         TableColumn<Participation, String> eventTableColumn = new TableColumn<>("Event");
-        eventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
+        //eventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
         eventTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getEvent().getEvent()));
         eventTableColumn.setMinWidth(150);
         eventTableColumn.setMaxWidth(300);
 
         TableColumn<Participation, String> medalTableColumn = new TableColumn<>("Medal");
-        medalTableColumn.setCellValueFactory(new PropertyValueFactory<>("medal"));
+        //medalTableColumn.setCellValueFactory(new PropertyValueFactory<>("medal"));
         medalTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getMedal().equalsIgnoreCase("NA") ? "-" : param.getValue().getMedal()));
         medalTableColumn.setMinWidth(50);
         medalTableColumn.setMaxWidth(100);

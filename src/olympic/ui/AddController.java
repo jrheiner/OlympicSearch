@@ -37,7 +37,7 @@ public class AddController {
     @FXML
     private TextField addYear;
     @FXML
-    private TextField addSeason;
+    private ComboBox<String> addSeason;
     @FXML
     private TextField addOlympicGame;
     @FXML
@@ -69,10 +69,22 @@ public class AddController {
 
     private void initEventHandler() {
         addYear.textProperty().addListener((observable, oldValue, newValue) -> {
-            addOlympicGame.setText(addYear.getText() + " " + addSeason.getText());
+            if (!newValue.matches("\\d*")) {
+                addYear.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            if (newValue.length() == 5) {
+                addYear.setText(oldValue);
+            }
+            addOlympicGame.setText(addYear.getText() + " " + (addSeason.getValue() == null ? "" : addSeason.getValue()));
         });
-        addSeason.textProperty().addListener((observable, oldValue, newValue) -> {
-            addOlympicGame.setText(addYear.getText() + " " + addSeason.getText());
+        addSeason.valueProperty().addListener((observable, oldValue, newValue) -> {
+            addOlympicGame.setText(addYear.getText() + " " + addSeason.getValue());
+        });
+        addNOC.textProperty().addListener((observable, oldValue, newValue) -> {
+            addNOC.setText(newValue.toUpperCase());
+            if (newValue.length() == 4) {
+                addNOC.setText(oldValue.toUpperCase());
+            }
         });
         addSave.setOnAction(event -> submitForm());
         addCancel.setOnAction(event -> addCancel.getScene().getWindow().hide());
@@ -81,7 +93,7 @@ public class AddController {
     private void submitForm() {
         addSave.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getText(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
+            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getValue(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
             addSave.getScene().getWindow().hide();
             mainController.refreshListViews();
         } else {
@@ -91,11 +103,12 @@ public class AddController {
 
     private boolean checkValidity(Boolean isNewAthlete) {
         final Pattern stringPattern = Pattern.compile("\\S.*");
+        final Pattern nocPattern = Pattern.compile("[A-Z]+");
         final Pattern integerPattern = Pattern.compile("[0-9]+");
         final Pattern floatPattern = Pattern.compile("([0-9]*[.])?[0-9]+");
         int invalidFields = 0;
-        boolean[] validity = new boolean[12];
-        TextField[] textFields = {addId, addName, addAge, addHeight, addWeight, addTeam, addNOC, addYear, addSeason, addCity, addDiscipline, addEvent};
+        boolean[] validity = new boolean[11];
+        TextField[] textFields = {addId, addName, addAge, addHeight, addWeight, addTeam, addNOC, addYear, addCity, addDiscipline, addEvent};
 
         if (isNewAthlete) {
             validity[0] = true;
@@ -117,12 +130,18 @@ public class AddController {
             validity[4] = true;
         }
         validity[5] = stringPattern.matcher(addTeam.getText()).matches();
-        validity[6] = stringPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
+        validity[6] = nocPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
         validity[7] = integerPattern.matcher(addYear.getText()).matches();
-        validity[8] = stringPattern.matcher(addSeason.getText()).matches();
-        validity[9] = stringPattern.matcher(addCity.getText()).matches();
-        validity[10] = stringPattern.matcher(addDiscipline.getText()).matches();
-        validity[11] = stringPattern.matcher(addEvent.getText()).matches();
+        //validity[8] = stringPattern.matcher(addSeason.getText()).matches();
+        if (addSeason.getSelectionModel().getSelectedIndex() == -1) {
+            invalidFields++;
+            addSeason.setStyle("-fx-border-color: red");
+        } else {
+            addSeason.setStyle("-fx-border-color: green");
+        }
+        validity[8] = stringPattern.matcher(addCity.getText()).matches();
+        validity[9] = stringPattern.matcher(addDiscipline.getText()).matches();
+        validity[10] = stringPattern.matcher(addEvent.getText()).matches();
 
         if (addMedal.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
@@ -162,6 +181,11 @@ public class AddController {
                     checkValidity(isNewAthlete);
                 }
             });
+            addSeason.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.equals("")) {
+                    checkValidity(isNewAthlete);
+                }
+            });
             validationHandler = true;
         }
     }
@@ -169,6 +193,7 @@ public class AddController {
     private void initDropdowns() {
         addSex.getItems().addAll("M", "F");
         addMedal.getItems().addAll("Gold", "Silver", "Bronze", "NA");
+        addSeason.getItems().addAll("Summer", "Winter");
     }
 
     private void adjustFormMode(Boolean isNewAthlete) {
