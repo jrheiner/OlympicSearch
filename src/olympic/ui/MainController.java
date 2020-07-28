@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import olympic.filehandle.Writer;
 import olympic.list.ListReference;
@@ -71,17 +72,18 @@ public class MainController {
             addController = loader.getController();
             addController.setListReference(listReference);
             addController.setMainController(this);
-            Stage stage = new Stage();
+            Stage addStage = new Stage();
             if (((Control) event.getSource()).getId().equals("athleteAddAthleteButton")) {
-                stage.setTitle("Add new athlete");
+                addStage.setTitle("Add new athlete");
                 addController.setIsNewAthlete(true);
             } else {
-                stage.setTitle("Add new participation");
+                addStage.setTitle("Add new participation");
             }
             addController.initAddForm();
-            stage.setScene(new Scene(root, 660, 490));
-            stage.setResizable(false);
-            stage.show();
+            addStage.setScene(new Scene(root, 660, 490));
+            addStage.setResizable(false);
+            addStage.initModality(Modality.APPLICATION_MODAL);
+            addStage.showAndWait();
             System.out.println(((Control) event.getSource()).getId());
         } catch (IOException e) {
             e.printStackTrace();
