@@ -82,6 +82,9 @@ public class AddController {
         });
         addNOC.textProperty().addListener((observable, oldValue, newValue) -> {
             addNOC.setText(newValue.toUpperCase());
+            if (!newValue.toUpperCase().matches("[A-Z]+")) {
+                addNOC.setText(newValue.replaceAll("[^A-Z]+", ""));
+            }
             if (newValue.length() == 4) {
                 addNOC.setText(oldValue.toUpperCase());
             }
