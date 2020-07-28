@@ -48,7 +48,7 @@ public class Main extends Application {
         mainController.setFileWriter(fileWriter);
         mainController.initializeUI();
         mainStage.setTitle("Olympic Search");
-        mainStage.setMinHeight(450);
+        mainStage.setMinHeight(500);
         mainStage.setMinWidth(800);
         mainStage.setScene(new Scene(root, mainStage.getMinWidth(), mainStage.getMinHeight()));
         mainStage.show();

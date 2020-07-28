@@ -51,8 +51,6 @@ public class AthleteTabController {
     @FXML
     private TableView<Participation> athleteAppearanceTable;
 
-    @FXML
-
 
     public MainController getMainController() {
         return mainController;

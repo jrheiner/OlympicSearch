@@ -26,7 +26,6 @@ public class EventTabController {
     private Label eventEventLabel;
     @FXML
     private Label eventDisciplineLabel;
-
     @FXML
     private ListView<String> eventOlympicGameList;
 
@@ -46,7 +45,6 @@ public class EventTabController {
         eventDisciplineLabel.setText(selectedEvent.getDiscipline());
 
         fillEventGameList(selectedEvent.getOlympicGameList());
-
     }
 
     private void fillEventGameList(ArrayList<String> games) {
