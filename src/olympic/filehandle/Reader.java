@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Reader extends Connector {
-    ListReference listReference;
+    private ListReference listReference;
 
     public Reader(InputStream fileStream) {
         super(fileStream);

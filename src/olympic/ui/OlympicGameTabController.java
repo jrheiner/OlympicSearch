@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class OlympicGameTabController {
     private final ObservableList<OlympicGame> olympicGames = FXCollections.observableArrayList();
     private final ObservableList<String> olympicGamesEvents = FXCollections.observableArrayList();
-    ListReference listReference;
+    private ListReference listReference;
     @FXML
     private Button olympicGameSearchButton;
     @FXML
@@ -66,7 +66,7 @@ public class OlympicGameTabController {
         });
     }
 
-    public void initOlympicGameSearchHandler() {
+    private void initOlympicGameSearchHandler() {
         olympicGameSearchButton.setOnAction(event -> {
             olympicGameResultsListView.getItems().clear();
             initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText(), listReference.getOlympicGameList().getOlympicGameMap()));
@@ -74,12 +74,16 @@ public class OlympicGameTabController {
 
         /* LIVE SEARCH*/
         olympicGameSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            olympicGameResultsListView.getItems().clear();
-            initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText(), listReference.getOlympicGameList().getOlympicGameMap()));
+            if (!newValue.matches("\\d*")) {
+                olympicGameSearchInput.setText(newValue.replaceAll("[^\\d]", ""));
+            } else {
+                olympicGameResultsListView.getItems().clear();
+                initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText(), listReference.getOlympicGameList().getOlympicGameMap()));
+            }
         });
     }
 
-    public void initOlympicGameListView(TreeMap<String, OlympicGame> resultMap) {
+    private void initOlympicGameListView(TreeMap<String, OlympicGame> resultMap) {
         olympicGameResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(OlympicGame olympicGame, boolean empty) {
@@ -97,7 +101,7 @@ public class OlympicGameTabController {
         }
     }
 
-    public void initOlympicGameListView() {
+    private void initOlympicGameListView() {
         TreeMap<String, OlympicGame> olympicGameMap = listReference.getOlympicGameList().getOlympicGameMap();
         initOlympicGameListView(olympicGameMap);
     }

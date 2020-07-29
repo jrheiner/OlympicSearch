@@ -109,7 +109,7 @@ public class AthleteTabController {
         fillAthleteAppearanceTable(selectedAthlete.getParticipationList());
     }
 
-    public void initAthleteAppearanceTable() {
+    private void initAthleteAppearanceTable() {
         TableColumn<Participation, String> olympicGameTableColumn = new TableColumn<>("Game");
         olympicGameTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getOlympicGame().getGame()));
         olympicGameTableColumn.setMinWidth(80);
@@ -133,12 +133,12 @@ public class AthleteTabController {
         athleteAppearanceTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
     }
 
-    public void fillAthleteAppearanceTable(ArrayList<Participation> participationList) {
+    private void fillAthleteAppearanceTable(ArrayList<Participation> participationList) {
         athleteAppearanceTable.getItems().clear();
         participationList.forEach(participation -> athleteAppearanceTable.getItems().add(participation));
     }
 
-    public void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
+    private void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
         athleteResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Athlete athlete, boolean empty) {
@@ -156,23 +156,23 @@ public class AthleteTabController {
         }
     }
 
-    public void initAthleteListView() {
+    private void initAthleteListView() {
         TreeMap<Integer, Athlete> athleteMap = listReference.getAthleteList().getAthleteMap();
         initAthleteListView(athleteMap);
         athleteResultCount.textProperty().bind(Bindings.size((athleteResultsListView.getItems())).asString());
 
     }
 
-    public void initAthleteSearchHandler() {
+    private void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
             initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
         });
 
-/*
-        athleteSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+        athleteSearchInput.setOnAction(action -> {
             athleteResultsListView.getItems().clear();
             initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
-        });*/
+        });
+
     }
 }

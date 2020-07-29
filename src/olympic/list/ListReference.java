@@ -2,10 +2,10 @@ package olympic.list;
 
 
 public class ListReference {
-    AthleteList athleteList = new AthleteList();
-    TeamList teamList = new TeamList();
-    OlympicGameList olympicGameList = new OlympicGameList();
-    EventList eventList = new EventList();
+    private AthleteList athleteList = new AthleteList();
+    private TeamList teamList = new TeamList();
+    private OlympicGameList olympicGameList = new OlympicGameList();
+    private EventList eventList = new EventList();
 
     public ListReference() {
     }

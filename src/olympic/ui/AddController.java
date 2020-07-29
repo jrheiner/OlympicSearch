@@ -11,7 +11,7 @@ import olympic.list.ListReference;
 import java.util.regex.Pattern;
 
 public class AddController {
-    ListReference listReference;
+    private ListReference listReference;
     private Boolean isNewAthlete = false;
     private Boolean isValid = false;
     private Boolean validationHandler = false;
@@ -57,37 +57,27 @@ public class AddController {
         return mainController;
     }
 
-    public void setMainController(MainController mainController) {
+    void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
-    public void initAddForm() {
+    void initAddForm() {
         adjustFormMode(isNewAthlete);
         initDropdowns();
         initEventHandler();
     }
 
     private void initEventHandler() {
-        addId.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                addId.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        addAge.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                addAge.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        addHeight.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                addHeight.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
+        onlyIntInput(addId);
+        onlyIntInput(addAge);
+        onlyIntInput(addHeight);
+        onlyIntInput(addId);
         addWeight.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("([0-9]*[.])?[0-9]*")) {
                 addWeight.setText(newValue.replaceAll("[^0-9.]+", ""));
             }
         });
+
         addYear.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 addYear.setText(newValue.replaceAll("[^\\d]", ""));
@@ -97,7 +87,9 @@ public class AddController {
             }
             addOlympicGame.setText(addYear.getText() + " " + (addSeason.getValue() == null ? "" : addSeason.getValue()));
         });
+
         addSeason.valueProperty().addListener((observable, oldValue, newValue) -> addOlympicGame.setText(addYear.getText() + " " + addSeason.getValue()));
+
         addNOC.textProperty().addListener((observable, oldValue, newValue) -> {
             addNOC.setText(newValue.toUpperCase());
             if (!newValue.toUpperCase().matches("[A-Z]+")) {
@@ -107,8 +99,17 @@ public class AddController {
                 addNOC.setText(oldValue.toUpperCase());
             }
         });
+
         addSave.setOnAction(event -> submitForm());
         addCancel.setOnAction(event -> addCancel.getScene().getWindow().hide());
+    }
+
+    private void onlyIntInput(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     private void submitForm() {
@@ -136,15 +137,16 @@ public class AddController {
             validity[1] = stringPattern.matcher(addName.getText()).matches();
             if (addSex.getSelectionModel().getSelectedIndex() == -1) {
                 invalidFields++;
-                addSex.setStyle("-fx-border-color: red");
+                markInvalid(addSex);
             } else {
-                addSex.setStyle("-fx-border-color: green");
+                markValid(addSex);
             }
             validity[2] = integerPattern.matcher(addAge.getText()).matches();
             validity[3] = integerPattern.matcher(addHeight.getText()).matches();
             validity[4] = floatPattern.matcher(addWeight.getText()).matches();
         } else {
             validity[0] = integerPattern.matcher(addId.getText()).matches() && !(addName.getText().equals(""));
+            markValid(addSex);
             validity[1] = true;
             validity[2] = true;
             validity[3] = true;
@@ -155,9 +157,9 @@ public class AddController {
         validity[7] = integerPattern.matcher(addYear.getText()).matches();
         if (addSeason.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
-            addSeason.setStyle("-fx-border-color: red");
+            markInvalid(addSeason);
         } else {
-            addSeason.setStyle("-fx-border-color: green");
+            markValid(addSeason);
         }
         validity[8] = stringPattern.matcher(addCity.getText()).matches();
         validity[9] = stringPattern.matcher(addDiscipline.getText()).matches();
@@ -165,21 +167,37 @@ public class AddController {
 
         if (addMedal.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
-            addMedal.setStyle("-fx-border-color: red");
+            markInvalid(addMedal);
         } else {
-            addMedal.setStyle("-fx-border-color: green");
+            markValid(addMedal);
         }
         for (int i = 0; i < validity.length; i++) {
             if (!validity[i]) {
                 invalidFields++;
-                textFields[i].setStyle("-fx-border-color: red");
+                markInvalid(textFields[i]);
             } else {
-                textFields[i].setStyle("-fx-border-color: green");
+                markValid(textFields[i]);
             }
         }
         addValidationHandler(isNewAthlete, textFields);
         isValid = invalidFields == 0;
         return isValid;
+    }
+
+    private void markInvalid(ComboBox<String> comboBox) {
+        comboBox.setStyle("-fx-border-color: #dc3545; -fx-border-width: 2px");
+    }
+
+    private void markValid(ComboBox<String> comboBox) {
+        comboBox.setStyle("-fx-border-color: #28a745; -fx-border-width: 2px");
+    }
+
+    private void markInvalid(TextField textField) {
+        textField.setStyle("-fx-border-color: #dc3545; -fx-border-width: 2px");
+    }
+
+    private void markValid(TextField textField) {
+        textField.setStyle("-fx-border-color: #28a745; -fx-border-width: 2px");
     }
 
     private void addValidationHandler(Boolean isNewAthlete, TextField[] textFields) {
@@ -244,7 +262,6 @@ public class AddController {
     }
 
     private void fillAthleteData(int id) {
-        // get athlete by id and fill below fields
         Athlete selectedAthlete = listReference.getAthleteList().getAthleteById(id);
         if (selectedAthlete != null) {
             addName.setText(selectedAthlete.getName());

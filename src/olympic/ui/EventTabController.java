@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class EventTabController {
     private final ObservableList<Event> events = FXCollections.observableArrayList();
     private final ObservableList<String> eventsOlympicGames = FXCollections.observableArrayList();
-    ListReference listReference;
+    private ListReference listReference;
     @FXML
     private Button eventSearchButton;
     @FXML
@@ -65,7 +65,7 @@ public class EventTabController {
         });
     }
 
-    public void initEventSearchHandler() {
+    private void initEventSearchHandler() {
         eventSearchButton.setOnAction(event -> {
             eventResultsListView.getItems().clear();
             initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText(), listReference.getEventList().getEventMap()));
@@ -78,7 +78,7 @@ public class EventTabController {
         });
     }
 
-    public void initEventListView(TreeMap<String, Event> resultMap) {
+    private void initEventListView(TreeMap<String, Event> resultMap) {
         eventResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Event event, boolean empty) {
@@ -96,7 +96,7 @@ public class EventTabController {
         }
     }
 
-    public void initEventListView() {
+    private void initEventListView() {
         TreeMap<String, Event> eventMap = listReference.getEventList().getEventMap();
         initEventListView(eventMap);
 

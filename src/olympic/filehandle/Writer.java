@@ -20,7 +20,7 @@ public class Writer {
         this.path = path;
     }
 
-    public void appendDatabase(String line) {
+    private void appendDatabase(String line) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
             bufferedWriter.write(line);
             bufferedWriter.newLine();

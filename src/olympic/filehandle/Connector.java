@@ -2,11 +2,11 @@ package olympic.filehandle;
 
 import java.io.InputStream;
 
-public abstract class Connector {
+abstract class Connector {
     private String filename = null;
     private InputStream inputStream = null;
 
-    public Connector(InputStream fileStream) {
+    Connector(InputStream fileStream) {
         this.inputStream = fileStream;
     }
 
@@ -22,7 +22,7 @@ public abstract class Connector {
         this.filename = filename;
     }
 
-    public InputStream getStream() {
+    InputStream getStream() {
         return inputStream;
     }
 

@@ -14,13 +14,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class TeamTabController {
-
-
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
     private final ObservableList<String> teamGames = FXCollections.observableArrayList();
-    ListReference listReference;
+    private ListReference listReference;
 
     @FXML
     private Button teamSearchButton;
@@ -90,7 +88,7 @@ public class TeamTabController {
         });
     }
 
-    public void initTeamSearchHandler() {
+    private void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
             initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
@@ -103,7 +101,7 @@ public class TeamTabController {
         });
     }
 
-    public void initTeamListView(TreeMap<String, Team> resultMap) {
+    private void initTeamListView(TreeMap<String, Team> resultMap) {
         teamResultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Team team, boolean empty) {
@@ -121,7 +119,7 @@ public class TeamTabController {
         }
     }
 
-    public void initTeamListView() {
+    private void initTeamListView() {
         TreeMap<String, Team> teamMap = listReference.getTeamList().getTeamMap();
         initTeamListView(teamMap);
     }

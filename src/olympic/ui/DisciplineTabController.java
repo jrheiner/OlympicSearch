@@ -14,7 +14,7 @@ import java.util.TreeSet;
 
 public class DisciplineTabController {
     private final ObservableList<String> disciplines = FXCollections.observableArrayList();
-    ListReference listReference;
+    private ListReference listReference;
     @FXML
     private Button disciplineSearchButton;
     @FXML
@@ -29,7 +29,7 @@ public class DisciplineTabController {
     }
 
 
-    public void initDisciplineSearchHandler() {
+    private void initDisciplineSearchHandler() {
         disciplineSearchButton.setOnAction(event -> {
             disciplineResultsListView.getItems().clear();
             initDisciplineListView(ListUtility.searchInSet(disciplineSearchInput.getText(), listReference.getEventList().getDisciplines()));
@@ -42,12 +42,12 @@ public class DisciplineTabController {
         });
     }
 
-    public void initDisciplineListView(Set<String> resultSet) {
+    private void initDisciplineListView(Set<String> resultSet) {
         disciplineResultsListView.setItems(disciplines);
         disciplines.addAll(resultSet);
     }
 
-    public void initDisciplineListView() {
+    private void initDisciplineListView() {
         TreeSet<String> disciplineSet = listReference.getEventList().getDisciplines();
         initDisciplineListView(disciplineSet);
     }

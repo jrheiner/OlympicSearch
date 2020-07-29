@@ -15,11 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
 
-    static final ListReference listReference = new ListReference();
-    static final String filename = "data/test.db";
-    static Reader fileReader;
-    static Writer fileWriter;
-    MainController mainController;
+    private static final ListReference listReference = new ListReference();
+    private static final String filename = "data/test.db";
+    private static Reader fileReader;
+    private static Writer fileWriter;
 
     public static void main(String[] args) {
 
@@ -43,7 +42,7 @@ public class Main extends Application {
     public void start(Stage mainStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
         Parent root = loader.load();
-        mainController = loader.getController();
+        MainController mainController = loader.getController();
         mainController.setListReference(listReference);
         mainController.setFileWriter(fileWriter);
         mainController.initializeUI();

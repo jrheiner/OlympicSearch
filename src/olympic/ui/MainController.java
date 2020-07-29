@@ -16,8 +16,8 @@ import java.io.IOException;
 
 public class MainController {
 
-    ListReference listReference;
-    Writer fileWriter;
+    private ListReference listReference;
+    private Writer fileWriter;
     @FXML
     private AthleteTabController AthleteTabController;
     @FXML
