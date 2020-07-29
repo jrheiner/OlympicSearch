@@ -6,17 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
-    private String path;
+    private final String path;
 
     public Writer(String path) {
-        this.path = path;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
         this.path = path;
     }
 

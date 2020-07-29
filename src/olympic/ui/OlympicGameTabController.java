@@ -29,7 +29,7 @@ public class OlympicGameTabController {
     @FXML
     private ListView<String> olympicGameEventList;
 
-    public void initOlympicGameTab() {
+    void initOlympicGameTab() {
         initOlympicGameListView();
         initOlympicGameSearchHandler();
         initOlympicGameListViewHandler();
@@ -107,15 +107,11 @@ public class OlympicGameTabController {
     }
 
 
-    public ListReference getListReference() {
-        return listReference;
-    }
-
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
 
-    public void refreshOlympicGameListView() {
+    void refreshOlympicGameListView() {
         olympicGameResultsListView.getItems().clear();
         initOlympicGameListView();
     }

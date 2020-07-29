@@ -9,7 +9,7 @@ public class OlympicGameList {
 
     private final TreeMap<String, OlympicGame> OlympicGameMap = new TreeMap<>();
 
-    public OlympicGameList() {
+    OlympicGameList() {
     }
 
     public TreeMap<String, OlympicGame> getOlympicGameMap() {

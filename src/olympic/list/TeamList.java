@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class TeamList {
     private final TreeMap<String, Team> teamMap = new TreeMap<>();
 
-    public TeamList() {
+    TeamList() {
     }
 
     public TreeMap<String, Team> searchTeam(String term, TreeMap<String, Team> searchMap) {

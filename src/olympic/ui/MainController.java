@@ -29,16 +29,8 @@ public class MainController {
     @FXML
     private DisciplineTabController DisciplineTabController;
 
-    public Writer getFileWriter() {
-        return fileWriter;
-    }
-
     public void setFileWriter(Writer fileWriter) {
         this.fileWriter = fileWriter;
-    }
-
-    public ListReference getListReference() {
-        return listReference;
     }
 
     public void setListReference(ListReference listReference) {
@@ -63,7 +55,7 @@ public class MainController {
         OlympicGameTabController.initOlympicGameTab();
     }
 
-    public void openPopup(Event event) {
+    void openPopup(Event event) {
         Parent root;
         AddController addController;
         try {
@@ -90,12 +82,12 @@ public class MainController {
         }
     }
 
-    public void saveLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
+    void saveLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
         ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
         fileWriter.save(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal);
     }
 
-    public void refreshListViews() {
+    void refreshListViews() {
         AthleteTabController.refreshAthleteListView();
         TeamTabController.refreshTeamListView();
         EventTabController.refreshEventListView();

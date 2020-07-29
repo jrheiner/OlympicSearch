@@ -29,7 +29,7 @@ public class EventTabController {
     @FXML
     private ListView<String> eventOlympicGameList;
 
-    public void initEventTab() {
+    void initEventTab() {
         initEventListView();
         initEventSearchHandler();
         initEventListViewHandler();
@@ -103,15 +103,11 @@ public class EventTabController {
     }
 
 
-    public ListReference getListReference() {
-        return listReference;
-    }
-
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
 
-    public void refreshEventListView() {
+    void refreshEventListView() {
         eventResultsListView.getItems().clear();
         initEventListView();
     }

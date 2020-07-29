@@ -23,7 +23,7 @@ public class DisciplineTabController {
     private ListView<String> disciplineResultsListView;
 
 
-    public void initDisciplineTab() {
+    void initDisciplineTab() {
         initDisciplineListView();
         initDisciplineSearchHandler();
     }
@@ -53,15 +53,11 @@ public class DisciplineTabController {
     }
 
 
-    public ListReference getListReference() {
-        return listReference;
-    }
-
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
 
-    public void refreshDisciplineListView() {
+    void refreshDisciplineListView() {
         disciplineResultsListView.getItems().clear();
         initDisciplineListView();
     }

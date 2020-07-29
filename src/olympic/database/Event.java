@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Event {
 
+    private final String discipline;
+    private final ArrayList<String> olympicGameList = new ArrayList<>();
     private String event;
-    private String discipline;
-    private ArrayList<String> olympicGameList = new ArrayList<>();
 
     public Event(String event, String sport, String olympicGame) {
         this.event = event;
@@ -18,20 +18,12 @@ public class Event {
         return discipline;
     }
 
-    public void setDiscipline(String discipline) {
-        this.discipline = discipline;
-    }
-
     public void addOlympicGame(String olympicGame) {
         olympicGameList.add(olympicGame);
     }
 
     public ArrayList<String> getOlympicGameList() {
         return olympicGameList;
-    }
-
-    public void setOlympicGameList(ArrayList<String> olympicGameList) {
-        this.olympicGameList = olympicGameList;
     }
 
     public String getEvent() {

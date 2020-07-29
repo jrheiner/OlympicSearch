@@ -1,10 +1,10 @@
 package olympic.database;
 
 public class Participation {
-    private OlympicGame olympicGame;
-    private Team team;
-    private Event event;
-    private String medal;
+    private final OlympicGame olympicGame;
+    private final Team team;
+    private final Event event;
+    private final String medal;
 
     public Participation(OlympicGame olympicGame, Team team, Event event, String medal) {
         this.olympicGame = olympicGame;
@@ -17,31 +17,16 @@ public class Participation {
         return team;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
     public OlympicGame getOlympicGame() {
         return olympicGame;
-    }
-
-    public void setOlympicGame(OlympicGame olympicGame) {
-        this.olympicGame = olympicGame;
     }
 
     public Event getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     public String getMedal() {
         return medal;
     }
 
-    public void setMedal(String medal) {
-        this.medal = medal;
-    }
 }

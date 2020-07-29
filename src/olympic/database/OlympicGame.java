@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class OlympicGame {
 
-    private String game;
-    private String city;
-    private int year;
-    private String season;
-    private ArrayList<String> eventList = new ArrayList<>();
+    private final String game;
+    private final String city;
+    private final int year;
+    private final String season;
+    private final ArrayList<String> eventList = new ArrayList<>();
 
     public OlympicGame(String game, String city, int year, String season, String event) {
         this.game = game;
@@ -23,43 +23,16 @@ public class OlympicGame {
         return eventList;
     }
 
-    public void setEventList(ArrayList<String> eventList) {
-        this.eventList = eventList;
-    }
-
     public void addEvent(String event) {
         eventList.add(event);
-    }
-
-    public String getSeason() {
-        return season;
-    }
-
-    public void setSeason(String season) {
-        this.season = season;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public String getGame() {
         return game;
     }
 
-    public void setGame(String game) {
-        this.game = game;
-    }
 }

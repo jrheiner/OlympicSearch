@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class EventList {
     private final TreeMap<String, Event> EventMap = new TreeMap<>();
 
-    public EventList() {
+    EventList() {
     }
 
     public void addOrUpdate(String event, String sport, String olympicGame) {

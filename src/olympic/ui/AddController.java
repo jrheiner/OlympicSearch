@@ -53,10 +53,6 @@ public class AddController {
     @FXML
     private ComboBox<String> addMedal;
 
-    public MainController getMainController() {
-        return mainController;
-    }
-
     void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
@@ -276,16 +272,8 @@ public class AddController {
         addWeight.setText("");
     }
 
-    public Boolean getIsNewAthlete() {
-        return isNewAthlete;
-    }
-
-    public void setIsNewAthlete(Boolean isNewAthlete) {
+    void setIsNewAthlete(Boolean isNewAthlete) {
         this.isNewAthlete = isNewAthlete;
-    }
-
-    public ListReference getListReference() {
-        return listReference;
     }
 
     public void setListReference(ListReference listReference) {

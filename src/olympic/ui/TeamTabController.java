@@ -35,16 +35,12 @@ public class TeamTabController {
     @FXML
     private ListView<String> teamGameList;
 
-    public ListReference getListReference() {
-        return listReference;
-    }
-
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
 
 
-    public void initTeamTab() {
+    void initTeamTab() {
         initTeamListView();
         initTeamSearchHandler();
         initTeamListViewHandler();
@@ -124,7 +120,7 @@ public class TeamTabController {
         initTeamListView(teamMap);
     }
 
-    public void refreshTeamListView() {
+    void refreshTeamListView() {
         teamResultsListView.getItems().clear();
         initTeamListView();
     }

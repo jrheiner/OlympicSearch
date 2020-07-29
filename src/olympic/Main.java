@@ -17,12 +17,11 @@ public class Main extends Application {
 
     private static final ListReference listReference = new ListReference();
     private static final String filename = "data/test.db";
-    private static Reader fileReader;
     private static Writer fileWriter;
 
     public static void main(String[] args) {
 
-        fileReader = new Reader(Main.class.getResourceAsStream(filename));
+        Reader fileReader = new Reader(Main.class.getResourceAsStream(filename));
         fileReader.setListReference(listReference);
 
         long startTime = System.nanoTime();

@@ -9,7 +9,7 @@ public class AthleteList {
 
     private final TreeMap<Integer, Athlete> athleteMap = new TreeMap<>();
 
-    public AthleteList() {
+    AthleteList() {
     }
 
     public Athlete getAthleteById(int id) {

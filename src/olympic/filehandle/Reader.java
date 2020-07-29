@@ -7,15 +7,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Reader extends Connector {
+public class Reader {
+    private final InputStream fileStream;
     private ListReference listReference;
 
     public Reader(InputStream fileStream) {
-        super(fileStream);
-    }
-
-    public ListReference getListReference() {
-        return listReference;
+        this.fileStream = fileStream;
     }
 
     public void setListReference(ListReference listReference) {
@@ -24,7 +21,7 @@ public class Reader extends Connector {
 
     public void readDatabase() {
         String line;
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getStream()))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileStream))) {
             bufferedReader.readLine();
             while ((line = bufferedReader.readLine()) != null) {
                 parseSplitLine(splitLine(line));

@@ -51,23 +51,15 @@ public class AthleteTabController {
     private TableView<Participation> athleteAppearanceTable;
 
 
-    public MainController getMainController() {
-        return mainController;
-    }
-
-    public void setMainController(MainController mainController) {
+    void setMainController(MainController mainController) {
         this.mainController = mainController;
-    }
-
-    public ListReference getListReference() {
-        return listReference;
     }
 
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;
     }
 
-    public void initAthleteTab() {
+    void initAthleteTab() {
         initAthleteListView();
         initAthleteSearchHandler();
         initAthleteListViewHandler();
@@ -79,7 +71,7 @@ public class AthleteTabController {
         athleteAddParticipationButton.setOnAction(openPopup);
     }
 
-    public void refreshAthleteListView() {
+    void refreshAthleteListView() {
         athleteResultsListView.getItems().clear();
         initAthleteListView(listReference.getAthleteList().getAthleteMap());
     }
