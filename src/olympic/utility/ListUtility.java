@@ -16,7 +16,7 @@ public class ListUtility {
     public static TreeSet<String> searchInSet(String term, Set<String> baseSet) {
         TreeSet<String> resultSet = new TreeSet<>();
         baseSet.forEach(entry -> {
-            if (entry.contains(term)) {
+            if (entry.toUpperCase().contains(term.toUpperCase())) {
                 resultSet.add(entry);
             }
         });

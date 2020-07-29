@@ -54,7 +54,6 @@ public class EventTabController {
         eventsOlympicGames.addAll(games);
     }
 
-
     private void initEventListViewHandler() {
         eventResultsListView.setOnMouseClicked(event -> {
             Event selectedEvent = eventResultsListView.getSelectionModel().getSelectedItem();
@@ -101,7 +100,6 @@ public class EventTabController {
         initEventListView(eventMap);
 
     }
-
 
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;

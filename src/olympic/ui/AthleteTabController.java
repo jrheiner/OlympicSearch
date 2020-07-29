@@ -50,7 +50,6 @@ public class AthleteTabController {
     @FXML
     private TableView<Participation> athleteAppearanceTable;
 
-
     void setMainController(MainController mainController) {
         this.mainController = mainController;
     }

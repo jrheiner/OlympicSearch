@@ -72,5 +72,4 @@ public class Athlete {
     public ArrayList<Participation> getParticipationList() {
         return participationList;
     }
-
 }

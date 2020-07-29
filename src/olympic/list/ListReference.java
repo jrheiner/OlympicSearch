@@ -25,5 +25,4 @@ public class ListReference {
     public EventList getEventList() {
         return eventList;
     }
-
 }

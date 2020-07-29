@@ -3,7 +3,6 @@ package olympic.database;
 import java.util.ArrayList;
 
 public class OlympicGame {
-
     private final String game;
     private final String city;
     private final int year;
@@ -17,7 +16,6 @@ public class OlympicGame {
         this.season = season;
         this.eventList.add(event);
     }
-
 
     public ArrayList<String> getEventList() {
         return eventList;
@@ -34,5 +32,4 @@ public class OlympicGame {
     public String getGame() {
         return game;
     }
-
 }

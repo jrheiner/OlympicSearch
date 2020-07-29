@@ -28,5 +28,4 @@ public class Participation {
     public String getMedal() {
         return medal;
     }
-
 }

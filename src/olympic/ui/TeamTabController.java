@@ -39,7 +39,6 @@ public class TeamTabController {
         this.listReference = listReference;
     }
 
-
     void initTeamTab() {
         initTeamListView();
         initTeamSearchHandler();

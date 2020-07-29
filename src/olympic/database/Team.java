@@ -8,7 +8,6 @@ public class Team {
     private final ArrayList<String> athleteList = new ArrayList<>();
     private final ArrayList<String> olympicGameList = new ArrayList<>();
 
-
     public Team(String team, String noc, String olympicGame, String athlete) {
         this.noc = noc;
         this.team = team;
@@ -39,5 +38,4 @@ public class Team {
     public String getTeam() {
         return team;
     }
-
 }

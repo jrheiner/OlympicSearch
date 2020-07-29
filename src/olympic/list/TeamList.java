@@ -49,5 +49,4 @@ public class TeamList {
     public TreeMap<String, Team> getTeamMap() {
         return teamMap;
     }
-
 }

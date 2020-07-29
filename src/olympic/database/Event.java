@@ -3,7 +3,6 @@ package olympic.database;
 import java.util.ArrayList;
 
 public class Event {
-
     private final String discipline;
     private final ArrayList<String> olympicGameList = new ArrayList<>();
     private String event;
@@ -33,7 +32,5 @@ public class Event {
     public void setEvent(String event) {
         this.event = event;
     }
-
-
 }
 

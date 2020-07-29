@@ -22,12 +22,10 @@ public class DisciplineTabController {
     @FXML
     private ListView<String> disciplineResultsListView;
 
-
     void initDisciplineTab() {
         initDisciplineListView();
         initDisciplineSearchHandler();
     }
-
 
     private void initDisciplineSearchHandler() {
         disciplineSearchButton.setOnAction(event -> {
@@ -51,7 +49,6 @@ public class DisciplineTabController {
         TreeSet<String> disciplineSet = listReference.getEventList().getDisciplines();
         initDisciplineListView(disciplineSet);
     }
-
 
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;

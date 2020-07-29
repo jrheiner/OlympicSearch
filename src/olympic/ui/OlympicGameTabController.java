@@ -55,7 +55,6 @@ public class OlympicGameTabController {
         olympicGamesEvents.addAll(games);
     }
 
-
     private void initOlympicGameListViewHandler() {
         olympicGameResultsListView.setOnMouseClicked(event -> {
             OlympicGame selectedGame = olympicGameResultsListView.getSelectionModel().getSelectedItem();
@@ -105,7 +104,6 @@ public class OlympicGameTabController {
         TreeMap<String, OlympicGame> olympicGameMap = listReference.getOlympicGameList().getOlympicGameMap();
         initOlympicGameListView(olympicGameMap);
     }
-
 
     public void setListReference(ListReference listReference) {
         this.listReference = listReference;

@@ -70,7 +70,6 @@ public class Reader {
         ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
     }
 
-
     private int dataToInt(String data) {
         int dataInt;
         if (data.equals("NA")) {
