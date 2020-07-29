@@ -33,7 +33,7 @@ public class Athlete {
         weightList.add(weight);
     }
 
-    public void addAppearance(Participation participation) {
+    public void addParticipation(Participation participation) {
         participationList.add(participation);
     }
 

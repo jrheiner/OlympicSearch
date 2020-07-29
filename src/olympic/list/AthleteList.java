@@ -29,7 +29,7 @@ public class AthleteList {
                 currentAthlete.addWeight(weight);
             }
             if (!currentAthlete.getParticipationList().contains(participation)) {
-                currentAthlete.addAppearance(participation);
+                currentAthlete.addParticipation(participation);
             }
         } else {
             Athlete newAthlete = new Athlete(id, name, age, sex, height, weight, participation);

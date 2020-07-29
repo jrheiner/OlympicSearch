@@ -48,7 +48,7 @@ public class AthleteTabController {
     @FXML
     private Label athleteWeightLabel;
     @FXML
-    private TableView<Participation> athleteAppearanceTable;
+    private TableView<Participation> athleteParticipationTable;
 
     void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -63,7 +63,7 @@ public class AthleteTabController {
         initAthleteSearchHandler();
         initAthleteListViewHandler();
         initAthleteProfile();
-        initAthleteAppearanceTable();
+        initAthleteParticipationTable();
 
         EventHandler<ActionEvent> openPopup = event -> mainController.openPopup(event);
         athleteAddAthleteButton.setOnAction(openPopup);
@@ -97,10 +97,10 @@ public class AthleteTabController {
         athleteHeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
         athleteWeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
 
-        fillAthleteAppearanceTable(selectedAthlete.getParticipationList());
+        fillAthleteParticipationTable(selectedAthlete.getParticipationList());
     }
 
-    private void initAthleteAppearanceTable() {
+    private void initAthleteParticipationTable() {
         TableColumn<Participation, String> olympicGameTableColumn = new TableColumn<>("Game");
         olympicGameTableColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getOlympicGame().getGame()));
         olympicGameTableColumn.setMinWidth(80);
@@ -121,15 +121,15 @@ public class AthleteTabController {
         medalTableColumn.setMinWidth(50);
         medalTableColumn.setMaxWidth(100);
 
-        athleteAppearanceTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
+        athleteParticipationTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
     }
 
-    private void fillAthleteAppearanceTable(ArrayList<Participation> participationList) {
-        athleteAppearanceTable.getItems().clear();
-        participationList.forEach(participation -> athleteAppearanceTable.getItems().add(participation));
-        if (athleteAppearanceTable.getColumns().size() > 0) {
-            athleteAppearanceTable.getColumns().get(0).setSortType(TableColumn.SortType.ASCENDING);
-            athleteAppearanceTable.getSortOrder().add(athleteAppearanceTable.getColumns().get(0));
+    private void fillAthleteParticipationTable(ArrayList<Participation> participationList) {
+        athleteParticipationTable.getItems().clear();
+        participationList.forEach(participation -> athleteParticipationTable.getItems().add(participation));
+        if (athleteParticipationTable.getColumns().size() > 0) {
+            athleteParticipationTable.getColumns().get(0).setSortType(TableColumn.SortType.ASCENDING);
+            athleteParticipationTable.getSortOrder().add(athleteParticipationTable.getColumns().get(0));
         }
     }
 
