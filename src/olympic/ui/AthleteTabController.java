@@ -127,6 +127,10 @@ public class AthleteTabController {
     private void fillAthleteAppearanceTable(ArrayList<Participation> participationList) {
         athleteAppearanceTable.getItems().clear();
         participationList.forEach(participation -> athleteAppearanceTable.getItems().add(participation));
+        if (athleteAppearanceTable.getColumns().size() > 0) {
+            athleteAppearanceTable.getColumns().get(0).setSortType(TableColumn.SortType.ASCENDING);
+            athleteAppearanceTable.getSortOrder().add(athleteAppearanceTable.getColumns().get(0));
+        }
     }
 
     private void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {

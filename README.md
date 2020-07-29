@@ -2,8 +2,8 @@
 
 ## TODO
 
-### VALIDITY ALERT + RED BORDERS (change boolean to arraylist, loop through mark invalid)
-### METHOD TO WRITE TO FILE
-
-Add JAVADOC
+* Olympic Game from season and year
+* Maybe abstraction or interface? 
+* Add JAVADOC
+* UML diagram
  
