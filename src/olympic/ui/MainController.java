@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import olympic.Main;
 import olympic.filehandle.Writer;
 import olympic.list.ListReference;
 import olympic.utility.ListUtility;
@@ -72,6 +74,7 @@ public class MainController {
                 addStage.setTitle("Add new participation");
             }
             addController.initAddForm();
+            addStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
             addStage.setScene(new Scene(root, 660, 490));
             addStage.setResizable(false);
             addStage.initModality(Modality.APPLICATION_MODAL);

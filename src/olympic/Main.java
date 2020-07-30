@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import olympic.filehandle.Reader;
 import olympic.filehandle.Writer;
@@ -43,6 +44,7 @@ public class Main extends Application {
         mainController.initializeUI();
 
         mainStage.setTitle("Olympic Search");
+        mainStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
         mainStage.setMinHeight(500);
         mainStage.setMinWidth(800);
         mainStage.setScene(new Scene(root, mainStage.getMinWidth(), mainStage.getMinHeight()));
