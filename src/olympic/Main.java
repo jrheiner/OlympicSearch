@@ -16,14 +16,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     private static final MapReference MAP_REFERENCE = new MapReference();
-    private static final String filename = "data/olympic.db";
+    private static final String FILENAME = "data/olympic.db";
     private static Writer fileWriter;
 
     public static void main(String[] args) {
 
-        Reader fileReader = new Reader(Main.class.getResourceAsStream(filename));
+        Reader fileReader = new Reader(Main.class.getResourceAsStream(FILENAME));
         fileReader.setListReference(MAP_REFERENCE);
-        fileWriter = new Writer("resources/olympic/" + filename);
+        fileWriter = new Writer("resources/olympic/" + FILENAME);
 
         long startTime = System.nanoTime();
         fileReader.readDatabase();
@@ -43,7 +43,7 @@ public class Main extends Application {
         mainController.setFileWriter(fileWriter);
         mainController.initializeUI();
 
-        mainStage.setTitle("Olympic Search");
+        mainStage.setTitle("Olympic Search - " + FILENAME.substring(FILENAME.lastIndexOf('/') + 1));
         mainStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
         mainStage.setMinHeight(500);
         mainStage.setMinWidth(800);
