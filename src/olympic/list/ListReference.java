@@ -1,6 +1,8 @@
 package olympic.list;
 
-
+/**
+ * Utility class to easily pass reference of internal database
+ */
 public class ListReference {
     private final AthleteList athleteList = new AthleteList();
     private final TeamList teamList = new TeamList();

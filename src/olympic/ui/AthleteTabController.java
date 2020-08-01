@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * UI Controller for the athlete tab
+ */
 public class AthleteTabController {
 
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
@@ -58,6 +61,11 @@ public class AthleteTabController {
         this.listReference = listReference;
     }
 
+    /**
+     * Initialise Athlete tab UI.
+     * <p>
+     * Fill athlete list. Initialise event handler for search and athlete list. Set default Athlete profile.
+     */
     void initAthleteTab() {
         initAthleteListView();
         initAthleteSearchHandler();
@@ -70,6 +78,9 @@ public class AthleteTabController {
         athleteAddParticipationButton.setOnAction(openPopup);
     }
 
+    /**
+     * Reload athlete list to include internal database changes
+     */
     void refreshAthleteListView() {
         athleteResultsListView.getItems().clear();
         initAthleteListView(listReference.getAthleteList().getAthleteMap());
@@ -161,12 +172,12 @@ public class AthleteTabController {
     private void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
+            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
         });
 
         athleteSearchInput.setOnAction(action -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText(), listReference.getAthleteList().getAthleteMap()));
+            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
         });
 
     }

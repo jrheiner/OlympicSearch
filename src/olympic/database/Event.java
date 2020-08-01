@@ -2,11 +2,21 @@ package olympic.database;
 
 import java.util.ArrayList;
 
+/**
+ * Event data structure
+ */
 public class Event {
     private final String discipline;
     private final ArrayList<String> olympicGameList = new ArrayList<>();
-    private String event;
+    private final String event;
 
+    /**
+     * Create new event
+     *
+     * @param event       Event name
+     * @param sport       Event discipline
+     * @param olympicGame Game
+     */
     public Event(String event, String sport, String olympicGame) {
         this.event = event;
         this.discipline = sport;
@@ -17,6 +27,11 @@ public class Event {
         return discipline;
     }
 
+    /**
+     * Adds new Olympic game to the game list of an event
+     *
+     * @param olympicGame Olympic game object
+     */
     public void addOlympicGame(String olympicGame) {
         olympicGameList.add(olympicGame);
     }
@@ -27,10 +42,6 @@ public class Event {
 
     public String getEvent() {
         return event;
-    }
-
-    public void setEvent(String event) {
-        this.event = event;
     }
 }
 

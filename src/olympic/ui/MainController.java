@@ -16,6 +16,9 @@ import olympic.utility.ListUtility;
 
 import java.io.IOException;
 
+/**
+ * UI Controller for the main window, coordinating single tab controllers
+ */
 public class MainController {
 
     private ListReference listReference;
@@ -39,6 +42,9 @@ public class MainController {
         this.listReference = listReference;
     }
 
+    /**
+     * Initialise UI and UI elements of all tabs.
+     */
     public void initializeUI() {
         AthleteTabController.setListReference(listReference);
         AthleteTabController.setMainController(this);
@@ -57,6 +63,12 @@ public class MainController {
         OlympicGameTabController.initOlympicGameTab();
     }
 
+    /**
+     * Open new popup window <p>
+     * Open new popup and set form mode to either adding a new athlete or new event.
+     *
+     * @param event Event Handler action
+     */
     void openPopup(Event event) {
         Parent root;
         AddController addController;
@@ -85,11 +97,33 @@ public class MainController {
         }
     }
 
+    /**
+     * Passes data to file writer to permanently save it and adds it to the internal database.
+     *
+     * @param id          Athlete id
+     * @param name        Athlete name
+     * @param sex         Athlete sex
+     * @param age         Athlete age
+     * @param height      Athlete height
+     * @param weight      Athlete weight
+     * @param team        Athletes team
+     * @param noc         Teams national olympic committee
+     * @param olympicGame Game name
+     * @param year        Game year
+     * @param season      Game season
+     * @param city        Game city
+     * @param sport       Event discipline
+     * @param event       Event name
+     * @param medal       Athlete medal
+     */
     void saveLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
         ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
         fileWriter.save(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal);
     }
 
+    /**
+     * Reload all tabs to include internal database changes
+     */
     void refreshListViews() {
         AthleteTabController.refreshAthleteListView();
         TeamTabController.refreshTeamListView();

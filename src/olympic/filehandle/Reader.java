@@ -7,10 +7,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Reads database file as InputStream, parses and adds the data to the internal database
+ */
 public class Reader {
     private final InputStream fileStream;
     private ListReference listReference;
 
+    /**
+     * Creates new file reader
+     *
+     * @param fileStream Database file resource as InputStream
+     */
     public Reader(InputStream fileStream) {
         this.fileStream = fileStream;
     }
@@ -19,6 +27,10 @@ public class Reader {
         this.listReference = listReference;
     }
 
+    /**
+     * Reads an InputStream line by line and passes it to the parser. <p>
+     * The parser serializes the data to the database format and adds it to the internal database.
+     */
     public void readDatabase() {
         String line;
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileStream))) {
@@ -50,7 +62,6 @@ public class Reader {
     }
 
     private void parseSplitLine(ArrayList<String> splitLine) {
-        // [ID, Name, Sex, Age, Height, Weight, Team, NOC, Games, Year, Season, City, Sport, Event, Medal]
         int id = Integer.parseInt(splitLine.get(0));
         String name = splitLine.get(1);
         String sex = String.valueOf(splitLine.get(2));

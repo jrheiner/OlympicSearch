@@ -5,6 +5,9 @@ import olympic.database.OlympicGame;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * TreeMap of all olympic games and methods to add, update and search
+ */
 public class OlympicGameList {
 
     private final TreeMap<String, OlympicGame> OlympicGameMap = new TreeMap<>();
@@ -16,6 +19,15 @@ public class OlympicGameList {
         return OlympicGameMap;
     }
 
+    /**
+     * Adds a new Olympic game or updates data of an existing one
+     *
+     * @param olympicGame Game name
+     * @param city        Game city
+     * @param year        Game year
+     * @param season      Game season
+     * @param event       Event name
+     */
     public void addOrUpdate(String olympicGame, String city, Integer year, String season, String event) {
         if (OlympicGameMap.containsKey(olympicGame)) {
             OlympicGame currentOlympicGame = OlympicGameMap.get(olympicGame);
@@ -29,12 +41,18 @@ public class OlympicGameList {
 
     }
 
-    public TreeMap<String, OlympicGame> searchOlympicGame(String term, TreeMap<String, OlympicGame> searchMap) {
+    /**
+     * Searches for an Olympic game by game name
+     *
+     * @param term Name to search for
+     * @return Map containing all results matching the search
+     */
+    public TreeMap<String, OlympicGame> searchOlympicGame(String term) {
         final String upperCaseTerm = term.toUpperCase();
         long startTime = System.nanoTime();
 
         TreeMap<String, OlympicGame> results = new TreeMap<>();
-        searchMap.forEach((id, olympicGame) -> {
+        OlympicGameMap.forEach((id, olympicGame) -> {
             if (olympicGame.getGame().toUpperCase().startsWith(upperCaseTerm)) {
                 results.put(id, olympicGame);
             }

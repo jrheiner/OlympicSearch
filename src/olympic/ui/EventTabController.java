@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * UI Controller for the event tab
+ */
 public class EventTabController {
     private final ObservableList<Event> events = FXCollections.observableArrayList();
     private final ObservableList<String> eventsOlympicGames = FXCollections.observableArrayList();
@@ -29,6 +32,11 @@ public class EventTabController {
     @FXML
     private ListView<String> eventOlympicGameList;
 
+    /**
+     * Initialise Event tab UI.
+     * <p>
+     * Fill event list. Initialise event handler for search or event list and set default event profile.
+     */
     void initEventTab() {
         initEventListView();
         initEventSearchHandler();
@@ -67,13 +75,12 @@ public class EventTabController {
     private void initEventSearchHandler() {
         eventSearchButton.setOnAction(event -> {
             eventResultsListView.getItems().clear();
-            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText(), listReference.getEventList().getEventMap()));
+            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText()));
         });
 
-        /* LIVE SEARCH*/
         eventSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             eventResultsListView.getItems().clear();
-            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText(), listReference.getEventList().getEventMap()));
+            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText()));
         });
     }
 
@@ -105,6 +112,9 @@ public class EventTabController {
         this.listReference = listReference;
     }
 
+    /**
+     * Reload event list to include internal database changes
+     */
     void refreshEventListView() {
         eventResultsListView.getItems().clear();
         initEventListView();

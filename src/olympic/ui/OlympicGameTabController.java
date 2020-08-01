@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * UI Controller for the olympic game tab
+ */
 public class OlympicGameTabController {
     private final ObservableList<OlympicGame> olympicGames = FXCollections.observableArrayList();
     private final ObservableList<String> olympicGamesEvents = FXCollections.observableArrayList();
@@ -29,6 +32,11 @@ public class OlympicGameTabController {
     @FXML
     private ListView<String> olympicGameEventList;
 
+    /**
+     * Initialise Game tab UI.
+     * <p>
+     * Fill game list. Initialise event handler for search and game list. Set default game profile.
+     */
     void initOlympicGameTab() {
         initOlympicGameListView();
         initOlympicGameSearchHandler();
@@ -68,16 +76,15 @@ public class OlympicGameTabController {
     private void initOlympicGameSearchHandler() {
         olympicGameSearchButton.setOnAction(event -> {
             olympicGameResultsListView.getItems().clear();
-            initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText(), listReference.getOlympicGameList().getOlympicGameMap()));
+            initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
         });
 
-        /* LIVE SEARCH*/
         olympicGameSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 olympicGameSearchInput.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
                 olympicGameResultsListView.getItems().clear();
-                initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText(), listReference.getOlympicGameList().getOlympicGameMap()));
+                initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
             }
         });
     }
@@ -109,6 +116,9 @@ public class OlympicGameTabController {
         this.listReference = listReference;
     }
 
+    /**
+     * Reload game list to include internal database changes
+     */
     void refreshOlympicGameListView() {
         olympicGameResultsListView.getItems().clear();
         initOlympicGameListView();

@@ -12,6 +12,9 @@ import olympic.utility.ListUtility;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * UI Controller for the discipline tab
+ */
 public class DisciplineTabController {
     private final ObservableList<String> disciplines = FXCollections.observableArrayList();
     private ListReference listReference;
@@ -22,6 +25,11 @@ public class DisciplineTabController {
     @FXML
     private ListView<String> disciplineResultsListView;
 
+    /**
+     * Initialise Discipline tab UI.
+     * <p>
+     * Fill discipline list. Initialise event handler for searching.
+     */
     void initDisciplineTab() {
         initDisciplineListView();
         initDisciplineSearchHandler();
@@ -33,7 +41,6 @@ public class DisciplineTabController {
             initDisciplineListView(ListUtility.searchInSet(disciplineSearchInput.getText(), listReference.getEventList().getDisciplines()));
         });
 
-        /* LIVE SEARCH*/
         disciplineSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             disciplineResultsListView.getItems().clear();
             initDisciplineListView(ListUtility.searchInSet(disciplineSearchInput.getText(), listReference.getEventList().getDisciplines()));
@@ -54,6 +61,9 @@ public class DisciplineTabController {
         this.listReference = listReference;
     }
 
+    /**
+     * Reload discipline list to include internal database changes
+     */
     void refreshDisciplineListView() {
         disciplineResultsListView.getItems().clear();
         initDisciplineListView();

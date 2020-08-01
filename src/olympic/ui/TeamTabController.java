@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import olympic.database.Athlete;
 import olympic.database.Team;
 import olympic.list.ListReference;
 
@@ -13,8 +12,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * UI Controller for the team tab
+ */
 public class TeamTabController {
-    private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
     private final ObservableList<String> teamGames = FXCollections.observableArrayList();
@@ -39,6 +40,11 @@ public class TeamTabController {
         this.listReference = listReference;
     }
 
+    /**
+     * Initialise Team tab UI.
+     * <p>
+     * Fill team list. Initialise event handler for search and team list. Set default team profile.
+     */
     void initTeamTab() {
         initTeamListView();
         initTeamSearchHandler();
@@ -86,13 +92,12 @@ public class TeamTabController {
     private void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText()));
         });
 
-        /* LIVE SEARCH*/
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText(), listReference.getTeamList().getTeamMap()));
+            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText()));
         });
     }
 
@@ -119,6 +124,9 @@ public class TeamTabController {
         initTeamListView(teamMap);
     }
 
+    /**
+     * Reload team list to include internal database changes
+     */
     void refreshTeamListView() {
         teamResultsListView.getItems().clear();
         initTeamListView();

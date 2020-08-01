@@ -10,6 +10,9 @@ import olympic.list.ListReference;
 
 import java.util.regex.Pattern;
 
+/**
+ * UI Controller for the popup form to add new athletes or events
+ */
 public class AddController {
     private ListReference listReference;
     private Boolean isNewAthlete = false;
@@ -57,6 +60,11 @@ public class AddController {
         this.mainController = mainController;
     }
 
+    /**
+     * Initialise the UI for adding new athletes or events <p>
+     * <p>
+     * Adjust form to either adding a new athlete or new event. Fill dropdown menu with values. Initialise event handler and listener.
+     */
     void initAddForm() {
         adjustFormMode(isNewAthlete);
         initDropdowns();
