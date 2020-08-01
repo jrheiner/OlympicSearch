@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.OlympicGame;
-import olympic.list.ListReference;
+import olympic.maps.MapReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.TreeMap;
 public class OlympicGameTabController {
     private final ObservableList<OlympicGame> olympicGames = FXCollections.observableArrayList();
     private final ObservableList<String> olympicGamesEvents = FXCollections.observableArrayList();
-    private ListReference listReference;
+    private MapReference mapReference;
     @FXML
     private Button olympicGameSearchButton;
     @FXML
@@ -76,7 +76,7 @@ public class OlympicGameTabController {
     private void initOlympicGameSearchHandler() {
         olympicGameSearchButton.setOnAction(event -> {
             olympicGameResultsListView.getItems().clear();
-            initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
+            initOlympicGameListView(mapReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
         });
 
         olympicGameSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -84,7 +84,7 @@ public class OlympicGameTabController {
                 olympicGameSearchInput.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
                 olympicGameResultsListView.getItems().clear();
-                initOlympicGameListView(listReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
+                initOlympicGameListView(mapReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
             }
         });
     }
@@ -108,12 +108,12 @@ public class OlympicGameTabController {
     }
 
     private void initOlympicGameListView() {
-        TreeMap<String, OlympicGame> olympicGameMap = listReference.getOlympicGameList().getOlympicGameMap();
+        TreeMap<String, OlympicGame> olympicGameMap = mapReference.getOlympicGameList().getOlympicGameMap();
         initOlympicGameListView(olympicGameMap);
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**

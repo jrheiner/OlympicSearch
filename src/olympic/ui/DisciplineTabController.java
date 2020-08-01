@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import olympic.list.ListReference;
-import olympic.utility.ListUtility;
+import olympic.maps.MapReference;
+import olympic.utility.DatabaseUtility;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,7 +17,7 @@ import java.util.TreeSet;
  */
 public class DisciplineTabController {
     private final ObservableList<String> disciplines = FXCollections.observableArrayList();
-    private ListReference listReference;
+    private MapReference mapReference;
     @FXML
     private Button disciplineSearchButton;
     @FXML
@@ -38,12 +38,12 @@ public class DisciplineTabController {
     private void initDisciplineSearchHandler() {
         disciplineSearchButton.setOnAction(event -> {
             disciplineResultsListView.getItems().clear();
-            initDisciplineListView(ListUtility.searchInSet(disciplineSearchInput.getText(), listReference.getEventList().getDisciplines()));
+            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventList().getDisciplines()));
         });
 
         disciplineSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             disciplineResultsListView.getItems().clear();
-            initDisciplineListView(ListUtility.searchInSet(disciplineSearchInput.getText(), listReference.getEventList().getDisciplines()));
+            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventList().getDisciplines()));
         });
     }
 
@@ -53,12 +53,12 @@ public class DisciplineTabController {
     }
 
     private void initDisciplineListView() {
-        TreeSet<String> disciplineSet = listReference.getEventList().getDisciplines();
+        TreeSet<String> disciplineSet = mapReference.getEventList().getDisciplines();
         initDisciplineListView(disciplineSet);
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**

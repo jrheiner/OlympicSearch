@@ -1,4 +1,4 @@
-package olympic.list;
+package olympic.maps;
 
 import olympic.database.Team;
 
@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * TreeMap of all teams and methods to add, update and search
  */
-public class TeamList {
+public class TeamMap {
     private final TreeMap<String, Team> teamMap = new TreeMap<>();
 
-    TeamList() {
+    TeamMap() {
     }
 
     /**

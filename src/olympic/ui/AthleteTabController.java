@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.Athlete;
 import olympic.database.Participation;
-import olympic.list.ListReference;
-import olympic.utility.ListUtility;
+import olympic.maps.MapReference;
+import olympic.utility.DatabaseUtility;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,7 +23,7 @@ import java.util.TreeMap;
 public class AthleteTabController {
 
     private final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
-    private ListReference listReference;
+    private MapReference mapReference;
     private MainController mainController;
 
     @FXML
@@ -57,8 +57,8 @@ public class AthleteTabController {
         this.mainController = mainController;
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**
@@ -83,7 +83,7 @@ public class AthleteTabController {
      */
     void refreshAthleteListView() {
         athleteResultsListView.getItems().clear();
-        initAthleteListView(listReference.getAthleteList().getAthleteMap());
+        initAthleteListView(mapReference.getAthleteList().getAthleteMap());
     }
 
     private void initAthleteListViewHandler() {
@@ -104,9 +104,9 @@ public class AthleteTabController {
         athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
         athleteNameLabel.setText(selectedAthlete.getName());
         athleteSexLabel.setText(selectedAthlete.getSex().equalsIgnoreCase("M") ? "Male" : "Female");
-        athleteAgeLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
-        athleteHeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
-        athleteWeightLabel.setText(ListUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
+        athleteAgeLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
+        athleteHeightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
+        athleteWeightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
 
         fillAthleteParticipationTable(selectedAthlete.getParticipationList());
     }
@@ -163,7 +163,7 @@ public class AthleteTabController {
     }
 
     private void initAthleteListView() {
-        TreeMap<Integer, Athlete> athleteMap = listReference.getAthleteList().getAthleteMap();
+        TreeMap<Integer, Athlete> athleteMap = mapReference.getAthleteList().getAthleteMap();
         initAthleteListView(athleteMap);
         athleteResultCount.textProperty().bind(Bindings.size((athleteResultsListView.getItems())).asString());
 
@@ -172,12 +172,12 @@ public class AthleteTabController {
     private void initAthleteSearchHandler() {
         athleteSearchButton.setOnAction(event -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
+            initAthleteListView(mapReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
         });
 
         athleteSearchInput.setOnAction(action -> {
             athleteResultsListView.getItems().clear();
-            initAthleteListView(listReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
+            initAthleteListView(mapReference.getAthleteList().searchAthlete(athleteSearchInput.getText()));
         });
 
     }

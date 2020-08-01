@@ -8,21 +8,21 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import olympic.filehandle.Reader;
 import olympic.filehandle.Writer;
-import olympic.list.ListReference;
+import olympic.maps.MapReference;
 import olympic.ui.MainController;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
-    private static final ListReference listReference = new ListReference();
+    private static final MapReference MAP_REFERENCE = new MapReference();
     private static final String filename = "data/olympic.db";
     private static Writer fileWriter;
 
     public static void main(String[] args) {
 
         Reader fileReader = new Reader(Main.class.getResourceAsStream(filename));
-        fileReader.setListReference(listReference);
+        fileReader.setListReference(MAP_REFERENCE);
         fileWriter = new Writer("resources/olympic/" + filename);
 
         long startTime = System.nanoTime();
@@ -39,7 +39,7 @@ public class Main extends Application {
         Parent root = loader.load();
 
         MainController mainController = loader.getController();
-        mainController.setListReference(listReference);
+        mainController.setListReference(MAP_REFERENCE);
         mainController.setFileWriter(fileWriter);
         mainController.initializeUI();
 

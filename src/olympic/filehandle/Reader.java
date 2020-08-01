@@ -1,7 +1,7 @@
 package olympic.filehandle;
 
-import olympic.list.ListReference;
-import olympic.utility.ListUtility;
+import olympic.maps.MapReference;
+import olympic.utility.DatabaseUtility;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class Reader {
     private final InputStream fileStream;
-    private ListReference listReference;
+    private MapReference mapReference;
 
     /**
      * Creates new file reader
@@ -23,8 +23,8 @@ public class Reader {
         this.fileStream = fileStream;
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Reader {
         String event = splitLine.get(13);
         String medal = splitLine.get(14);
 
-        ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
+        DatabaseUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, mapReference);
     }
 
     private int dataToInt(String data) {

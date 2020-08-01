@@ -11,8 +11,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import olympic.Main;
 import olympic.filehandle.Writer;
-import olympic.list.ListReference;
-import olympic.utility.ListUtility;
+import olympic.maps.MapReference;
+import olympic.utility.DatabaseUtility;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 public class MainController {
 
-    private ListReference listReference;
+    private MapReference mapReference;
     private Writer fileWriter;
     @FXML
     private AthleteTabController AthleteTabController;
@@ -38,28 +38,28 @@ public class MainController {
         this.fileWriter = fileWriter;
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**
      * Initialise UI and UI elements of all tabs.
      */
     public void initializeUI() {
-        AthleteTabController.setListReference(listReference);
+        AthleteTabController.setListReference(mapReference);
         AthleteTabController.setMainController(this);
         AthleteTabController.initAthleteTab();
 
-        TeamTabController.setListReference(listReference);
+        TeamTabController.setListReference(mapReference);
         TeamTabController.initTeamTab();
 
-        EventTabController.setListReference(listReference);
+        EventTabController.setListReference(mapReference);
         EventTabController.initEventTab();
 
-        DisciplineTabController.setListReference(listReference);
+        DisciplineTabController.setListReference(mapReference);
         DisciplineTabController.initDisciplineTab();
 
-        OlympicGameTabController.setListReference(listReference);
+        OlympicGameTabController.setListReference(mapReference);
         OlympicGameTabController.initOlympicGameTab();
     }
 
@@ -76,7 +76,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add.fxml"));
             root = loader.load();
             addController = loader.getController();
-            addController.setListReference(listReference);
+            addController.setListReference(mapReference);
             addController.setMainController(this);
             Stage addStage = new Stage();
             if (((Control) event.getSource()).getId().equals("athleteAddAthleteButton")) {
@@ -117,7 +117,7 @@ public class MainController {
      * @param medal       Athlete medal
      */
     void saveLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
-        ListUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, listReference);
+        DatabaseUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, mapReference);
         fileWriter.save(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal);
     }
 

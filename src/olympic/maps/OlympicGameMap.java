@@ -1,4 +1,4 @@
-package olympic.list;
+package olympic.maps;
 
 import olympic.database.OlympicGame;
 
@@ -8,11 +8,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * TreeMap of all olympic games and methods to add, update and search
  */
-public class OlympicGameList {
+public class OlympicGameMap {
 
     private final TreeMap<String, OlympicGame> OlympicGameMap = new TreeMap<>();
 
-    OlympicGameList() {
+    OlympicGameMap() {
     }
 
     public TreeMap<String, OlympicGame> getOlympicGameMap() {

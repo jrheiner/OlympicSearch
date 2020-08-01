@@ -1,4 +1,4 @@
-package olympic.list;
+package olympic.maps;
 
 import olympic.database.*;
 
@@ -8,11 +8,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * TreeMap of all athletes and methods to add, update and search
  */
-public class AthleteList {
+public class AthleteMap {
 
     private final TreeMap<Integer, Athlete> athleteMap = new TreeMap<>();
 
-    AthleteList() {
+    AthleteMap() {
     }
 
     /**

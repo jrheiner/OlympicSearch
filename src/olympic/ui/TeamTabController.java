@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.Team;
-import olympic.list.ListReference;
+import olympic.maps.MapReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +19,7 @@ public class TeamTabController {
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
     private final ObservableList<String> teamGames = FXCollections.observableArrayList();
-    private ListReference listReference;
+    private MapReference mapReference;
 
     @FXML
     private Button teamSearchButton;
@@ -36,8 +36,8 @@ public class TeamTabController {
     @FXML
     private ListView<String> teamGameList;
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**
@@ -92,12 +92,12 @@ public class TeamTabController {
     private void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText()));
+            initTeamListView(mapReference.getTeamList().searchTeam(teamSearchInput.getText()));
         });
 
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(listReference.getTeamList().searchTeam(teamSearchInput.getText()));
+            initTeamListView(mapReference.getTeamList().searchTeam(teamSearchInput.getText()));
         });
     }
 
@@ -120,7 +120,7 @@ public class TeamTabController {
     }
 
     private void initTeamListView() {
-        TreeMap<String, Team> teamMap = listReference.getTeamList().getTeamMap();
+        TreeMap<String, Team> teamMap = mapReference.getTeamList().getTeamMap();
         initTeamListView(teamMap);
     }
 

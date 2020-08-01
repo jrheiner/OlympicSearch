@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import olympic.database.Event;
-import olympic.list.ListReference;
+import olympic.maps.MapReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.TreeMap;
 public class EventTabController {
     private final ObservableList<Event> events = FXCollections.observableArrayList();
     private final ObservableList<String> eventsOlympicGames = FXCollections.observableArrayList();
-    private ListReference listReference;
+    private MapReference mapReference;
     @FXML
     private Button eventSearchButton;
     @FXML
@@ -75,12 +75,12 @@ public class EventTabController {
     private void initEventSearchHandler() {
         eventSearchButton.setOnAction(event -> {
             eventResultsListView.getItems().clear();
-            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText()));
+            initEventListView(mapReference.getEventList().searchEvent(eventSearchInput.getText()));
         });
 
         eventSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             eventResultsListView.getItems().clear();
-            initEventListView(listReference.getEventList().searchEvent(eventSearchInput.getText()));
+            initEventListView(mapReference.getEventList().searchEvent(eventSearchInput.getText()));
         });
     }
 
@@ -103,13 +103,13 @@ public class EventTabController {
     }
 
     private void initEventListView() {
-        TreeMap<String, Event> eventMap = listReference.getEventList().getEventMap();
+        TreeMap<String, Event> eventMap = mapReference.getEventList().getEventMap();
         initEventListView(eventMap);
 
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 
     /**

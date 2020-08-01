@@ -6,7 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import olympic.database.Athlete;
-import olympic.list.ListReference;
+import olympic.maps.MapReference;
 
 import java.util.regex.Pattern;
 
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * UI Controller for the popup form to add new athletes or events
  */
 public class AddController {
-    private ListReference listReference;
+    private MapReference mapReference;
     private Boolean isNewAthlete = false;
     private Boolean isValid = false;
     private Boolean validationHandler = false;
@@ -241,7 +241,7 @@ public class AddController {
     private void adjustFormMode(Boolean isNewAthlete) {
         if (isNewAthlete) {
             addTitle.setText("New athlete");
-            addId.setText(String.valueOf(listReference.getAthleteList().getAthleteMap().lastKey() + 1));
+            addId.setText(String.valueOf(mapReference.getAthleteList().getAthleteMap().lastKey() + 1));
 
             addId.setDisable(true);
         } else {
@@ -266,7 +266,7 @@ public class AddController {
     }
 
     private void fillAthleteData(int id) {
-        Athlete selectedAthlete = listReference.getAthleteList().getAthleteById(id);
+        Athlete selectedAthlete = mapReference.getAthleteList().getAthleteById(id);
         if (selectedAthlete != null) {
             addName.setText(selectedAthlete.getName());
             addSex.getSelectionModel().select(selectedAthlete.getSex());
@@ -284,7 +284,7 @@ public class AddController {
         this.isNewAthlete = isNewAthlete;
     }
 
-    public void setListReference(ListReference listReference) {
-        this.listReference = listReference;
+    public void setListReference(MapReference mapReference) {
+        this.mapReference = mapReference;
     }
 }

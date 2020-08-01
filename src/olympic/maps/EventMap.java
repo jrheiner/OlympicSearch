@@ -1,4 +1,4 @@
-package olympic.list;
+package olympic.maps;
 
 import olympic.database.Event;
 
@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * TreeMap of all events and methods to add, update and search
  */
-public class EventList {
+public class EventMap {
     private final TreeMap<String, Event> EventMap = new TreeMap<>();
 
-    EventList() {
+    EventMap() {
     }
 
     /**
