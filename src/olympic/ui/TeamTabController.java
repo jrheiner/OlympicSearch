@@ -36,7 +36,7 @@ public class TeamTabController {
     @FXML
     private ListView<String> teamGameList;
 
-    public void setListReference(MapReference mapReference) {
+    void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
     }
 
