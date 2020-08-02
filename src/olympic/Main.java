@@ -30,6 +30,7 @@ public class Main extends Application {
 
         Reader fileReader = new Reader(Main.class.getResourceAsStream(FILENAME));
         fileReader.setListReference(MAP_REFERENCE);
+
         fileWriter = new Writer("resources/olympic/" + FILENAME);
 
         long startTime = System.nanoTime();

@@ -120,7 +120,7 @@ public class AddController {
     private void submitForm() {
         saveButton.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            mainController.saveLineToDatabase((mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1), name.getText(), sex.getSelectionModel().getSelectedItem(), Integer.parseInt(age.getText().equals("") ? "-1" : age.getText()), Integer.parseInt(height.getText().equals("") ? "-1" : height.getText()), Float.parseFloat(weight.getText().equals("") ? "-1.0" : weight.getText()), team.getText(), noc.getText(), olympicGame.getText(), Integer.parseInt(year.getText()), season.getValue(), city.getText(), discipline.getText(), event.getText(), medal.getSelectionModel().getSelectedItem());
+            mainController.saveLineToDatabase(mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : Integer.parseInt(id.getText()), name.getText(), sex.getSelectionModel().getSelectedItem(), Integer.parseInt(age.getText().equals("") ? "-1" : age.getText()), Integer.parseInt(height.getText().equals("") ? "-1" : height.getText()), Float.parseFloat(weight.getText().equals("") ? "-1.0" : weight.getText()), team.getText(), noc.getText(), olympicGame.getText(), Integer.parseInt(year.getText()), season.getValue(), city.getText(), discipline.getText(), event.getText(), medal.getSelectionModel().getSelectedItem());
             saveButton.getScene().getWindow().hide();
             mainController.refreshListViews();
             showConfirmation(id.getText());
