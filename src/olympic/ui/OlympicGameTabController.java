@@ -115,7 +115,7 @@ public class OlympicGameTabController {
         initOlympicGameListView(olympicGameMap);
     }
 
-    public void setListReference(MapReference mapReference) {
+    void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
     }
 

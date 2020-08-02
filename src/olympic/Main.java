@@ -13,12 +13,19 @@ import olympic.ui.MainController;
 
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * Main class, initialises primary user interface and file reader and writer
+ */
 public class Main extends Application {
     private static final MapReference MAP_REFERENCE = new MapReference();
     private static final String FILENAME = "data/olympic.db";
     private static Writer fileWriter;
 
+    /**
+     * Main method, starts the program
+     *
+     * @param args No required arguments
+     */
     public static void main(String[] args) {
 
         Reader fileReader = new Reader(Main.class.getResourceAsStream(FILENAME));

@@ -59,6 +59,12 @@ public class OlympicGameMap {
         return results;
     }
 
+    /**
+     * Get an olympic game by name
+     *
+     * @param key Olympic game name
+     * @return Olympic game
+     */
     public OlympicGame getOlympicGame(String key) {
         return OlympicGameMap.get(key);
     }

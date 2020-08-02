@@ -43,6 +43,11 @@ public class OlympicGame {
         return city;
     }
 
+    /**
+     * Custom Getter for game name
+     *
+     * @return Game as combination of year and season
+     */
     public String getGame() {
         return year + " " + season;
     }

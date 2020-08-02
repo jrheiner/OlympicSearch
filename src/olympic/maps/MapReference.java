@@ -9,6 +9,9 @@ public class MapReference {
     private final OlympicGameMap olympicGameMap = new OlympicGameMap();
     private final EventMap eventMap = new EventMap();
 
+    /**
+     * Creates new MapReference and initialises internal database
+     */
     public MapReference() {
     }
 
