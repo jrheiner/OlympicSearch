@@ -1,10 +1,10 @@
 package olympic.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import olympic.Main;
 import olympic.database.Athlete;
 import olympic.maps.MapReference;
 
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class AddController {
     private MapReference mapReference;
-    private Boolean isNewAthlete = false;
+    private Boolean isNewAthlete;
     private Boolean isValid = false;
     private Boolean validationHandler = false;
     private MainController mainController;
@@ -122,9 +122,23 @@ public class AddController {
             mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getValue(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
             addSave.getScene().getWindow().hide();
             mainController.refreshListViews();
+            showConfirmation(addId.getText());
         } else {
             addSave.setDisable(false);
         }
+    }
+
+    private void showConfirmation(String id) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
+
+        alert.setHeaderText(null);
+        alert.setContentText("Changes saved for id " + id + ".");
+
+        alert.showAndWait();
     }
 
     private boolean checkValidity(Boolean isNewAthlete) {
@@ -284,7 +298,7 @@ public class AddController {
         this.isNewAthlete = isNewAthlete;
     }
 
-    public void setListReference(MapReference mapReference) {
+    void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
     }
 }

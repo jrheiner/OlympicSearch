@@ -3,7 +3,10 @@ package olympic.filehandle;
 import olympic.maps.MapReference;
 import olympic.utility.DatabaseUtility;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,9 +42,9 @@ public class Reader {
                 parseSplitLine(splitLine(line));
             }
             System.out.println("-END-");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("ERROR File not found!");
+        } catch (NullPointerException e) {
+            System.err.println("ERROR File not found!");
+            System.exit(-1);
         } catch (IOException e) {
             e.printStackTrace();
         }

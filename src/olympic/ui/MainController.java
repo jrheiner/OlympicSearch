@@ -84,6 +84,7 @@ public class MainController {
                 addController.setIsNewAthlete(true);
             } else {
                 addStage.setTitle("Add new participation");
+                addController.setIsNewAthlete(false);
             }
             addController.initAddForm();
             addStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
