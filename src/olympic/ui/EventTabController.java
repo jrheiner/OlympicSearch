@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import olympic.database.Event;
 import olympic.maps.MapReference;
 
@@ -31,6 +32,8 @@ public class EventTabController {
     private Label eventDisciplineLabel;
     @FXML
     private ListView<String> eventOlympicGameList;
+    @FXML
+    private GridPane eventProfilePane;
 
     /**
      * Initialise Event tab UI.
@@ -45,10 +48,11 @@ public class EventTabController {
     }
 
     private void initEventProfile() {
-        displayEventProfile(eventResultsListView.getItems().get(0));
+        eventProfilePane.setVisible(false);
     }
 
     private void displayEventProfile(Event selectedEvent) {
+        eventProfilePane.setVisible(true);
         eventEventLabel.setText(selectedEvent.getEvent());
         eventDisciplineLabel.setText(selectedEvent.getDiscipline());
 
@@ -66,7 +70,6 @@ public class EventTabController {
         eventResultsListView.setOnMouseClicked(event -> {
             Event selectedEvent = eventResultsListView.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
-                System.out.println("clicked on " + selectedEvent);
                 displayEventProfile(selectedEvent);
             }
         });
@@ -75,12 +78,12 @@ public class EventTabController {
     private void initEventSearchHandler() {
         eventSearchButton.setOnAction(event -> {
             eventResultsListView.getItems().clear();
-            initEventListView(mapReference.getEventList().searchEvent(eventSearchInput.getText()));
+            initEventListView(mapReference.getEventDB().searchEvent(eventSearchInput.getText()));
         });
 
         eventSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             eventResultsListView.getItems().clear();
-            initEventListView(mapReference.getEventList().searchEvent(eventSearchInput.getText()));
+            initEventListView(mapReference.getEventDB().searchEvent(eventSearchInput.getText()));
         });
     }
 
@@ -103,7 +106,7 @@ public class EventTabController {
     }
 
     private void initEventListView() {
-        TreeMap<String, Event> eventMap = mapReference.getEventList().getEventMap();
+        TreeMap<String, Event> eventMap = mapReference.getEventDB().getEventMap();
         initEventListView(eventMap);
 
     }

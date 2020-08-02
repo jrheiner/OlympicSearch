@@ -24,12 +24,12 @@ public class Writer {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
             bufferedWriter.write(line);
             bufferedWriter.newLine();
-            System.out.println("-END-");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("ERROR File not found!");
+            System.err.println("Database Writer: File not found!");
+            System.exit(-1);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Database Writer: Error writing to file!");
+            System.exit(-1);
         }
     }
 
@@ -53,7 +53,7 @@ public class Writer {
      * @param medal       Medal the athlete achieved
      */
     public void save(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal) {
-        System.out.println("Write " + id + " to file");
+        System.out.println("Saved Athlete " + id + " to file.");
         appendDatabase(buildLineString(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal));
     }
 

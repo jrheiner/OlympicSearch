@@ -12,19 +12,19 @@ public class MapReference {
     public MapReference() {
     }
 
-    public AthleteMap getAthleteList() {
+    public AthleteMap getAthleteDB() {
         return athleteMap;
     }
 
-    public TeamMap getTeamList() {
+    public TeamMap getTeamDB() {
         return teamMap;
     }
 
-    public OlympicGameMap getOlympicGameList() {
+    public OlympicGameMap getOlympicGameDB() {
         return olympicGameMap;
     }
 
-    public EventMap getEventList() {
+    public EventMap getEventDB() {
         return eventMap;
     }
 }

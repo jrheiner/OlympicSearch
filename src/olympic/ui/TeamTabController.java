@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import olympic.database.Team;
 import olympic.maps.MapReference;
 
@@ -35,6 +36,8 @@ public class TeamTabController {
     private ListView<String> teamAthleteList;
     @FXML
     private ListView<String> teamGameList;
+    @FXML
+    private GridPane teamProfilePane;
 
     void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
@@ -53,10 +56,11 @@ public class TeamTabController {
     }
 
     private void initTeamProfile() {
-        displayTeamProfile(teamResultsListView.getItems().get(0));
+        teamProfilePane.setVisible(false);
     }
 
     private void displayTeamProfile(Team selectedTeam) {
+        teamProfilePane.setVisible(true);
         teamTeamLabel.setText(selectedTeam.getTeam());
         teamNOCLabel.setText(selectedTeam.getNoc());
 
@@ -83,7 +87,6 @@ public class TeamTabController {
         teamResultsListView.setOnMouseClicked(event -> {
             Team selectedTeam = teamResultsListView.getSelectionModel().getSelectedItem();
             if (selectedTeam != null) {
-                System.out.println("clicked on " + selectedTeam);
                 displayTeamProfile(selectedTeam);
             }
         });
@@ -92,12 +95,12 @@ public class TeamTabController {
     private void initTeamSearchHandler() {
         teamSearchButton.setOnAction(event -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(mapReference.getTeamList().searchTeam(teamSearchInput.getText()));
+            initTeamListView(mapReference.getTeamDB().searchTeam(teamSearchInput.getText()));
         });
 
         teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             teamResultsListView.getItems().clear();
-            initTeamListView(mapReference.getTeamList().searchTeam(teamSearchInput.getText()));
+            initTeamListView(mapReference.getTeamDB().searchTeam(teamSearchInput.getText()));
         });
     }
 
@@ -120,7 +123,7 @@ public class TeamTabController {
     }
 
     private void initTeamListView() {
-        TreeMap<String, Team> teamMap = mapReference.getTeamList().getTeamMap();
+        TreeMap<String, Team> teamMap = mapReference.getTeamDB().getTeamMap();
         initTeamListView(teamMap);
     }
 

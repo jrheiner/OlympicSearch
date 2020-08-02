@@ -41,12 +41,12 @@ public class Reader {
             while ((line = bufferedReader.readLine()) != null) {
                 parseSplitLine(splitLine(line));
             }
-            System.out.println("-END-");
         } catch (NullPointerException e) {
-            System.err.println("ERROR File not found!");
+            System.err.println("Database Reader: File not found!");
             System.exit(-1);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Database Reader: Error reading file!");
+            System.exit(-1);
         }
     }
 
@@ -65,23 +65,29 @@ public class Reader {
     }
 
     private void parseSplitLine(ArrayList<String> splitLine) {
-        int id = Integer.parseInt(splitLine.get(0));
-        String name = splitLine.get(1);
-        String sex = String.valueOf(splitLine.get(2));
-        int age = dataToInt(splitLine.get(3));
-        int height = dataToInt(splitLine.get(4));
-        float weight = dataToFloat(splitLine.get(5));
-        String team = splitLine.get(6);
-        String noc = splitLine.get(7);
-        String olympicGame = splitLine.get(8);
-        int year = dataToInt(splitLine.get(9));
-        String season = splitLine.get(10);
-        String city = splitLine.get(11);
-        String sport = splitLine.get(12);
-        String event = splitLine.get(13);
-        String medal = splitLine.get(14);
+        try {
+            int id = Integer.parseInt(splitLine.get(0));
+            String name = splitLine.get(1).replaceAll("\"\"", "\"");
+            String sex = String.valueOf(splitLine.get(2));
+            int age = dataToInt(splitLine.get(3));
+            int height = dataToInt(splitLine.get(4));
+            float weight = dataToFloat(splitLine.get(5));
+            String team = splitLine.get(6);
+            String noc = splitLine.get(7);
+            String olympicGame = splitLine.get(8);
+            int year = dataToInt(splitLine.get(9));
+            String season = splitLine.get(10);
+            String city = splitLine.get(11);
+            String sport = splitLine.get(12);
+            String event = splitLine.get(13);
+            String medal = splitLine.get(14);
 
-        DatabaseUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, mapReference);
+
+            DatabaseUtility.addLineToDatabase(id, name, sex, age, height, weight, team, noc, olympicGame, year, season, city, sport, event, medal, mapReference);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Invalid database format! Cannot read file.");
+            System.exit(-1);
+        }
     }
 
     private int dataToInt(String data) {

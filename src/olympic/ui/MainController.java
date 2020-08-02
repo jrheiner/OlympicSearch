@@ -92,7 +92,6 @@ public class MainController {
             addStage.setResizable(false);
             addStage.initModality(Modality.APPLICATION_MODAL);
             addStage.showAndWait();
-            System.out.println(((Control) event.getSource()).getId());
         } catch (IOException e) {
             e.printStackTrace();
         }

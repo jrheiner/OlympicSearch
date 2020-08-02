@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="361.0" prefWidth="1004.0" GridPane.rowIndex="1"
-          xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="olympic.ui.AthleteTabController">
+          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="olympic.ui.AthleteTabController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="450.0"/>
         <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" prefWidth="550.0"/>
@@ -94,7 +94,7 @@
             </Label>
         </GridPane>
     </GridPane>
-    <GridPane GridPane.columnIndex="1">
+    <GridPane fx:id="athleteProfilePane" GridPane.columnIndex="1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0"/>
         </columnConstraints>

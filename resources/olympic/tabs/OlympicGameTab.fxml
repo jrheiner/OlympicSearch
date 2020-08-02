@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" GridPane.rowIndex="1"
-          xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="olympic.ui.OlympicGameTabController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/11.0.1"
+          fx:controller="olympic.ui.OlympicGameTabController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="450.0"/>
         <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" prefWidth="550.0"/>
@@ -32,8 +32,7 @@
             <rowConstraints>
                 <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Button fx:id="olympicGameSearchButton" mnemonicParsing="false" text="Search"
-                    GridPane.columnIndex="1">
+            <Button fx:id="olympicGameSearchButton" mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
                 <GridPane.margin>
                     <Insets left="15.0"/>
                 </GridPane.margin>
@@ -53,7 +52,7 @@
             </GridPane.margin>
         </ListView>
     </GridPane>
-    <GridPane GridPane.columnIndex="1">
+    <GridPane fx:id="olympicGameProfilePane" GridPane.columnIndex="1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0"/>
         </columnConstraints>
@@ -73,8 +72,7 @@
                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <ListView fx:id="olympicGameEventList" prefHeight="200.0" prefWidth="200.0"
-                      GridPane.rowIndex="1"/>
+            <ListView fx:id="olympicGameEventList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
             <Label text="Events" GridPane.halignment="LEFT">
                 <font>
                     <Font name="System Bold" size="12.0"/>
@@ -110,8 +108,7 @@
                 </font>
             </Label>
         </GridPane>
-        <Label text="Game details"
-               GridPane.columnSpan="2147483647">
+        <Label text="Game details" GridPane.columnSpan="2147483647">
             <font>
                 <Font name="System Bold" size="24.0"/>
             </font>

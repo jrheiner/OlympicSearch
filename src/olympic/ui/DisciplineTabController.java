@@ -38,12 +38,12 @@ public class DisciplineTabController {
     private void initDisciplineSearchHandler() {
         disciplineSearchButton.setOnAction(event -> {
             disciplineResultsListView.getItems().clear();
-            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventList().getDisciplines()));
+            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventDB().getDisciplines()));
         });
 
         disciplineSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             disciplineResultsListView.getItems().clear();
-            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventList().getDisciplines()));
+            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventDB().getDisciplines()));
         });
     }
 
@@ -53,7 +53,7 @@ public class DisciplineTabController {
     }
 
     private void initDisciplineListView() {
-        TreeSet<String> disciplineSet = mapReference.getEventList().getDisciplines();
+        TreeSet<String> disciplineSet = mapReference.getEventDB().getDisciplines();
         initDisciplineListView(disciplineSet);
     }
 

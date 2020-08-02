@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     private static final MapReference MAP_REFERENCE = new MapReference();
-    private static final String FILENAME = "data/test.db";
+    private static final String FILENAME = "data/olympic.db";
     private static Writer fileWriter;
 
     public static void main(String[] args) {

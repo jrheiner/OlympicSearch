@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import olympic.database.OlympicGame;
 import olympic.maps.MapReference;
 
@@ -31,6 +32,8 @@ public class OlympicGameTabController {
     private Label olympicGameCityLabel;
     @FXML
     private ListView<String> olympicGameEventList;
+    @FXML
+    private GridPane olympicGameProfilePane;
 
     /**
      * Initialise Game tab UI.
@@ -45,10 +48,11 @@ public class OlympicGameTabController {
     }
 
     private void initOlympicGameProfile() {
-        displayOlympicGameProfile(olympicGameResultsListView.getItems().get(0));
+        olympicGameProfilePane.setVisible(false);
     }
 
     private void displayOlympicGameProfile(OlympicGame selectedGame) {
+        olympicGameProfilePane.setVisible(true);
         olympicGameGameLabel.setText(selectedGame.getGame());
         olympicGameCityLabel.setText(selectedGame.getCity());
 
@@ -67,7 +71,6 @@ public class OlympicGameTabController {
         olympicGameResultsListView.setOnMouseClicked(event -> {
             OlympicGame selectedGame = olympicGameResultsListView.getSelectionModel().getSelectedItem();
             if (selectedGame != null) {
-                System.out.println("clicked on " + selectedGame);
                 displayOlympicGameProfile(selectedGame);
             }
         });
@@ -76,7 +79,7 @@ public class OlympicGameTabController {
     private void initOlympicGameSearchHandler() {
         olympicGameSearchButton.setOnAction(event -> {
             olympicGameResultsListView.getItems().clear();
-            initOlympicGameListView(mapReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
+            initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(olympicGameSearchInput.getText()));
         });
 
         olympicGameSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -84,7 +87,7 @@ public class OlympicGameTabController {
                 olympicGameSearchInput.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
                 olympicGameResultsListView.getItems().clear();
-                initOlympicGameListView(mapReference.getOlympicGameList().searchOlympicGame(olympicGameSearchInput.getText()));
+                initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(olympicGameSearchInput.getText()));
             }
         });
     }
@@ -108,7 +111,7 @@ public class OlympicGameTabController {
     }
 
     private void initOlympicGameListView() {
-        TreeMap<String, OlympicGame> olympicGameMap = mapReference.getOlympicGameList().getOlympicGameMap();
+        TreeMap<String, OlympicGame> olympicGameMap = mapReference.getOlympicGameDB().getOlympicGameMap();
         initOlympicGameListView(olympicGameMap);
     }
 

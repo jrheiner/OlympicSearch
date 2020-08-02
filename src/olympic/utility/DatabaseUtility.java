@@ -59,15 +59,15 @@ public class DatabaseUtility {
      * @param mapReference Reference to internal database
      */
     public static void addLineToDatabase(int id, String name, String sex, int age, int height, float weight, String team, String noc, String olympicGame, int year, String season, String city, String sport, String event, String medal, MapReference mapReference) {
-        mapReference.getTeamList().addOrUpdate(team, noc, olympicGame, name);
-        mapReference.getEventList().addOrUpdate(event, sport, olympicGame);
-        mapReference.getOlympicGameList().addOrUpdate(olympicGame, city, year, season, event);
+        mapReference.getTeamDB().addOrUpdate(team, noc, olympicGame, name);
+        mapReference.getEventDB().addOrUpdate(event, sport, olympicGame);
+        mapReference.getOlympicGameDB().addOrUpdate(olympicGame, city, year, season, event);
 
-        mapReference.getAthleteList().addOrUpdate(id, name, age, sex, height, weight,
-                mapReference.getAthleteList().createParticipation(
-                        mapReference.getOlympicGameList().getOlympicGame(olympicGame),
-                        mapReference.getTeamList().getTeam(team),
-                        mapReference.getEventList().getEvent(event),
+        mapReference.getAthleteDB().addOrUpdate(id, name, age, sex, height, weight,
+                mapReference.getAthleteDB().createParticipation(
+                        mapReference.getOlympicGameDB().getOlympicGame(olympicGame),
+                        mapReference.getTeamDB().getTeam(team),
+                        mapReference.getEventDB().getEvent(event),
                         medal));
     }
 }

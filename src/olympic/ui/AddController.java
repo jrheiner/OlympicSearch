@@ -119,7 +119,7 @@ public class AddController {
     private void submitForm() {
         addSave.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            mainController.saveLineToDatabase(Integer.parseInt(addId.getText()), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getValue(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
+            mainController.saveLineToDatabase((mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getValue(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
             addSave.getScene().getWindow().hide();
             mainController.refreshListViews();
             showConfirmation(addId.getText());
@@ -255,7 +255,7 @@ public class AddController {
     private void adjustFormMode(Boolean isNewAthlete) {
         if (isNewAthlete) {
             addTitle.setText("New athlete");
-            addId.setText(String.valueOf(mapReference.getAthleteList().getAthleteMap().lastKey() + 1));
+            addId.setText(String.valueOf(mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1));
 
             addId.setDisable(true);
         } else {
@@ -280,7 +280,7 @@ public class AddController {
     }
 
     private void fillAthleteData(int id) {
-        Athlete selectedAthlete = mapReference.getAthleteList().getAthleteById(id);
+        Athlete selectedAthlete = mapReference.getAthleteDB().getAthleteById(id);
         if (selectedAthlete != null) {
             addName.setText(selectedAthlete.getName());
             addSex.getSelectionModel().select(selectedAthlete.getSex());
