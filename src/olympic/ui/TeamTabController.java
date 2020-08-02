@@ -18,26 +18,26 @@ import java.util.TreeMap;
  */
 public class TeamTabController {
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
-    private final ObservableList<String> teamAthletes = FXCollections.observableArrayList();
-    private final ObservableList<String> teamGames = FXCollections.observableArrayList();
+    private final ObservableList<String> athletes = FXCollections.observableArrayList();
+    private final ObservableList<String> games = FXCollections.observableArrayList();
     private MapReference mapReference;
 
     @FXML
-    private Button teamSearchButton;
+    private Button searchButton;
     @FXML
-    private TextField teamSearchInput;
+    private TextField searchInput;
     @FXML
-    private ListView<Team> teamResultsListView;
+    private ListView<Team> resultsListView;
     @FXML
-    private Label teamTeamLabel;
+    private Label teamLabel;
     @FXML
-    private Label teamNOCLabel;
+    private Label nocLabel;
     @FXML
-    private ListView<String> teamAthleteList;
+    private ListView<String> athleteListView;
     @FXML
-    private ListView<String> teamGameList;
+    private ListView<String> gameListView;
     @FXML
-    private GridPane teamProfilePane;
+    private GridPane profilePane;
 
     void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
@@ -56,13 +56,13 @@ public class TeamTabController {
     }
 
     private void initTeamProfile() {
-        teamProfilePane.setVisible(false);
+        profilePane.setVisible(false);
     }
 
     private void displayTeamProfile(Team selectedTeam) {
-        teamProfilePane.setVisible(true);
-        teamTeamLabel.setText(selectedTeam.getTeam());
-        teamNOCLabel.setText(selectedTeam.getNoc());
+        profilePane.setVisible(true);
+        teamLabel.setText(selectedTeam.getTeam());
+        nocLabel.setText(selectedTeam.getNoc());
 
         fillTeamAthleteList(selectedTeam.getAthleteList());
         fillTeamGameList(selectedTeam.getOlympicGameList());
@@ -70,22 +70,22 @@ public class TeamTabController {
     }
 
     private void fillTeamGameList(ArrayList<String> games) {
-        teamGameList.getItems().clear();
-        teamGameList.setItems(teamGames);
+        gameListView.getItems().clear();
+        gameListView.setItems(this.games);
         Collections.sort(games);
-        teamGames.addAll(games);
+        this.games.addAll(games);
     }
 
     private void fillTeamAthleteList(ArrayList<String> athletes) {
-        teamAthleteList.getItems().clear();
-        teamAthleteList.setItems(teamAthletes);
+        athleteListView.getItems().clear();
+        athleteListView.setItems(this.athletes);
         Collections.sort(athletes);
-        teamAthletes.addAll(athletes);
+        this.athletes.addAll(athletes);
     }
 
     private void initTeamListViewHandler() {
-        teamResultsListView.setOnMouseClicked(event -> {
-            Team selectedTeam = teamResultsListView.getSelectionModel().getSelectedItem();
+        resultsListView.setOnMouseClicked(event -> {
+            Team selectedTeam = resultsListView.getSelectionModel().getSelectedItem();
             if (selectedTeam != null) {
                 displayTeamProfile(selectedTeam);
             }
@@ -93,19 +93,19 @@ public class TeamTabController {
     }
 
     private void initTeamSearchHandler() {
-        teamSearchButton.setOnAction(event -> {
-            teamResultsListView.getItems().clear();
-            initTeamListView(mapReference.getTeamDB().searchTeam(teamSearchInput.getText()));
+        searchButton.setOnAction(event -> {
+            resultsListView.getItems().clear();
+            initTeamListView(mapReference.getTeamDB().searchTeam(searchInput.getText()));
         });
 
-        teamSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            teamResultsListView.getItems().clear();
-            initTeamListView(mapReference.getTeamDB().searchTeam(teamSearchInput.getText()));
+        searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            resultsListView.getItems().clear();
+            initTeamListView(mapReference.getTeamDB().searchTeam(searchInput.getText()));
         });
     }
 
     private void initTeamListView(TreeMap<String, Team> resultMap) {
-        teamResultsListView.setCellFactory(param -> new ListCell<>() {
+        resultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Team team, boolean empty) {
                 super.updateItem(team, empty);
@@ -116,7 +116,7 @@ public class TeamTabController {
                 }
             }
         });
-        teamResultsListView.setItems(teams);
+        resultsListView.setItems(teams);
         for (Map.Entry<String, Team> entry : resultMap.entrySet()) {
             teams.add(entry.getValue());
         }
@@ -131,7 +131,7 @@ public class TeamTabController {
      * Reload team list to include internal database changes
      */
     void refreshTeamListView() {
-        teamResultsListView.getItems().clear();
+        resultsListView.getItems().clear();
         initTeamListView();
     }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Olympic game data structure
  */
 public class OlympicGame {
-    private final String game;
     private final String city;
     private final int year;
     private final String season;
@@ -15,14 +14,12 @@ public class OlympicGame {
     /**
      * Creates new olympic game
      *
-     * @param game   Game name
      * @param city   Game city
      * @param year   Game year
      * @param season Game season
      * @param event  Game event
      */
-    public OlympicGame(String game, String city, int year, String season, String event) {
-        this.game = game;
+    public OlympicGame(String city, int year, String season, String event) {
         this.city = city;
         this.year = year;
         this.season = season;
@@ -47,6 +44,6 @@ public class OlympicGame {
     }
 
     public String getGame() {
-        return game;
+        return year + " " + season;
     }
 }

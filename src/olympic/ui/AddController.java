@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 /**
  * UI Controller for the popup form to add new athletes or events
  */
+@SuppressWarnings("WeakerAccess")
 public class AddController {
     private MapReference mapReference;
     private Boolean isNewAthlete;
@@ -20,41 +21,41 @@ public class AddController {
     private Boolean validationHandler = false;
     private MainController mainController;
     @FXML
-    private Label addTitle;
+    private Label title;
     @FXML
-    private TextField addId;
+    private TextField id;
     @FXML
-    private TextField addName;
+    private TextField name;
     @FXML
-    private ComboBox<String> addSex;
+    private ComboBox<String> sex;
     @FXML
-    private TextField addAge;
+    private TextField age;
     @FXML
-    private TextField addHeight;
+    private TextField height;
     @FXML
-    private TextField addWeight;
+    private TextField weight;
     @FXML
-    private TextField addTeam;
+    private TextField team;
     @FXML
-    private TextField addNOC;
+    private TextField noc;
     @FXML
-    private TextField addYear;
+    private TextField year;
     @FXML
-    private ComboBox<String> addSeason;
+    private ComboBox<String> season;
     @FXML
-    private TextField addOlympicGame;
+    private TextField olympicGame;
     @FXML
-    private TextField addCity;
+    private TextField city;
     @FXML
-    private TextField addDiscipline;
+    private TextField discipline;
     @FXML
-    private TextField addEvent;
+    private TextField event;
     @FXML
-    private Button addSave;
+    private Button saveButton;
     @FXML
-    private Button addCancel;
+    private Button cancelButton;
     @FXML
-    private ComboBox<String> addMedal;
+    private ComboBox<String> medal;
 
     void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -72,40 +73,40 @@ public class AddController {
     }
 
     private void initEventHandler() {
-        onlyIntInput(addId);
-        onlyIntInput(addAge);
-        onlyIntInput(addHeight);
-        onlyIntInput(addId);
-        addWeight.textProperty().addListener((observable, oldValue, newValue) -> {
+        onlyIntInput(id);
+        onlyIntInput(age);
+        onlyIntInput(height);
+        onlyIntInput(id);
+        weight.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("([0-9]*[.])?[0-9]*")) {
-                addWeight.setText(newValue.replaceAll("[^0-9.]+", ""));
+                weight.setText(newValue.replaceAll("[^0-9.]+", ""));
             }
         });
 
-        addYear.textProperty().addListener((observable, oldValue, newValue) -> {
+        year.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                addYear.setText(newValue.replaceAll("[^\\d]", ""));
+                year.setText(newValue.replaceAll("[^\\d]", ""));
             }
             if (newValue.length() == 5) {
-                addYear.setText(oldValue);
+                year.setText(oldValue);
             }
-            addOlympicGame.setText(addYear.getText() + " " + (addSeason.getValue() == null ? "" : addSeason.getValue()));
+            olympicGame.setText(year.getText() + " " + (season.getValue() == null ? "" : season.getValue()));
         });
 
-        addSeason.valueProperty().addListener((observable, oldValue, newValue) -> addOlympicGame.setText(addYear.getText() + " " + addSeason.getValue()));
+        season.valueProperty().addListener((observable, oldValue, newValue) -> olympicGame.setText(year.getText() + " " + season.getValue()));
 
-        addNOC.textProperty().addListener((observable, oldValue, newValue) -> {
-            addNOC.setText(newValue.toUpperCase());
+        noc.textProperty().addListener((observable, oldValue, newValue) -> {
+            noc.setText(newValue.toUpperCase());
             if (!newValue.toUpperCase().matches("[A-Z]+")) {
-                addNOC.setText(newValue.replaceAll("[^A-Z]+", ""));
+                noc.setText(newValue.replaceAll("[^A-Z]+", ""));
             }
             if (newValue.length() == 4) {
-                addNOC.setText(oldValue.toUpperCase());
+                noc.setText(oldValue.toUpperCase());
             }
         });
 
-        addSave.setOnAction(event -> submitForm());
-        addCancel.setOnAction(event -> addCancel.getScene().getWindow().hide());
+        saveButton.setOnAction(event -> submitForm());
+        cancelButton.setOnAction(event -> cancelButton.getScene().getWindow().hide());
     }
 
     private void onlyIntInput(TextField textField) {
@@ -117,14 +118,14 @@ public class AddController {
     }
 
     private void submitForm() {
-        addSave.setDisable(true);
+        saveButton.setDisable(true);
         if (checkValidity(isNewAthlete)) {
-            mainController.saveLineToDatabase((mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1), addName.getText(), addSex.getSelectionModel().getSelectedItem(), Integer.parseInt(addAge.getText().equals("") ? "-1" : addAge.getText()), Integer.parseInt(addHeight.getText().equals("") ? "-1" : addHeight.getText()), Float.parseFloat(addWeight.getText().equals("") ? "-1.0" : addWeight.getText()), addTeam.getText(), addNOC.getText(), addOlympicGame.getText(), Integer.parseInt(addYear.getText()), addSeason.getValue(), addCity.getText(), addDiscipline.getText(), addEvent.getText(), addMedal.getSelectionModel().getSelectedItem());
-            addSave.getScene().getWindow().hide();
+            mainController.saveLineToDatabase((mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1), name.getText(), sex.getSelectionModel().getSelectedItem(), Integer.parseInt(age.getText().equals("") ? "-1" : age.getText()), Integer.parseInt(height.getText().equals("") ? "-1" : height.getText()), Float.parseFloat(weight.getText().equals("") ? "-1.0" : weight.getText()), team.getText(), noc.getText(), olympicGame.getText(), Integer.parseInt(year.getText()), season.getValue(), city.getText(), discipline.getText(), event.getText(), medal.getSelectionModel().getSelectedItem());
+            saveButton.getScene().getWindow().hide();
             mainController.refreshListViews();
-            showConfirmation(addId.getText());
+            showConfirmation(id.getText());
         } else {
-            addSave.setDisable(false);
+            saveButton.setDisable(false);
         }
     }
 
@@ -148,46 +149,46 @@ public class AddController {
         final Pattern floatPattern = Pattern.compile("([0-9]*[.])?[0-9]+");
         int invalidFields = 0;
         boolean[] validity = new boolean[11];
-        TextField[] textFields = {addId, addName, addAge, addHeight, addWeight, addTeam, addNOC, addYear, addCity, addDiscipline, addEvent};
+        TextField[] textFields = {id, name, age, height, weight, team, noc, year, city, discipline, event};
 
         if (isNewAthlete) {
             validity[0] = true;
-            validity[1] = stringPattern.matcher(addName.getText()).matches();
-            if (addSex.getSelectionModel().getSelectedIndex() == -1) {
+            validity[1] = stringPattern.matcher(name.getText()).matches();
+            if (sex.getSelectionModel().getSelectedIndex() == -1) {
                 invalidFields++;
-                markInvalid(addSex);
+                markInvalid(sex);
             } else {
-                markValid(addSex);
+                markValid(sex);
             }
-            validity[2] = integerPattern.matcher(addAge.getText()).matches();
-            validity[3] = integerPattern.matcher(addHeight.getText()).matches();
-            validity[4] = floatPattern.matcher(addWeight.getText()).matches();
+            validity[2] = integerPattern.matcher(age.getText()).matches();
+            validity[3] = integerPattern.matcher(height.getText()).matches();
+            validity[4] = floatPattern.matcher(weight.getText()).matches();
         } else {
-            validity[0] = integerPattern.matcher(addId.getText()).matches() && !(addName.getText().equals(""));
-            markValid(addSex);
+            validity[0] = integerPattern.matcher(id.getText()).matches() && !(name.getText().equals(""));
+            markValid(sex);
             validity[1] = true;
             validity[2] = true;
             validity[3] = true;
             validity[4] = true;
         }
-        validity[5] = stringPattern.matcher(addTeam.getText()).matches();
-        validity[6] = nocPattern.matcher(addNOC.getText()).matches() && (addNOC.getText().length() == 3);
-        validity[7] = integerPattern.matcher(addYear.getText()).matches();
-        if (addSeason.getSelectionModel().getSelectedIndex() == -1) {
+        validity[5] = stringPattern.matcher(team.getText()).matches();
+        validity[6] = nocPattern.matcher(noc.getText()).matches() && (noc.getText().length() == 3);
+        validity[7] = integerPattern.matcher(year.getText()).matches();
+        if (season.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
-            markInvalid(addSeason);
+            markInvalid(season);
         } else {
-            markValid(addSeason);
+            markValid(season);
         }
-        validity[8] = stringPattern.matcher(addCity.getText()).matches();
-        validity[9] = stringPattern.matcher(addDiscipline.getText()).matches();
-        validity[10] = stringPattern.matcher(addEvent.getText()).matches();
+        validity[8] = stringPattern.matcher(city.getText()).matches();
+        validity[9] = stringPattern.matcher(discipline.getText()).matches();
+        validity[10] = stringPattern.matcher(event.getText()).matches();
 
-        if (addMedal.getSelectionModel().getSelectedIndex() == -1) {
+        if (medal.getSelectionModel().getSelectedIndex() == -1) {
             invalidFields++;
-            markInvalid(addMedal);
+            markInvalid(medal);
         } else {
-            markValid(addMedal);
+            markValid(medal);
         }
         for (int i = 0; i < validity.length; i++) {
             if (!validity[i]) {
@@ -227,17 +228,17 @@ public class AddController {
                     }
                 });
             }
-            addSex.valueProperty().addListener((observable, oldValue, newValue) -> {
+            sex.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (!newValue.equals("")) {
                     checkValidity(isNewAthlete);
                 }
             });
-            addMedal.valueProperty().addListener((observable, oldValue, newValue) -> {
+            medal.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (!newValue.equals("")) {
                     checkValidity(isNewAthlete);
                 }
             });
-            addSeason.valueProperty().addListener((observable, oldValue, newValue) -> {
+            season.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (!newValue.equals("")) {
                     checkValidity(isNewAthlete);
                 }
@@ -247,19 +248,19 @@ public class AddController {
     }
 
     private void initDropdowns() {
-        addSex.getItems().addAll("M", "F");
-        addMedal.getItems().addAll("Gold", "Silver", "Bronze", "NA");
-        addSeason.getItems().addAll("Summer", "Winter");
+        sex.getItems().addAll("M", "F");
+        medal.getItems().addAll("Gold", "Silver", "Bronze", "NA");
+        season.getItems().addAll("Summer", "Winter");
     }
 
     private void adjustFormMode(Boolean isNewAthlete) {
         if (isNewAthlete) {
-            addTitle.setText("New athlete");
-            addId.setText(String.valueOf(mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1));
+            title.setText("New athlete");
+            id.setText(String.valueOf(mapReference.getAthleteDB().getAthleteMap().isEmpty() ? 1 : mapReference.getAthleteDB().getAthleteMap().lastKey() + 1));
 
-            addId.setDisable(true);
+            id.setDisable(true);
         } else {
-            addId.textProperty().addListener((observable, oldValue, newValue) -> {
+            id.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
                     if (!newValue.equals("")) {
                         fillAthleteData(Integer.parseInt(newValue));
@@ -270,28 +271,28 @@ public class AddController {
                     isValid = false;
                 }
             });
-            addTitle.setText("New participation");
-            addName.setDisable(true);
-            addSex.setDisable(true);
-            addAge.setDisable(true);
-            addHeight.setDisable(true);
-            addWeight.setDisable(true);
+            title.setText("New participation");
+            name.setDisable(true);
+            sex.setDisable(true);
+            age.setDisable(true);
+            height.setDisable(true);
+            weight.setDisable(true);
         }
     }
 
     private void fillAthleteData(int id) {
         Athlete selectedAthlete = mapReference.getAthleteDB().getAthleteById(id);
         if (selectedAthlete != null) {
-            addName.setText(selectedAthlete.getName());
-            addSex.getSelectionModel().select(selectedAthlete.getSex());
+            name.setText(selectedAthlete.getName());
+            sex.getSelectionModel().select(selectedAthlete.getSex());
         } else {
             isValid = false;
-            addName.setText("");
-            addSex.getSelectionModel().select("");
+            name.setText("");
+            sex.getSelectionModel().select("");
         }
-        addAge.setText("");
-        addHeight.setText("");
-        addWeight.setText("");
+        age.setText("");
+        height.setText("");
+        weight.setText("");
     }
 
     void setIsNewAthlete(Boolean isNewAthlete) {

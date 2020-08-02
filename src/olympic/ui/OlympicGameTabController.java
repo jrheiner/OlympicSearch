@@ -18,22 +18,22 @@ import java.util.TreeMap;
  */
 public class OlympicGameTabController {
     private final ObservableList<OlympicGame> olympicGames = FXCollections.observableArrayList();
-    private final ObservableList<String> olympicGamesEvents = FXCollections.observableArrayList();
+    private final ObservableList<String> events = FXCollections.observableArrayList();
     private MapReference mapReference;
     @FXML
-    private Button olympicGameSearchButton;
+    private Button searchButton;
     @FXML
-    private TextField olympicGameSearchInput;
+    private TextField searchInput;
     @FXML
-    private ListView<OlympicGame> olympicGameResultsListView;
+    private ListView<OlympicGame> resultsListView;
     @FXML
-    private Label olympicGameGameLabel;
+    private Label gameLabel;
     @FXML
-    private Label olympicGameCityLabel;
+    private Label cityLabel;
     @FXML
-    private ListView<String> olympicGameEventList;
+    private ListView<String> eventListView;
     @FXML
-    private GridPane olympicGameProfilePane;
+    private GridPane profilePane;
 
     /**
      * Initialise Game tab UI.
@@ -48,28 +48,28 @@ public class OlympicGameTabController {
     }
 
     private void initOlympicGameProfile() {
-        olympicGameProfilePane.setVisible(false);
+        profilePane.setVisible(false);
     }
 
     private void displayOlympicGameProfile(OlympicGame selectedGame) {
-        olympicGameProfilePane.setVisible(true);
-        olympicGameGameLabel.setText(selectedGame.getGame());
-        olympicGameCityLabel.setText(selectedGame.getCity());
+        profilePane.setVisible(true);
+        gameLabel.setText(selectedGame.getGame());
+        cityLabel.setText(selectedGame.getCity());
 
         fillOlympicGameEventList(selectedGame.getEventList());
 
     }
 
     private void fillOlympicGameEventList(ArrayList<String> games) {
-        olympicGameEventList.getItems().clear();
-        olympicGameEventList.setItems(olympicGamesEvents);
+        eventListView.getItems().clear();
+        eventListView.setItems(events);
         Collections.sort(games);
-        olympicGamesEvents.addAll(games);
+        events.addAll(games);
     }
 
     private void initOlympicGameListViewHandler() {
-        olympicGameResultsListView.setOnMouseClicked(event -> {
-            OlympicGame selectedGame = olympicGameResultsListView.getSelectionModel().getSelectedItem();
+        resultsListView.setOnMouseClicked(event -> {
+            OlympicGame selectedGame = resultsListView.getSelectionModel().getSelectedItem();
             if (selectedGame != null) {
                 displayOlympicGameProfile(selectedGame);
             }
@@ -77,23 +77,23 @@ public class OlympicGameTabController {
     }
 
     private void initOlympicGameSearchHandler() {
-        olympicGameSearchButton.setOnAction(event -> {
-            olympicGameResultsListView.getItems().clear();
-            initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(olympicGameSearchInput.getText()));
+        searchButton.setOnAction(event -> {
+            resultsListView.getItems().clear();
+            initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(searchInput.getText()));
         });
 
-        olympicGameSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+        searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                olympicGameSearchInput.setText(newValue.replaceAll("[^\\d]", ""));
+                searchInput.setText(newValue.replaceAll("[^\\d]", ""));
             } else {
-                olympicGameResultsListView.getItems().clear();
-                initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(olympicGameSearchInput.getText()));
+                resultsListView.getItems().clear();
+                initOlympicGameListView(mapReference.getOlympicGameDB().searchOlympicGame(searchInput.getText()));
             }
         });
     }
 
     private void initOlympicGameListView(TreeMap<String, OlympicGame> resultMap) {
-        olympicGameResultsListView.setCellFactory(param -> new ListCell<>() {
+        resultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(OlympicGame olympicGame, boolean empty) {
                 super.updateItem(olympicGame, empty);
@@ -104,7 +104,7 @@ public class OlympicGameTabController {
                 }
             }
         });
-        olympicGameResultsListView.setItems(olympicGames);
+        resultsListView.setItems(olympicGames);
         for (Map.Entry<String, OlympicGame> entry : resultMap.entrySet()) {
             olympicGames.add(entry.getValue());
         }
@@ -123,7 +123,7 @@ public class OlympicGameTabController {
      * Reload game list to include internal database changes
      */
     void refreshOlympicGameListView() {
-        olympicGameResultsListView.getItems().clear();
+        resultsListView.getItems().clear();
         initOlympicGameListView();
     }
 }

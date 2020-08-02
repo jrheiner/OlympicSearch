@@ -3,7 +3,6 @@ package olympic.maps;
 import olympic.database.OlympicGame;
 
 import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TreeMap of all olympic games and methods to add, update and search
@@ -35,8 +34,8 @@ public class OlympicGameMap {
                 currentOlympicGame.addEvent(event);
             }
         } else {
-            OlympicGame newOlympicGame = new OlympicGame(olympicGame, city, year, season, event);
-            OlympicGameMap.put(olympicGame, newOlympicGame);
+            OlympicGame newOlympicGame = new OlympicGame(city, year, season, event);
+            OlympicGameMap.put(year + " " + season, newOlympicGame);
         }
 
     }
@@ -49,7 +48,6 @@ public class OlympicGameMap {
      */
     public TreeMap<String, OlympicGame> searchOlympicGame(String term) {
         final String upperCaseTerm = term.toUpperCase();
-        long startTime = System.nanoTime();
 
         TreeMap<String, OlympicGame> results = new TreeMap<>();
         OlympicGameMap.forEach((id, olympicGame) -> {
@@ -58,8 +56,6 @@ public class OlympicGameMap {
             }
         });
 
-        long endTime = System.nanoTime() - startTime;
-        System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
         return results;
     }
 

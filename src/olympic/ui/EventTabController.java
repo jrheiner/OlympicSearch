@@ -18,22 +18,22 @@ import java.util.TreeMap;
  */
 public class EventTabController {
     private final ObservableList<Event> events = FXCollections.observableArrayList();
-    private final ObservableList<String> eventsOlympicGames = FXCollections.observableArrayList();
+    private final ObservableList<String> olympicGames = FXCollections.observableArrayList();
     private MapReference mapReference;
     @FXML
-    private Button eventSearchButton;
+    private Button searchButton;
     @FXML
-    private TextField eventSearchInput;
+    private TextField searchInput;
     @FXML
-    private ListView<Event> eventResultsListView;
+    private ListView<Event> resultsListView;
     @FXML
-    private Label eventEventLabel;
+    private Label eventLabel;
     @FXML
-    private Label eventDisciplineLabel;
+    private Label disciplineLabel;
     @FXML
-    private ListView<String> eventOlympicGameList;
+    private ListView<String> olympicGameList;
     @FXML
-    private GridPane eventProfilePane;
+    private GridPane profilePane;
 
     /**
      * Initialise Event tab UI.
@@ -48,27 +48,27 @@ public class EventTabController {
     }
 
     private void initEventProfile() {
-        eventProfilePane.setVisible(false);
+        profilePane.setVisible(false);
     }
 
     private void displayEventProfile(Event selectedEvent) {
-        eventProfilePane.setVisible(true);
-        eventEventLabel.setText(selectedEvent.getEvent());
-        eventDisciplineLabel.setText(selectedEvent.getDiscipline());
+        profilePane.setVisible(true);
+        eventLabel.setText(selectedEvent.getEvent());
+        disciplineLabel.setText(selectedEvent.getDiscipline());
 
         fillEventGameList(selectedEvent.getOlympicGameList());
     }
 
     private void fillEventGameList(ArrayList<String> games) {
-        eventOlympicGameList.getItems().clear();
-        eventOlympicGameList.setItems(eventsOlympicGames);
+        olympicGameList.getItems().clear();
+        olympicGameList.setItems(olympicGames);
         Collections.sort(games);
-        eventsOlympicGames.addAll(games);
+        olympicGames.addAll(games);
     }
 
     private void initEventListViewHandler() {
-        eventResultsListView.setOnMouseClicked(event -> {
-            Event selectedEvent = eventResultsListView.getSelectionModel().getSelectedItem();
+        resultsListView.setOnMouseClicked(event -> {
+            Event selectedEvent = resultsListView.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
                 displayEventProfile(selectedEvent);
             }
@@ -76,19 +76,19 @@ public class EventTabController {
     }
 
     private void initEventSearchHandler() {
-        eventSearchButton.setOnAction(event -> {
-            eventResultsListView.getItems().clear();
-            initEventListView(mapReference.getEventDB().searchEvent(eventSearchInput.getText()));
+        searchButton.setOnAction(event -> {
+            resultsListView.getItems().clear();
+            initEventListView(mapReference.getEventDB().searchEvent(searchInput.getText()));
         });
 
-        eventSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            eventResultsListView.getItems().clear();
-            initEventListView(mapReference.getEventDB().searchEvent(eventSearchInput.getText()));
+        searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            resultsListView.getItems().clear();
+            initEventListView(mapReference.getEventDB().searchEvent(searchInput.getText()));
         });
     }
 
     private void initEventListView(TreeMap<String, Event> resultMap) {
-        eventResultsListView.setCellFactory(param -> new ListCell<>() {
+        resultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Event event, boolean empty) {
                 super.updateItem(event, empty);
@@ -99,7 +99,7 @@ public class EventTabController {
                 }
             }
         });
-        eventResultsListView.setItems(events);
+        resultsListView.setItems(events);
         for (Map.Entry<String, Event> entry : resultMap.entrySet()) {
             events.add(entry.getValue());
         }
@@ -111,7 +111,7 @@ public class EventTabController {
 
     }
 
-    public void setListReference(MapReference mapReference) {
+    void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
     }
 
@@ -119,7 +119,7 @@ public class EventTabController {
      * Reload event list to include internal database changes
      */
     void refreshEventListView() {
-        eventResultsListView.getItems().clear();
+        resultsListView.getItems().clear();
         initEventListView();
     }
 }

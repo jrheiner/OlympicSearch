@@ -32,18 +32,18 @@
             <rowConstraints>
                 <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Button fx:id="olympicGameSearchButton" mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
                 <GridPane.margin>
                     <Insets left="15.0"/>
                 </GridPane.margin>
             </Button>
-            <TextField fx:id="olympicGameSearchInput" promptText="Search for a year">
+            <TextField fx:id="searchInput" promptText="Search for a year">
                 <GridPane.margin>
                     <Insets left="20.0" right="20"/>
                 </GridPane.margin>
             </TextField>
         </GridPane>
-        <ListView fx:id="olympicGameResultsListView" prefHeight="200.0" prefWidth="400.0" GridPane.rowIndex="1">
+        <ListView fx:id="resultsListView" prefHeight="200.0" prefWidth="400.0" GridPane.rowIndex="1">
             <padding>
                 <Insets bottom="3" left="3" right="2" top="3"/>
             </padding>
@@ -52,7 +52,7 @@
             </GridPane.margin>
         </ListView>
     </GridPane>
-    <GridPane fx:id="olympicGameProfilePane" GridPane.columnIndex="1">
+    <GridPane fx:id="profilePane" GridPane.columnIndex="1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0"/>
         </columnConstraints>
@@ -72,7 +72,7 @@
                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <ListView fx:id="olympicGameEventList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
+            <ListView fx:id="eventListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
             <Label text="Events" GridPane.halignment="LEFT">
                 <font>
                     <Font name="System Bold" size="12.0"/>
@@ -94,8 +94,8 @@
             <padding>
                 <Insets bottom="10.0" left="15.0"/>
             </padding>
-            <Label fx:id="olympicGameGameLabel" text="Olympic Game" GridPane.columnIndex="1"/>
-            <Label fx:id="olympicGameCityLabel" text="Olympic Game city" GridPane.columnIndex="1"
+            <Label fx:id="gameLabel" text="Olympic Game" GridPane.columnIndex="1"/>
+            <Label fx:id="cityLabel" text="Olympic Game city" GridPane.columnIndex="1"
                    GridPane.rowIndex="1"/>
             <Label layoutX="150.0" layoutY="14.0" text="Olympic Game">
                 <font>

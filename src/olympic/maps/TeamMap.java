@@ -3,7 +3,6 @@ package olympic.maps;
 import olympic.database.Team;
 
 import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TreeMap of all teams and methods to add, update and search
@@ -22,7 +21,6 @@ public class TeamMap {
      */
     public TreeMap<String, Team> searchTeam(String term) {
         final String upperCaseTerm = term.toUpperCase();
-        long startTime = System.nanoTime();
 
         TreeMap<String, Team> results = new TreeMap<>();
         teamMap.forEach((id, team) -> {
@@ -31,8 +29,6 @@ public class TeamMap {
             }
         });
 
-        long endTime = System.nanoTime() - startTime;
-        System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
         return results;
     }
 

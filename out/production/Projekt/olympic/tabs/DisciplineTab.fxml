@@ -32,19 +32,19 @@
             <rowConstraints>
                 <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Button fx:id="disciplineSearchButton" mnemonicParsing="false" text="Search"
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search"
                     GridPane.columnIndex="1">
                 <GridPane.margin>
                     <Insets left="15.0"/>
                 </GridPane.margin>
             </Button>
-            <TextField fx:id="disciplineSearchInput" promptText="Search for a discipline">
+            <TextField fx:id="searchInput" promptText="Search for a discipline">
                 <GridPane.margin>
                     <Insets left="20.0" right="20"/>
                 </GridPane.margin>
             </TextField>
         </GridPane>
-        <ListView fx:id="disciplineResultsListView" GridPane.rowIndex="1">
+        <ListView fx:id="resultsListView" GridPane.rowIndex="1">
             <padding>
                 <Insets bottom="3" left="3" right="2" top="3"/>
             </padding>

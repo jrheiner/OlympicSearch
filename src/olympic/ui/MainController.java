@@ -79,7 +79,7 @@ public class MainController {
             addController.setListReference(mapReference);
             addController.setMainController(this);
             Stage addStage = new Stage();
-            if (((Control) event.getSource()).getId().equals("athleteAddAthleteButton")) {
+            if (((Control) event.getSource()).getId().equals("addAthleteButton")) {
                 addStage.setTitle("Add new athlete");
                 addController.setIsNewAthlete(true);
             } else {

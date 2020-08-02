@@ -19,11 +19,11 @@ public class DisciplineTabController {
     private final ObservableList<String> disciplines = FXCollections.observableArrayList();
     private MapReference mapReference;
     @FXML
-    private Button disciplineSearchButton;
+    private Button searchButton;
     @FXML
-    private TextField disciplineSearchInput;
+    private TextField searchInput;
     @FXML
-    private ListView<String> disciplineResultsListView;
+    private ListView<String> resultsListView;
 
     /**
      * Initialise Discipline tab UI.
@@ -36,19 +36,19 @@ public class DisciplineTabController {
     }
 
     private void initDisciplineSearchHandler() {
-        disciplineSearchButton.setOnAction(event -> {
-            disciplineResultsListView.getItems().clear();
-            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventDB().getDisciplines()));
+        searchButton.setOnAction(event -> {
+            resultsListView.getItems().clear();
+            initDisciplineListView(DatabaseUtility.searchInSet(searchInput.getText(), mapReference.getEventDB().getDisciplines()));
         });
 
-        disciplineSearchInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            disciplineResultsListView.getItems().clear();
-            initDisciplineListView(DatabaseUtility.searchInSet(disciplineSearchInput.getText(), mapReference.getEventDB().getDisciplines()));
+        searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            resultsListView.getItems().clear();
+            initDisciplineListView(DatabaseUtility.searchInSet(searchInput.getText(), mapReference.getEventDB().getDisciplines()));
         });
     }
 
     private void initDisciplineListView(Set<String> resultSet) {
-        disciplineResultsListView.setItems(disciplines);
+        resultsListView.setItems(disciplines);
         disciplines.addAll(resultSet);
     }
 
@@ -57,7 +57,7 @@ public class DisciplineTabController {
         initDisciplineListView(disciplineSet);
     }
 
-    public void setListReference(MapReference mapReference) {
+    void setListReference(MapReference mapReference) {
         this.mapReference = mapReference;
     }
 
@@ -65,7 +65,7 @@ public class DisciplineTabController {
      * Reload discipline list to include internal database changes
      */
     void refreshDisciplineListView() {
-        disciplineResultsListView.getItems().clear();
+        resultsListView.getItems().clear();
         initDisciplineListView();
     }
 }

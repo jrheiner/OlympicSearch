@@ -4,7 +4,6 @@ import olympic.database.Event;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TreeMap of all events and methods to add, update and search
@@ -42,7 +41,6 @@ public class EventMap {
      */
     public TreeMap<String, Event> searchEvent(String term) {
         final String upperCaseTerm = term.toUpperCase();
-        long startTime = System.nanoTime();
 
         TreeMap<String, Event> results = new TreeMap<>();
         EventMap.forEach((id, event) -> {
@@ -51,8 +49,6 @@ public class EventMap {
             }
         });
 
-        long endTime = System.nanoTime() - startTime;
-        System.out.printf("Found %d result(s) in %d ms\n", results.size(), TimeUnit.MILLISECONDS.convert(endTime, TimeUnit.NANOSECONDS));
         return results;
     }
 

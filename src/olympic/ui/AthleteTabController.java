@@ -28,33 +28,33 @@ public class AthleteTabController {
     private MainController mainController;
 
     @FXML
-    private Button athleteSearchButton;
+    private Button searchButton;
     @FXML
-    private TextField athleteSearchInput;
+    private TextField searchInput;
     @FXML
-    private ListView<Athlete> athleteResultsListView;
+    private ListView<Athlete> resultsListView;
     @FXML
-    private Button athleteAddAthleteButton;
+    private Button addAthleteButton;
     @FXML
-    private Button athleteAddParticipationButton;
+    private Button addParticipationButton;
     @FXML
-    private Label athleteResultCount;
+    private Label resultCount;
     @FXML
-    private Label athleteIdLabel;
+    private Label idLabel;
     @FXML
-    private Label athleteNameLabel;
+    private Label nameLabel;
     @FXML
-    private Label athleteSexLabel;
+    private Label sexLabel;
     @FXML
-    private Label athleteAgeLabel;
+    private Label ageLabel;
     @FXML
-    private Label athleteHeightLabel;
+    private Label heightLabel;
     @FXML
-    private Label athleteWeightLabel;
+    private Label weightLabel;
     @FXML
-    private TableView<Participation> athleteParticipationTable;
+    private TableView<Participation> participationTable;
     @FXML
-    private GridPane athleteProfilePane;
+    private GridPane profilePane;
 
     void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -77,21 +77,21 @@ public class AthleteTabController {
         initAthleteParticipationTable();
 
         EventHandler<ActionEvent> openPopup = event -> mainController.openPopup(event);
-        athleteAddAthleteButton.setOnAction(openPopup);
-        athleteAddParticipationButton.setOnAction(openPopup);
+        addAthleteButton.setOnAction(openPopup);
+        addParticipationButton.setOnAction(openPopup);
     }
 
     /**
      * Reload athlete list to include internal database changes
      */
     void refreshAthleteListView() {
-        athleteResultsListView.getItems().clear();
+        resultsListView.getItems().clear();
         initAthleteListView(mapReference.getAthleteDB().getAthleteMap());
     }
 
     private void initAthleteListViewHandler() {
-        athleteResultsListView.setOnMouseClicked(event -> {
-            Athlete selectedAthlete = athleteResultsListView.getSelectionModel().getSelectedItem();
+        resultsListView.setOnMouseClicked(event -> {
+            Athlete selectedAthlete = resultsListView.getSelectionModel().getSelectedItem();
             if (selectedAthlete != null) {
                 displayAthleteProfile(selectedAthlete);
             }
@@ -99,17 +99,17 @@ public class AthleteTabController {
     }
 
     private void initAthleteProfile() {
-        athleteProfilePane.setVisible(false);
+        profilePane.setVisible(false);
     }
 
     private void displayAthleteProfile(Athlete selectedAthlete) {
-        athleteProfilePane.setVisible(true);
-        athleteIdLabel.setText(String.valueOf(selectedAthlete.getId()));
-        athleteNameLabel.setText(selectedAthlete.getName());
-        athleteSexLabel.setText(selectedAthlete.getSex().equalsIgnoreCase("M") ? "Male" : "Female");
-        athleteAgeLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
-        athleteHeightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
-        athleteWeightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
+        profilePane.setVisible(true);
+        idLabel.setText(String.valueOf(selectedAthlete.getId()));
+        nameLabel.setText(selectedAthlete.getName());
+        sexLabel.setText(selectedAthlete.getSex().equalsIgnoreCase("M") ? "Male" : "Female");
+        ageLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getAgeList()));
+        heightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getHeightList()));
+        weightLabel.setText(DatabaseUtility.arrayToStringDisplay(selectedAthlete.getWeightList()));
 
         fillAthleteParticipationTable(selectedAthlete.getParticipationList());
     }
@@ -135,20 +135,21 @@ public class AthleteTabController {
         medalTableColumn.setMinWidth(50);
         medalTableColumn.setMaxWidth(100);
 
-        athleteParticipationTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
+        //noinspection unchecked
+        participationTable.getColumns().addAll(olympicGameTableColumn, teamTableColumn, eventTableColumn, medalTableColumn);
     }
 
     private void fillAthleteParticipationTable(ArrayList<Participation> participationList) {
-        athleteParticipationTable.getItems().clear();
-        participationList.forEach(participation -> athleteParticipationTable.getItems().add(participation));
-        if (athleteParticipationTable.getColumns().size() > 0) {
-            athleteParticipationTable.getColumns().get(0).setSortType(TableColumn.SortType.ASCENDING);
-            athleteParticipationTable.getSortOrder().add(athleteParticipationTable.getColumns().get(0));
+        participationTable.getItems().clear();
+        participationList.forEach(participation -> participationTable.getItems().add(participation));
+        if (participationTable.getColumns().size() > 0) {
+            participationTable.getColumns().get(0).setSortType(TableColumn.SortType.ASCENDING);
+            participationTable.getSortOrder().add(participationTable.getColumns().get(0));
         }
     }
 
     private void initAthleteListView(TreeMap<Integer, Athlete> resultMap) {
-        athleteResultsListView.setCellFactory(param -> new ListCell<>() {
+        resultsListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Athlete athlete, boolean empty) {
                 super.updateItem(athlete, empty);
@@ -159,7 +160,7 @@ public class AthleteTabController {
                 }
             }
         });
-        athleteResultsListView.setItems(athletes);
+        resultsListView.setItems(athletes);
         for (Map.Entry<Integer, Athlete> entry : resultMap.entrySet()) {
             athletes.add(entry.getValue());
         }
@@ -168,19 +169,19 @@ public class AthleteTabController {
     private void initAthleteListView() {
         TreeMap<Integer, Athlete> athleteMap = mapReference.getAthleteDB().getAthleteMap();
         initAthleteListView(athleteMap);
-        athleteResultCount.textProperty().bind(Bindings.size((athleteResultsListView.getItems())).asString());
+        resultCount.textProperty().bind(Bindings.size((resultsListView.getItems())).asString());
 
     }
 
     private void initAthleteSearchHandler() {
-        athleteSearchButton.setOnAction(event -> {
-            athleteResultsListView.getItems().clear();
-            initAthleteListView(mapReference.getAthleteDB().searchAthlete(athleteSearchInput.getText()));
+        searchButton.setOnAction(event -> {
+            resultsListView.getItems().clear();
+            initAthleteListView(mapReference.getAthleteDB().searchAthlete(searchInput.getText()));
         });
 
-        athleteSearchInput.setOnAction(action -> {
-            athleteResultsListView.getItems().clear();
-            initAthleteListView(mapReference.getAthleteDB().searchAthlete(athleteSearchInput.getText()));
+        searchInput.setOnAction(action -> {
+            resultsListView.getItems().clear();
+            initAthleteListView(mapReference.getAthleteDB().searchAthlete(searchInput.getText()));
         });
 
     }
